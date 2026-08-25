@@ -11,6 +11,7 @@ import { NodeConnectors } from './NodeConnectors';
 import { NodeContent } from './NodeContent';
 import { NodeControls } from './NodeControls';
 import { ChangeAnglePanel } from './ChangeAnglePanel';
+import { isAdvertisingNodeType } from '../../domain/advertising/nodeRegistry';
 
 interface CanvasNodeProps {
   data: NodeData;
@@ -48,6 +49,10 @@ interface CanvasNodeProps {
   // Social sharing
   onPostToX?: (nodeId: string, mediaUrl: string, mediaType: 'image' | 'video') => void;
   onPostToTikTok?: (nodeId: string, mediaUrl: string) => void;
+  onRequestAdvertisingGeneration?: (nodeId: string) => void;
+  onSaveAdvertisingVersion?: (nodeId: string) => void;
+  onAdoptAdvertisingVersion?: (nodeId: string, versionId: string) => void;
+  onCreateAdvertisingBranch?: (nodeId: string) => void;
 }
 
 export const CanvasNode: React.FC<CanvasNodeProps> = ({
@@ -80,7 +85,11 @@ export const CanvasNode: React.FC<CanvasNodeProps> = ({
   onMouseLeave,
   canvasTheme = 'dark',
   onPostToX,
-  onPostToTikTok
+  onPostToTikTok,
+  onRequestAdvertisingGeneration,
+  onSaveAdvertisingVersion,
+  onAdoptAdvertisingVersion,
+  onCreateAdvertisingBranch
 }) => {
   // ============================================================================
   // STATE
@@ -910,12 +919,16 @@ export const CanvasNode: React.FC<CanvasNodeProps> = ({
             onImageToVideo={onImageToVideo}
             onUpdate={onUpdate}
             onPostToX={onPostToX}
+            onRequestAdvertisingGeneration={onRequestAdvertisingGeneration}
+            onSaveAdvertisingVersion={onSaveAdvertisingVersion}
+            onAdoptAdvertisingVersion={onAdoptAdvertisingVersion}
+            onCreateAdvertisingBranch={onCreateAdvertisingBranch}
           />
         </div>
 
         {/* Control Panel - Only show when single node is selected (not in group selection) */}
         {/* Hide controls for storyboard-generated scenes */}
-        {selected && showControls && data.type !== NodeType.TEXT && !(data.prompt && data.prompt.startsWith('Extract panel #')) && (
+        {selected && showControls && data.type !== NodeType.TEXT && !isAdvertisingNodeType(data.type) && !(data.prompt && data.prompt.startsWith('Extract panel #')) && (
           <div className="absolute top-[calc(100%+12px)] left-1/2 -translate-x-1/2 w-[600px] flex justify-center z-[100]">
             <NodeControls
               data={data}

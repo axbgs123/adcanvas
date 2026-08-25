@@ -8,12 +8,12 @@
 import { useState } from 'react';
 import { NodeGroup, NodeData } from '../types';
 
-export const useGroupManagement = () => {
+export const useGroupManagement = (initialGroups: NodeGroup[] = []) => {
     // ============================================================================
     // STATE
     // ============================================================================
 
-    const [groups, setGroups] = useState<NodeGroup[]>([]);
+    const [groups, setGroups] = useState<NodeGroup[]>(initialGroups);
 
     // ============================================================================
     // GROUP OPERATIONS

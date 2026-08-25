@@ -8,6 +8,8 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Loader2, Maximize2, ImageIcon as ImageIcon, Film, Upload, Pencil, Video, GripVertical, Download, Expand, Shrink, HardDrive } from 'lucide-react';
 import { NodeData, NodeStatus, NodeType } from '../../types';
+import { isAdvertisingNodeType } from '../../domain/advertising/nodeRegistry';
+import { AdvertisingNodeContent } from './AdvertisingNodeContent';
 
 interface NodeContentProps {
     data: NodeData;
@@ -31,6 +33,10 @@ interface NodeContentProps {
     onUpdate?: (nodeId: string, updates: Partial<NodeData>) => void;
     // Social sharing
     onPostToX?: (nodeId: string, mediaUrl: string, mediaType: 'image' | 'video') => void;
+    onRequestAdvertisingGeneration?: (nodeId: string) => void;
+    onSaveAdvertisingVersion?: (nodeId: string) => void;
+    onAdoptAdvertisingVersion?: (nodeId: string, versionId: string) => void;
+    onCreateAdvertisingBranch?: (nodeId: string) => void;
 }
 
 export const NodeContent: React.FC<NodeContentProps> = ({
@@ -51,7 +57,11 @@ export const NodeContent: React.FC<NodeContentProps> = ({
     onImageToImage,
     onImageToVideo,
     onUpdate,
-    onPostToX
+    onPostToX,
+    onRequestAdvertisingGeneration,
+    onSaveAdvertisingVersion,
+    onAdoptAdvertisingVersion,
+    onCreateAdvertisingBranch
 }) => {
     const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -107,6 +117,20 @@ export const NodeContent: React.FC<NodeContentProps> = ({
         };
         reader.readAsDataURL(file);
     };
+
+    if (isAdvertisingNodeType(data.type)) {
+        return (
+            <AdvertisingNodeContent
+                data={data}
+                selected={selected}
+                onUpdate={onUpdate}
+                onRequestGeneration={onRequestAdvertisingGeneration}
+                onSaveVersion={onSaveAdvertisingVersion}
+                onAdoptVersion={onAdoptAdvertisingVersion}
+                onCreateBranch={onCreateAdvertisingBranch}
+            />
+        );
+    }
 
     return (
         <div className={`transition-all duration-200 ${!selected ? 'p-0 rounded-2xl overflow-hidden' : 'p-1'}`}>

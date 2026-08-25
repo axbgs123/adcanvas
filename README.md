@@ -1,12 +1,32 @@
 <div align="center">
-  <img src="public/TwitCanva-logo.png" alt="TwitCanva Logo" width="120" />
-  <h1>TwitCanva</h1>
+  <img src="public/adcanvas-mark.svg" alt="AdCanvas Logo" width="96" />
+  <h1>AdCanvas</h1>
 </div>
 
-A modern, AI-powered canvas application for generating and manipulating images and videos using OpenAI GPT Image, Google Gemini, Kling AI, Hailuo AI (MiniMax), and Fal.ai. Built with React, TypeScript, and Vite.
+AdCanvas is an AI advertising creative and production canvas for agency teams. The current Demo adds advertising briefs, brand constraints, creative routes, moodboards, scripts, storyboards, shots, edit plans, delivery packages, and a project workbench on top of the TwitCanva generation foundation.
 
-![TwitCanva](https://img.shields.io/badge/React-18.3.1-blue)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.6.2-blue)
+This repository is a modified derivative of [SankaiAI/TwitCanva-Video-Workflow](https://github.com/SankaiAI/TwitCanva-Video-Workflow). The original Apache-2.0 `LICENSE`, `NOTICE`, copyright notices, and modification history are retained. See `docs/plans/2026-08-25-ai-ad-platform-implementation-plan.md` for the implementation boundary and roadmap.
+
+### Current Demo milestone
+
+- Online-product workbench shell with locally persisted demo projects
+- Nine advertising business node types with direct manual editing
+- Deterministic AI-workflow draft that creates three creative branches without paid model calls
+- Business-aware connection validation while preserving image and video generation nodes
+- Relative API routes ready for local proxying and later web deployment
+- Persistent generation tasks with explicit cost confirmation, idempotency, budget limits, cancellation, and retry
+- Canvas task center and project-level budget summary; the current executor is visibly labeled as simulation-only
+- Immutable business-node versions, adopted-version switching, manual branch creation, and downstream stale propagation
+- Project-level brand rules with inherited constraints, prohibited-content checks, required-element checks, and explicit local override
+- Provider Adapter registry for Gemini text/image/video and OpenAI image generation, with availability checks and no-key fail-closed behavior
+- Versioned editable project packages and production handoff manifests with graph validation and round-trip import
+
+## Upstream TwitCanva foundation
+
+The upstream project is a modern, AI-powered canvas application for generating and manipulating images and videos using OpenAI GPT Image, Google Gemini, Kling AI, Hailuo AI (MiniMax), and Fal.ai. It is built with React, TypeScript, and Vite.
+
+![React](https://img.shields.io/badge/React-19.2-blue)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.8-blue)
 ![Vite](https://img.shields.io/badge/Vite-6.4.1-purple)
 ![License](https://img.shields.io/badge/license-Apache--2.0-blue)
 
@@ -491,7 +511,7 @@ Contributions are welcome! Please:
 This project is licensed under the Apache License 2.0.
 
 ### Commercial Usage
-If you are using this project for commercial purposes or building a commercial product, please refer to the [NOTICE](file:///d:/AI_Agent_Practice/TwitCanva/NOTICE) file for notification requirements.
+If you are using this project for commercial purposes or building a commercial product, refer to the repository's [`NOTICE`](NOTICE) file.
 
 
 ## 🙏 Acknowledgments
@@ -508,4 +528,3 @@ If you are using this project for commercial purposes or building a commercial p
 ---
 
 **Built with ❤️ using React, TypeScript, and AI APIs from OpenAI, Google, Kling, MiniMax, and Fal.ai (2025)**
-

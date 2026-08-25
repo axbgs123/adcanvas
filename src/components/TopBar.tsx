@@ -5,7 +5,7 @@
  */
 
 import React, { useState } from 'react';
-import { Plus, Save, Loader2 } from 'lucide-react';
+import { ArrowLeft, Plus, Save, Loader2, WandSparkles, ShieldCheck, PackageOpen } from 'lucide-react';
 
 interface TopBarProps {
     // Title
@@ -19,6 +19,10 @@ interface TopBarProps {
     // Actions
     onSave: () => void | Promise<void>;
     onNew: () => void;
+    onBack?: () => void;
+    onCreateAdvertisingDraft?: () => void;
+    onOpenBrandProfile?: () => void;
+    onExport?: () => void;
     hasUnsavedChanges: boolean;
     lastAutoSaveTime?: number;
     // Layout
@@ -38,6 +42,10 @@ export const TopBar: React.FC<TopBarProps> = ({
     setEditingTitleValue,
     onSave,
     onNew,
+    onBack,
+    onCreateAdvertisingDraft,
+    onOpenBrandProfile,
+    onExport,
     hasUnsavedChanges,
     lastAutoSaveTime,
     isChatOpen = false,
@@ -107,7 +115,18 @@ export const TopBar: React.FC<TopBarProps> = ({
             >
                 {/* Left: Logo & Title */}
                 <div className="flex items-center gap-3 pointer-events-auto">
-                    <img src="/TwitCanva-logo.png" alt="TwitCanva Logo" className="w-8 h-8 rounded-lg object-contain bg-black/20" />
+                    {onBack && (
+                        <button
+                            onClick={onBack}
+                            className={`flex h-9 w-9 items-center justify-center rounded-full border transition ${canvasTheme === 'dark' ? 'border-neutral-800 text-neutral-400 hover:bg-neutral-800 hover:text-white' : 'border-neutral-200 text-neutral-500 hover:bg-neutral-100'}`}
+                            title="返回项目工作台"
+                        >
+                            <ArrowLeft size={17} />
+                        </button>
+                    )}
+                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-amber-300 via-orange-500 to-fuchsia-600 text-[10px] font-black text-black">
+                        AD
+                    </div>
                     {isEditingTitle ? (
                         <input
                             ref={canvasTitleInputRef as React.RefObject<HTMLInputElement>}
@@ -131,6 +150,40 @@ export const TopBar: React.FC<TopBarProps> = ({
 
                 {/* Right: Actions */}
                 <div className="flex items-center gap-3 pointer-events-auto">
+                    {onExport && (
+                        <button
+                            onClick={onExport}
+                            className={`text-sm px-4 py-2.5 rounded-full flex items-center gap-2 transition-colors font-medium border ${canvasTheme === 'dark'
+                                ? 'border-neutral-700 bg-neutral-900 text-neutral-300 hover:bg-neutral-800'
+                                : 'border-neutral-200 bg-white text-neutral-700 hover:bg-neutral-50'
+                                }`}
+                        >
+                            <PackageOpen size={16} /> 导出
+                        </button>
+                    )}
+                    {onOpenBrandProfile && (
+                        <button
+                            onClick={onOpenBrandProfile}
+                            className={`text-sm px-4 py-2.5 rounded-full flex items-center gap-2 transition-colors font-medium border ${canvasTheme === 'dark'
+                                ? 'border-neutral-700 bg-neutral-900 text-neutral-300 hover:bg-neutral-800'
+                                : 'border-neutral-200 bg-white text-neutral-700 hover:bg-neutral-50'
+                                }`}
+                        >
+                            <ShieldCheck size={16} /> 品牌规范
+                        </button>
+                    )}
+                    {onCreateAdvertisingDraft && (
+                        <button
+                            onClick={onCreateAdvertisingDraft}
+                            className={`text-sm px-4 py-2.5 rounded-full flex items-center gap-2 transition-colors font-medium border ${canvasTheme === 'dark'
+                                ? 'border-amber-300/30 bg-amber-300/10 text-amber-200 hover:bg-amber-300/20'
+                                : 'border-amber-300 bg-amber-50 text-amber-800 hover:bg-amber-100'
+                                }`}
+                        >
+                            <WandSparkles size={16} />
+                            AI工作流草案
+                        </button>
+                    )}
                     {/* Auto-save notification - before save button */}
                     {lastAutoSaveTime && !hasUnsavedChanges && (
                         <div className={`text-[10px] font-medium px-2 py-1 rounded border animate-in fade-in duration-500 ${canvasTheme === 'dark'

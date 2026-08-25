@@ -7,13 +7,28 @@
 
 import { useState } from 'react';
 import { NodeData, NodeType, NodeStatus, Viewport } from '../types';
+import { createAdvertisingNodeData, getAdvertisingNodeDefinition } from '../domain/advertising/nodeRegistry';
 
-export const useNodeManagement = () => {
+const createNodeDefaults = (type: NodeType): Pick<NodeData, 'title' | 'prompt' | 'status' | 'model' | 'aspectRatio' | 'resolution' | 'advertising'> => {
+    const definition = getAdvertisingNodeDefinition(type);
+
+    return {
+        title: definition?.label,
+        prompt: '',
+        status: NodeStatus.IDLE,
+        model: definition ? 'auto' : 'Banana Pro',
+        aspectRatio: 'Auto',
+        resolution: 'Auto',
+        advertising: createAdvertisingNodeData(type)
+    };
+};
+
+export const useNodeManagement = (initialNodes: NodeData[] = []) => {
     // ============================================================================
     // STATE
     // ============================================================================
 
-    const [nodes, setNodes] = useState<NodeData[]>([]);
+    const [nodes, setNodes] = useState<NodeData[]>(initialNodes);
     const [selectedNodeIds, setSelectedNodeIds] = useState<string[]>([]);
 
     // ============================================================================
@@ -43,11 +58,7 @@ export const useNodeManagement = () => {
             type,
             x: parentId ? canvasX : canvasX - 170,
             y: parentId ? canvasY : canvasY - 100,
-            prompt: '',
-            status: NodeStatus.IDLE,
-            model: 'Banana Pro',
-            aspectRatio: 'Auto',
-            resolution: 'Auto',
+            ...createNodeDefaults(type),
             parentIds: parentId ? [parentId] : []
         };
 
@@ -127,11 +138,7 @@ export const useNodeManagement = () => {
                         type,
                         x: sourceNode.x + NODE_WIDTH + GAP,
                         y: sourceNode.y,
-                        prompt: '',
-                        status: NodeStatus.IDLE,
-                        model: 'Banana Pro',
-                        aspectRatio: 'Auto',
-                        resolution: 'Auto',
+                        ...createNodeDefaults(type),
                         parentIds: contextMenu.sourceNodeId ? [contextMenu.sourceNodeId] : []
                     };
                 } else {
@@ -141,11 +148,7 @@ export const useNodeManagement = () => {
                         type,
                         x: sourceNode.x - NODE_WIDTH - GAP,
                         y: sourceNode.y,
-                        prompt: '',
-                        status: NodeStatus.IDLE,
-                        model: 'Banana Pro',
-                        aspectRatio: 'Auto',
-                        resolution: 'Auto',
+                        ...createNodeDefaults(type),
                         parentIds: []
                     };
                     // Update source to add new node as parent

@@ -12,7 +12,7 @@ import { TopBar } from './components/TopBar';
 import { CanvasNode } from './components/canvas/CanvasNode';
 import { ConnectionsLayer } from './components/canvas/ConnectionsLayer';
 import { ContextMenu } from './components/ContextMenu';
-import { ContextMenuState, NodeData, NodeStatus, NodeType } from './types';
+import { ContextMenuState, NodeData, NodeGroup, NodeStatus, NodeType, Viewport } from './types';
 import { generateImage, generateVideo } from './services/generationService';
 import { useCanvasNavigation } from './hooks/useCanvasNavigation';
 import { useNodeManagement } from './hooks/useNodeManagement';
@@ -52,6 +52,19 @@ import { useTikTokImport } from './hooks/useTikTokImport';
 import { useStoryboardGenerator } from './hooks/useStoryboardGenerator';
 import { StoryboardGeneratorModal } from './components/modals/StoryboardGeneratorModal';
 import { StoryboardVideoModal } from './components/modals/StoryboardVideoModal';
+import { createAdvertisingWorkflowTemplate } from './domain/advertising/workflowTemplate';
+import { GenerationConfirmationDialog } from './features/tasks/GenerationConfirmationDialog';
+import { TaskCenter } from './features/tasks/TaskCenter';
+import type { GenerationTask } from './domain/generation/types';
+import {
+  adoptAdvertisingNodeVersion,
+  createAdvertisingBranchNode,
+  markAdvertisingDescendantsStale,
+  saveAdvertisingNodeVersion
+} from './domain/advertising/versioning';
+import { applyBrandComplianceToNodes } from './domain/advertising/brandRules';
+import { BrandProfilePanel } from './features/brand/BrandProfilePanel';
+import { ExportDialog } from './features/export/ExportDialog';
 
 // ============================================================================
 // MAIN COMPONENT
@@ -76,7 +89,31 @@ const urlToBase64 = async (url: string): Promise<string> => {
   }
 };
 
-export default function App() {
+interface AppProps {
+  initialCanvasTitle?: string;
+  initialCanvas?: {
+    title: string;
+    nodes: NodeData[];
+    groups: NodeGroup[];
+    viewport: Viewport;
+  };
+  projectId?: string;
+  onExitProject?: () => void;
+  onSaveProjectCanvas?: (canvas: {
+    title: string;
+    nodes: NodeData[];
+    groups: NodeGroup[];
+    viewport: Viewport;
+  }) => Promise<void>;
+}
+
+export default function App({
+  initialCanvasTitle = 'Untitled Canvas',
+  initialCanvas,
+  projectId = 'local-project',
+  onExitProject,
+  onSaveProjectCanvas
+}: AppProps) {
   // ============================================================================
   // STATE
   // ============================================================================
@@ -115,6 +152,10 @@ export default function App() {
   } = usePanelState();
 
   const [canvasHoveredNodeId, setCanvasHoveredNodeId] = useState<string | null>(null);
+  const [generationNodeId, setGenerationNodeId] = useState<string | null>(null);
+  const [taskRefreshSignal, setTaskRefreshSignal] = useState(0);
+  const [isBrandProfileOpen, setIsBrandProfileOpen] = useState(false);
+  const [isExportDialogOpen, setIsExportDialogOpen] = useState(false);
 
 
   // Canvas title state (via hook)
@@ -126,7 +167,7 @@ export default function App() {
     editingTitleValue,
     setEditingTitleValue,
     canvasTitleInputRef
-  } = useCanvasTitle();
+  } = useCanvasTitle(initialCanvasTitle);
 
   const {
     viewport,
@@ -134,7 +175,7 @@ export default function App() {
     canvasRef,
     handleWheel: baseHandleWheel,
     handleSliderZoom
-  } = useCanvasNavigation();
+  } = useCanvasNavigation(initialCanvas?.viewport);
 
   // Wrap handleWheel to pass hovered node for zoom-to-center
   const handleWheel = (e: React.WheelEvent) => {
@@ -153,7 +194,7 @@ export default function App() {
     deleteNodes,
     clearSelection,
     handleSelectTypeFromMenu
-  } = useNodeManagement();
+  } = useNodeManagement(initialCanvas?.nodes);
 
   const {
     isDraggingConnection,
@@ -198,7 +239,7 @@ export default function App() {
     getCommonGroup,
     sortGroupNodes,
     renameGroup
-  } = useGroupManagement();
+  } = useGroupManagement(initialCanvas?.groups);
 
   // History for undo/redo
   const {
@@ -269,7 +310,16 @@ export default function App() {
 
   // Update saved state after workflow save
   const handleSaveWithTracking = async () => {
-    await handleSaveWorkflow();
+    if (onSaveProjectCanvas) {
+      await onSaveProjectCanvas({
+        title: canvasTitle,
+        nodes,
+        groups,
+        viewport
+      });
+    } else {
+      await handleSaveWorkflow();
+    }
     setIsDirty(false);
   };
 
@@ -301,6 +351,47 @@ export default function App() {
     setEditingTitleValue('Untitled Canvas');
     resetWorkflowId(); // Important: ensures new workflow gets a new ID
     setIsDirty(false);
+  };
+
+  const handleCreateAdvertisingDraft = () => {
+    if (nodes.length > 0) {
+      const shouldReplace = window.confirm(
+        '生成广告工作流草案将替换当前画布节点。旧内容仍可先通过“保存”保留。是否继续？'
+      );
+      if (!shouldReplace) return;
+    }
+
+    ignoreNextChange.current = true;
+    const draftNodes = createAdvertisingWorkflowTemplate({
+      projectId,
+      projectTitle: canvasTitle
+    });
+    setNodes(applyBrandComplianceToNodes(draftNodes));
+    setGroups([]);
+    setSelectedNodeIds([]);
+    setViewport({ x: 100, y: 100, zoom: 0.55 });
+    resetWorkflowId();
+    setIsDirty(true);
+  };
+
+  const handleGenerationTaskCreated = (task: GenerationTask) => {
+    if (task.nodeId) {
+      setNodes((currentNodes) => {
+        const nextNodes = currentNodes.map((node) => {
+          if (node.id !== task.nodeId || !node.advertising) return node;
+          return {
+            ...node,
+            advertising: {
+              ...node.advertising,
+              lifecycle: 'needs-review' as const
+            }
+          };
+        });
+        return applyBrandComplianceToNodes(nextNodes);
+      });
+    }
+    setGenerationNodeId(null);
+    setTaskRefreshSignal((current) => current + 1);
   };
 
   // Image editor modal
@@ -831,8 +922,67 @@ export default function App() {
 
   // Simple wrapper for updateNode (sync code removed - TEXT node prompts are combined at generation time)
   const updateNodeWithSync = React.useCallback((id: string, updates: Partial<NodeData>) => {
-    updateNode(id, updates);
-  }, [updateNode]);
+    setNodes((currentNodes) => {
+      const currentNode = currentNodes.find((node) => node.id === id);
+      if (!currentNode) return currentNodes;
+
+      const updatedNode = { ...currentNode, ...updates };
+      let nextNodes = currentNodes.map((node) => node.id === id ? updatedNode : node);
+      const fieldsChanged = Boolean(
+        currentNode.advertising &&
+        updates.advertising &&
+        JSON.stringify(currentNode.advertising.fields) !== JSON.stringify(updates.advertising.fields)
+      );
+
+      if (fieldsChanged) {
+        nextNodes = markAdvertisingDescendantsStale(
+          nextNodes,
+          id,
+          `${currentNode.title || currentNode.type}已修改，当前内容可能基于旧版本。`
+        );
+      }
+      return updates.advertising ? applyBrandComplianceToNodes(nextNodes) : nextNodes;
+    });
+  }, [setNodes]);
+
+  const handleSaveAdvertisingVersion = React.useCallback((nodeId: string) => {
+    setNodes((currentNodes) => {
+      const source = currentNodes.find((node) => node.id === nodeId);
+      if (!source) return currentNodes;
+      const versionedNode = saveAdvertisingNodeVersion(source);
+      const nextNodes = currentNodes.map((node) => node.id === nodeId ? versionedNode : node);
+      return applyBrandComplianceToNodes(markAdvertisingDescendantsStale(
+        nextNodes,
+        nodeId,
+        `${source.title || source.type}采用了新版本，请确认是否更新下游。`
+      ));
+    });
+    setIsDirty(true);
+  }, [setNodes]);
+
+  const handleAdoptAdvertisingVersion = React.useCallback((nodeId: string, versionId: string) => {
+    setNodes((currentNodes) => {
+      const source = currentNodes.find((node) => node.id === nodeId);
+      if (!source?.advertising || source.advertising.activeVersionId === versionId) return currentNodes;
+      const adoptedNode = adoptAdvertisingNodeVersion(source, versionId);
+      const nextNodes = currentNodes.map((node) => node.id === nodeId ? adoptedNode : node);
+      return applyBrandComplianceToNodes(markAdvertisingDescendantsStale(
+        nextNodes,
+        nodeId,
+        `${source.title || source.type}切换了采用版本，请确认是否更新下游。`
+      ));
+    });
+    setIsDirty(true);
+  }, [setNodes]);
+
+  const handleCreateAdvertisingBranch = React.useCallback((nodeId: string) => {
+    const source = nodes.find((node) => node.id === nodeId);
+    if (!source?.advertising) return;
+    const branch = createAdvertisingBranchNode(source);
+    setNodes((currentNodes) => applyBrandComplianceToNodes([...currentNodes, branch]));
+    setSelectedNodeIds([branch.id]);
+    setIsDirty(true);
+  }, [nodes, setNodes, setSelectedNodeIds]);
 
   // ============================================================================
   // EVENT HANDLERS
@@ -974,6 +1124,28 @@ export default function App() {
         onSave={handleSaveAssetToLibrary}
       />
 
+      <GenerationConfirmationDialog
+        projectId={projectId}
+        node={generationNodeId ? nodes.find((node) => node.id === generationNodeId) || null : null}
+        onClose={() => setGenerationNodeId(null)}
+        onCreated={handleGenerationTaskCreated}
+      />
+
+      <TaskCenter projectId={projectId} refreshSignal={taskRefreshSignal} />
+
+      <BrandProfilePanel
+        isOpen={isBrandProfileOpen}
+        brandNode={nodes.find((node) => node.type === NodeType.BRAND_PROFILE)}
+        onClose={() => setIsBrandProfileOpen(false)}
+        onUpdate={updateNodeWithSync}
+      />
+
+      <ExportDialog
+        isOpen={isExportDialogOpen}
+        projectId={projectId}
+        onClose={() => setIsExportDialogOpen(false)}
+      />
+
       {/* TikTok Import Modal */}
       <TikTokImportModal
         isOpen={isTikTokModalOpen}
@@ -1035,6 +1207,10 @@ export default function App() {
           setEditingTitleValue={setEditingTitleValue}
           onSave={handleSaveWithTracking}
           onNew={handleNewCanvas}
+          onBack={onExitProject}
+          onCreateAdvertisingDraft={handleCreateAdvertisingDraft}
+          onOpenBrandProfile={() => setIsBrandProfileOpen((current) => !current)}
+          onExport={() => setIsExportDialogOpen(true)}
           hasUnsavedChanges={hasUnsavedChanges}
           isChatOpen={isChatOpen}
           canvasTheme={canvasTheme}
@@ -1166,6 +1342,10 @@ export default function App() {
                 canvasTheme={canvasTheme}
                 onPostToX={handlePostToX}
                 onPostToTikTok={handlePostToTikTok}
+                onRequestAdvertisingGeneration={setGenerationNodeId}
+                onSaveAdvertisingVersion={handleSaveAdvertisingVersion}
+                onAdoptAdvertisingVersion={handleAdoptAdvertisingVersion}
+                onCreateAdvertisingBranch={handleCreateAdvertisingBranch}
               />
             ))}
           </div>

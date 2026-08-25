@@ -1,5 +1,5 @@
 {
-  "name": "twitcanva",
+  "name": "adcanvas",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -7,12 +7,16 @@
     "dev": "concurrently \"npm run server\" \"vite\"",
     "server": "node server/index.js",
     "build": "vite build",
+    "typecheck": "tsc --noEmit",
+    "test:server": "node --test server/services/*.test.js server/providers/*.test.js",
+    "test:domain": "node --experimental-strip-types --test tests/*.test.mjs",
     "preview": "vite preview",
     "setup:local-models": "node -e \"require('child_process').execSync(process.platform === 'win32' ? 'setup-local-models.bat' : 'bash setup-local-models.sh', {stdio: 'inherit'})\""
   },
   "dependencies": {
     "@fal-ai/client": "^1.8.0",
     "@google/genai": "^1.32.0",
+    "@google/generative-ai": "^0.24.0",
     "@langchain/core": "^1.1.4",
     "@langchain/google-genai": "^2.0.4",
     "@langchain/langgraph": "^1.0.4",

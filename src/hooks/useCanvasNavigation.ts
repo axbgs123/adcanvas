@@ -8,12 +8,12 @@
 import React, { useState, useRef } from 'react';
 import { Viewport, NodeData, NodeType } from '../types';
 
-export const useCanvasNavigation = () => {
+export const useCanvasNavigation = (initialViewport: Viewport = { x: 0, y: 0, zoom: 1 }) => {
     // ============================================================================
     // STATE
     // ============================================================================
 
-    const [viewport, setViewport] = useState<Viewport>({ x: 0, y: 0, zoom: 1 });
+    const [viewport, setViewport] = useState<Viewport>(initialViewport);
     const canvasRef = useRef<HTMLDivElement>(null);
 
     // ============================================================================

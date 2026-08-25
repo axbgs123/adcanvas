@@ -49,7 +49,7 @@ export const AssetLibraryPanel: React.FC<AssetLibraryPanelProps> = ({
     const fetchLibrary = async () => {
         setLoading(true);
         try {
-            const res = await fetch('http://localhost:3001/api/library'); // Adjust port if needed, relative path preferred in helper
+            const res = await fetch('/api/library'); // Adjust port if needed, relative path preferred in helper
             if (res.ok) {
                 setAssets(await res.json());
             }
@@ -65,7 +65,7 @@ export const AssetLibraryPanel: React.FC<AssetLibraryPanelProps> = ({
         // Confirmation is now handled in the UI before this is called
 
         try {
-            const res = await fetch(`http://localhost:3001/api/library/${id}`, {
+            const res = await fetch(`/api/library/${id}`, {
                 method: 'DELETE'
             });
             if (res.ok) {

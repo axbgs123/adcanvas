@@ -1,3 +1,88 @@
+import { NodeType } from '../types';
+import { isAdvertisingNodeType } from '../domain/advertising/nodeRegistry';
+
+export interface ConnectionValidation {
+    valid: boolean;
+    reason?: string;
+}
+
+const allowedAdvertisingChildren: Partial<Record<NodeType, NodeType[]>> = {
+    [NodeType.BRAND_PROFILE]: [
+        NodeType.AD_BRIEF,
+        NodeType.CREATIVE_ROUTE,
+        NodeType.MOODBOARD,
+        NodeType.AD_SCRIPT,
+        NodeType.AD_STORYBOARD,
+        NodeType.AD_SHOT,
+        NodeType.EDIT_PLAN,
+        NodeType.DELIVERY
+    ],
+    [NodeType.AD_BRIEF]: [NodeType.CREATIVE_ROUTE],
+    [NodeType.CREATIVE_ROUTE]: [NodeType.MOODBOARD, NodeType.AD_SCRIPT],
+    [NodeType.MOODBOARD]: [NodeType.AD_SCRIPT, NodeType.AD_STORYBOARD, NodeType.AD_SHOT, NodeType.IMAGE, NodeType.VIDEO],
+    [NodeType.AD_SCRIPT]: [NodeType.AD_STORYBOARD, NodeType.AD_SHOT],
+    [NodeType.AD_STORYBOARD]: [NodeType.AD_SHOT, NodeType.IMAGE, NodeType.VIDEO],
+    [NodeType.AD_SHOT]: [NodeType.IMAGE, NodeType.VIDEO, NodeType.EDIT_PLAN, NodeType.DELIVERY],
+    [NodeType.EDIT_PLAN]: [NodeType.DELIVERY]
+};
+
+export const validateNodeConnection = (parentType: NodeType, childType: NodeType): ConnectionValidation => {
+    if (parentType === NodeType.AUDIO || childType === NodeType.AUDIO) {
+        return { valid: false, reason: 'Audio nodes are not available in the current Demo.' };
+    }
+
+    if (isAdvertisingNodeType(parentType)) {
+        const allowed = allowedAdvertisingChildren[parentType] || [];
+        return allowed.includes(childType)
+            ? { valid: true }
+            : { valid: false, reason: `${parentType} cannot feed ${childType}. Choose the next advertising stage or a compatible generation node.` };
+    }
+
+    if (isAdvertisingNodeType(childType)) {
+        if (parentType === NodeType.IMAGE) {
+            return [NodeType.MOODBOARD, NodeType.AD_STORYBOARD, NodeType.AD_SHOT, NodeType.DELIVERY].includes(childType)
+                ? { valid: true }
+                : { valid: false, reason: 'Images can be attached to moodboards, storyboards, shots, or delivery.' };
+        }
+        if (parentType === NodeType.VIDEO || parentType === NodeType.VIDEO_EDITOR) {
+            return [NodeType.AD_SHOT, NodeType.EDIT_PLAN, NodeType.DELIVERY].includes(childType)
+                ? { valid: true }
+                : { valid: false, reason: 'Video assets can be attached to shots, edit plans, or delivery.' };
+        }
+        return { valid: false, reason: 'Use an advertising workflow node as the upstream business dependency.' };
+    }
+
+    if (childType === NodeType.TEXT) {
+        return { valid: false, reason: 'Text nodes cannot receive an input.' };
+    }
+
+    if (parentType === NodeType.TEXT) {
+        return [NodeType.IMAGE, NodeType.VIDEO].includes(childType)
+            ? { valid: true }
+            : { valid: false, reason: 'Text can only drive image or video generation.' };
+    }
+
+    if (parentType === NodeType.VIDEO) {
+        return [NodeType.VIDEO, NodeType.VIDEO_EDITOR].includes(childType)
+            ? { valid: true }
+            : { valid: false, reason: 'Video output can only feed another video or the video editor.' };
+    }
+
+    if (parentType === NodeType.IMAGE || parentType === NodeType.IMAGE_EDITOR) {
+        return [NodeType.IMAGE, NodeType.VIDEO, NodeType.IMAGE_EDITOR].includes(childType)
+            ? { valid: true }
+            : { valid: false, reason: 'Image output can feed image, video, or image editing.' };
+    }
+
+    if (parentType === NodeType.VIDEO_EDITOR) {
+        return childType === NodeType.VIDEO
+            ? { valid: true }
+            : { valid: false, reason: 'Trimmed video can only feed a video generation node.' };
+    }
+
+    return { valid: true };
+};
+
 /**
  * connectionHelpers.ts
  * 

@@ -17,6 +17,15 @@ import tiktokPostRoutes from './routes/tiktok-post.js';
 import { processTikTokVideo, isValidTikTokUrl } from './tools/tiktok.js';
 import localModelsRoutes from './routes/local-models.js';
 import storyboardRoutes from './routes/storyboard.js';
+import { createProjectsRouter } from './routes/projects.js';
+import { createProjectRepository } from './services/projectRepository.js';
+import { createTasksRouter } from './routes/tasks.js';
+import { createTaskRepository } from './services/taskRepository.js';
+import { createGenerationQueue } from './services/generationQueue.js';
+import { createProviderRegistry } from './providers/providerRegistry.js';
+import { createProviderExecutor } from './providers/providerExecutor.js';
+import { createProvidersRouter } from './routes/providers.js';
+import { createExportsRouter } from './routes/exports.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -31,8 +40,10 @@ const IMAGES_DIR = path.join(LIBRARY_DIR, 'images');
 const VIDEOS_DIR = path.join(LIBRARY_DIR, 'videos');
 const CHATS_DIR = path.join(LIBRARY_DIR, 'chats');
 const LIBRARY_ASSETS_DIR = path.join(LIBRARY_DIR, 'assets');
+const PROJECTS_DIR = path.join(LIBRARY_DIR, 'projects');
+const TASKS_DIR = path.join(LIBRARY_DIR, 'tasks');
 
-[LIBRARY_DIR, WORKFLOWS_DIR, IMAGES_DIR, VIDEOS_DIR, CHATS_DIR, LIBRARY_ASSETS_DIR].forEach(dir => {
+[LIBRARY_DIR, WORKFLOWS_DIR, IMAGES_DIR, VIDEOS_DIR, CHATS_DIR, LIBRARY_ASSETS_DIR, PROJECTS_DIR, TASKS_DIR].forEach(dir => {
     if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir, { recursive: true });
     }
@@ -112,6 +123,28 @@ app.locals.FAL_API_KEY = FAL_API_KEY;
 app.locals.IMAGES_DIR = IMAGES_DIR;
 app.locals.VIDEOS_DIR = VIDEOS_DIR;
 app.locals.LIBRARY_DIR = LIBRARY_DIR;
+
+const projectRepository = createProjectRepository(PROJECTS_DIR);
+const taskRepository = createTaskRepository(TASKS_DIR);
+const providerCredentials = {
+    GEMINI_API_KEY: API_KEY,
+    OPENAI_API_KEY,
+    KLING_ACCESS_KEY,
+    KLING_SECRET_KEY,
+    HAILUO_API_KEY,
+    FAL_API_KEY
+};
+const providerRegistry = createProviderRegistry(providerCredentials);
+const providerExecutor = createProviderExecutor({
+    credentials: providerCredentials,
+    imagesDirectory: IMAGES_DIR,
+    videosDirectory: VIDEOS_DIR
+});
+const generationQueue = createGenerationQueue(taskRepository, { providerExecutor });
+app.use('/api/projects', createProjectsRouter(projectRepository));
+app.use('/api/tasks', createTasksRouter({ taskRepository, generationQueue, projectRepository, providerRegistry }));
+app.use('/api/providers', createProvidersRouter(providerRegistry));
+app.use('/api/exports', createExportsRouter({ projectRepository, taskRepository }));
 
 // ============================================================================
 // WORKFLOW SANITIZATION HELPERS

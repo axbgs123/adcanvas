@@ -1,4 +1,6 @@
 
+import type { AdvertisingNodeData } from './domain/advertising/types';
+
 export enum NodeType {
   TEXT = 'Text',
   IMAGE = 'Image',
@@ -10,7 +12,17 @@ export enum NodeType {
   CAMERA_ANGLE = 'Camera Angle',
   // Local open-source model nodes
   LOCAL_IMAGE_MODEL = 'Local Image Model',
-  LOCAL_VIDEO_MODEL = 'Local Video Model'
+  LOCAL_VIDEO_MODEL = 'Local Video Model',
+  // Advertising workflow nodes
+  AD_BRIEF = 'Advertising Brief',
+  BRAND_PROFILE = 'Brand Profile',
+  CREATIVE_ROUTE = 'Creative Route',
+  MOODBOARD = 'Moodboard',
+  AD_SCRIPT = 'Advertising Script',
+  AD_STORYBOARD = 'Advertising Storyboard',
+  AD_SHOT = 'Advertising Shot',
+  EDIT_PLAN = 'Edit Plan',
+  DELIVERY = 'Production Delivery'
 }
 
 export enum NodeStatus {
@@ -105,6 +117,9 @@ export interface NodeData {
 
   // Storyboard Generator specific
   characterReferenceUrls?: string[]; // URLs of character images for reference in generation
+
+  // Advertising business layer
+  advertising?: AdvertisingNodeData;
 }
 
 export interface ContextMenuState {

@@ -7,6 +7,7 @@
 
 import React, { useState, useRef } from 'react';
 import { NodeData, NodeType, Viewport } from '../types';
+import { validateNodeConnection } from '../utils/connectionHelpers';
 
 interface ConnectionStart {
     nodeId: string;
@@ -119,69 +120,15 @@ export const useConnectionDragging = () => {
 
         const dragDuration = Date.now() - dragStartTime.current;
 
-        /**
-         * Check if a connection is valid based on node types
-         * Rules:
-         * - IMAGE → IMAGE, VIDEO, IMAGE_EDITOR: ✅ (image as input)
-         * - VIDEO → VIDEO: ✅ (video chaining via lastFrame)
-         * - VIDEO → IMAGE, IMAGE_EDITOR: ❌ (can't generate image from video)
-         * - TEXT → IMAGE, VIDEO: ✅ (text provides prompt)
-         * - TEXT → TEXT, IMAGE_EDITOR: ❌ (no text chaining, no text editing)
-         * - Any → TEXT: ❌ (text nodes can't receive input)
-         * - AUDIO: ❌ (not supported yet)
-         */
-        const isValidConnection = (parentId: string, childId: string): boolean => {
+        const validateConnection = (parentId: string, childId: string) => {
             const parentNode = nodes.find(n => n.id === parentId);
             const childNode = nodes.find(n => n.id === childId);
 
-            if (!parentNode || !childNode) return false;
-
-            // AUDIO nodes not supported yet
-            if (parentNode.type === NodeType.AUDIO || childNode.type === NodeType.AUDIO) {
-                return false;
+            if (!parentNode || !childNode) {
+                return { valid: false, reason: 'The source or target node no longer exists.' };
             }
 
-            // STORYBOARD nodes - allow connections to/from for now (future feature)
-            // Can be restricted later when storyboard logic is implemented
-
-            // TEXT nodes can't receive input (can only be parents)
-            if (childNode.type === NodeType.TEXT) {
-                return false;
-            }
-
-            // TEXT nodes can only connect to IMAGE or VIDEO (to provide prompts)
-            if (parentNode.type === NodeType.TEXT) {
-                return childNode.type === NodeType.IMAGE || childNode.type === NodeType.VIDEO;
-            }
-
-            // VIDEO nodes can only connect to other VIDEO nodes (via lastFrame)
-            // Cannot connect to IMAGE or IMAGE_EDITOR
-            if (parentNode.type === NodeType.VIDEO) {
-                return childNode.type === NodeType.VIDEO ||
-                    childNode.type === NodeType.VIDEO_EDITOR;
-            }
-
-            // IMAGE nodes can connect to IMAGE, VIDEO, or IMAGE_EDITOR
-            if (parentNode.type === NodeType.IMAGE) {
-                return childNode.type === NodeType.IMAGE ||
-                    childNode.type === NodeType.VIDEO ||
-                    childNode.type === NodeType.IMAGE_EDITOR;
-            }
-
-            // IMAGE_EDITOR can connect to IMAGE, VIDEO, or IMAGE_EDITOR
-            if (parentNode.type === NodeType.IMAGE_EDITOR) {
-                return childNode.type === NodeType.IMAGE ||
-                    childNode.type === NodeType.VIDEO ||
-                    childNode.type === NodeType.IMAGE_EDITOR;
-            }
-
-            // VIDEO_EDITOR can only connect to VIDEO (to feed trimmed video for generation)
-            // No chaining VIDEO_EDITOR → VIDEO_EDITOR
-            if (parentNode.type === NodeType.VIDEO_EDITOR) {
-                return childNode.type === NodeType.VIDEO;
-            }
-
-            return true;
+            return validateNodeConnection(parentNode.type, childNode.type);
         };
 
         // Short click - open menu
@@ -193,7 +140,10 @@ export const useConnectionDragging = () => {
             if (hoveredSide === 'left') {
                 // Connecting to LEFT connector = target receives input (target is child)
                 // source is parent, hoveredNode is child
-                if (!isValidConnection(connectionStart.nodeId, hoveredNodeId)) {
+                const validation = validateConnection(connectionStart.nodeId, hoveredNodeId);
+                if (!validation.valid) {
+                    console.warn('Invalid canvas connection:', validation.reason);
+                    window.dispatchEvent(new CustomEvent('canvas:connection-error', { detail: validation }));
                     // Invalid connection - reset and return
                     setIsDraggingConnection(false);
                     setConnectionStart(null);
@@ -219,7 +169,10 @@ export const useConnectionDragging = () => {
             } else {
                 // Connecting to RIGHT connector = target provides output (target is parent)
                 // hoveredNode is parent, source is child
-                if (!isValidConnection(hoveredNodeId, connectionStart.nodeId)) {
+                const validation = validateConnection(hoveredNodeId, connectionStart.nodeId);
+                if (!validation.valid) {
+                    console.warn('Invalid canvas connection:', validation.reason);
+                    window.dispatchEvent(new CustomEvent('canvas:connection-error', { detail: validation }));
                     // Invalid connection - reset and return
                     setIsDraggingConnection(false);
                     setConnectionStart(null);

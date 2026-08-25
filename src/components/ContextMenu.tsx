@@ -17,7 +17,16 @@ import {
   Files,
   Layers,
   ChevronRight,
-  HardDrive
+  HardDrive,
+  BriefcaseBusiness,
+  ShieldCheck,
+  Lightbulb,
+  Palette,
+  FileText,
+  PanelsTopLeft,
+  Camera,
+  Scissors,
+  PackageCheck
 } from 'lucide-react';
 import { ContextMenuState, NodeType } from '../types';
 
@@ -289,6 +298,72 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({
       </div>
 
       <div className="p-2 flex flex-col gap-1 max-h-[400px] overflow-y-auto">
+        <div className={`px-2 py-1 text-xs font-medium ${canvasTheme === 'dark' ? 'text-neutral-500' : 'text-neutral-400'}`}>
+          Advertising workflow
+        </div>
+        <MenuItem
+          icon={<BriefcaseBusiness size={18} />}
+          label="Advertising Brief"
+          desc="Goals, audience, message, deliverables"
+          onClick={() => onSelectType(NodeType.AD_BRIEF)}
+          canvasTheme={canvasTheme}
+        />
+        <MenuItem
+          icon={<ShieldCheck size={18} />}
+          label="Brand Profile"
+          desc="Global assets and hard constraints"
+          onClick={() => onSelectType(NodeType.BRAND_PROFILE)}
+          canvasTheme={canvasTheme}
+        />
+        <MenuItem
+          icon={<Lightbulb size={18} />}
+          label="Creative Route"
+          desc="Concept, insight, and visual metaphor"
+          onClick={() => onSelectType(NodeType.CREATIVE_ROUTE)}
+          canvasTheme={canvasTheme}
+        />
+        <MenuItem
+          icon={<Palette size={18} />}
+          label="Moodboard"
+          desc="Palette, materials, light, composition"
+          onClick={() => onSelectType(NodeType.MOODBOARD)}
+          canvasTheme={canvasTheme}
+        />
+        <MenuItem
+          icon={<FileText size={18} />}
+          label="Advertising Script"
+          onClick={() => onSelectType(NodeType.AD_SCRIPT)}
+          canvasTheme={canvasTheme}
+        />
+        <MenuItem
+          icon={<PanelsTopLeft size={18} />}
+          label="Advertising Storyboard"
+          onClick={() => onSelectType(NodeType.AD_STORYBOARD)}
+          canvasTheme={canvasTheme}
+        />
+        <MenuItem
+          icon={<Camera size={18} />}
+          label="Shot"
+          onClick={() => onSelectType(NodeType.AD_SHOT)}
+          canvasTheme={canvasTheme}
+        />
+        <MenuItem
+          icon={<Scissors size={18} />}
+          label="Edit Plan"
+          onClick={() => onSelectType(NodeType.EDIT_PLAN)}
+          canvasTheme={canvasTheme}
+        />
+        <MenuItem
+          icon={<PackageCheck size={18} />}
+          label="Production Delivery"
+          onClick={() => onSelectType(NodeType.DELIVERY)}
+          canvasTheme={canvasTheme}
+        />
+
+        <div className={`my-2 border-t mx-2 ${canvasTheme === 'dark' ? 'border-neutral-800' : 'border-neutral-100'}`} />
+        <div className={`px-2 py-1 text-xs font-medium ${canvasTheme === 'dark' ? 'text-neutral-500' : 'text-neutral-400'}`}>
+          Generation tools
+        </div>
         <MenuItem
           icon={<Type size={18} />}
           label={isConnector ? "Text Generation" : "Text"}

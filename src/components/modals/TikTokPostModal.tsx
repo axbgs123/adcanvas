@@ -125,7 +125,7 @@ export const TikTokPostModal: React.FC<TikTokPostModalProps> = ({
 
     const checkAuthStatus = async (session: string) => {
         try {
-            const response = await fetch(`http://localhost:3001/api/tiktok-post/status?sessionId=${session}`);
+            const response = await fetch(`/api/tiktok-post/status?sessionId=${session}`);
             const data = await response.json();
 
             if (data.authenticated && data.user) {
@@ -148,7 +148,7 @@ export const TikTokPostModal: React.FC<TikTokPostModalProps> = ({
         setError(null);
 
         try {
-            const response = await fetch('http://localhost:3001/api/tiktok-post/auth');
+            const response = await fetch('/api/tiktok-post/auth');
             const data = await response.json();
 
             if (!response.ok) {
@@ -176,7 +176,7 @@ export const TikTokPostModal: React.FC<TikTokPostModalProps> = ({
     const handleLogout = async () => {
         if (sessionId) {
             try {
-                await fetch('http://localhost:3001/api/tiktok-post/logout', {
+                await fetch('/api/tiktok-post/logout', {
                     method: 'POST',
                     headers: { 'X-TikTok-Session': sessionId }
                 });
@@ -197,7 +197,7 @@ export const TikTokPostModal: React.FC<TikTokPostModalProps> = ({
         setError(null);
 
         try {
-            const response = await fetch('http://localhost:3001/api/tiktok-post/post', {
+            const response = await fetch('/api/tiktok-post/post', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -238,7 +238,7 @@ export const TikTokPostModal: React.FC<TikTokPostModalProps> = ({
     // Build the full media URL for display
     const fullMediaUrl = mediaUrl?.startsWith('http')
         ? mediaUrl
-        : `http://localhost:3001${mediaUrl}`;
+        : `${mediaUrl}`;
 
     return (
         <div
@@ -281,7 +281,7 @@ export const TikTokPostModal: React.FC<TikTokPostModalProps> = ({
                             <div className="text-center">
                                 <h3 className="text-lg font-semibold text-white">Connect your TikTok account</h3>
                                 <p className="text-sm text-neutral-400 mt-1">
-                                    Sign in to post videos directly from TwitCanva
+                                    Sign in to post videos directly from AdCanvas
                                 </p>
                             </div>
                             <button
