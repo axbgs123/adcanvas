@@ -10,13 +10,11 @@ The local reference at `http://localhost:3000/` uses oversized black grotesk typ
 
 ## Palette
 
-- Studio White `#F2F4EF` — textured daylight workspace background
-- Paper `#FFFFFF` — project sheets and node cards
-- Editorial Ink `#171918` — primary text and high-contrast structural blocks
-- Proof Blue `#2457D6` — active selection, links, and structural annotations
-- Aperture Gold `#C8A33A` — important calls to action and review marks
-- Mint Proof `#CDEFD9` — approved and safe status
-- Rule Gray `#DCE1E7` — dividers, grid, and quiet borders
+- Black `#111111` — typography, selected actions, and structural blocks
+- White `#FFFFFF` — production sheets, dialogs, and editable surfaces
+- Gray — `#F4F4F4` workspace, `#D9D9D9` rules, and black-opacity text/status variations
+
+No chromatic UI colors are permitted. Status differences use icons, labels, border weight, line style, and gray value rather than hue. Generated advertising media remains in its original color.
 
 ## Typography
 
@@ -41,8 +39,8 @@ The workbench uses an asymmetric editorial grid: a wide project thesis block, a 
 
 ## Signature
 
-The signature element is the aperture rail: a narrow black-and-gold structural strip paired with occasional circular status markers. It references camera gates, edit timelines, and production slates without copying the reference site's imagery.
+The signature element is the aperture rail: a narrow black-and-gray structural strip paired with occasional circular status markers. It references camera gates, edit timelines, and production slates without copying the reference site's imagery.
 
 ## Self-critique
 
-The initial direction risked becoming a colorful SaaS/editorial hybrid. After reviewing the reference, it was tightened to textured daylight white, near-black production typography, cobalt only for interaction, and sparse aperture gold. Rounded corners are reduced and varied by hierarchy; scale and space now carry more of the identity.
+The initial direction risked becoming a colorful SaaS/editorial hybrid. After reviewing the reference and the final color constraint, it was tightened to textured gray-white, black production typography, white work surfaces, and gray structural states. Rounded corners are reduced and varied by hierarchy; scale, space, weight, and line treatment now carry the identity.

@@ -402,15 +402,15 @@ const CameraIndicator: React.FC<CameraIndicatorProps> = ({ rotation, tilt, liveA
         <group ref={groupRef} position={initialPosition} rotation={initialRotation}>
             {/* Camera body - larger size */}
             <Box args={[0.35, 0.25, 0.2]} position={[0, 0, 0]}>
-                <meshStandardMaterial color="#4a5568" />
+                <meshStandardMaterial color="#666666" />
             </Box>
             {/* Lens - facing toward image (negative Z in local space) */}
             <Box args={[0.1, 0.16, 0.1]} position={[0, 0, -0.14]}>
-                <meshStandardMaterial color="#2d3748" />
+                <meshStandardMaterial color="#444444" />
             </Box>
             {/* Yellow indicator - front of camera facing image */}
             <Sphere args={[0.12, 16, 16]} position={[0, 0, -0.22]}>
-                <meshStandardMaterial color="#fbbf24" emissive="#fbbf24" emissiveIntensity={0.5} />
+                <meshStandardMaterial color="#777777" emissive="#777777" emissiveIntensity={0.5} />
             </Sphere>
         </group>
     );
@@ -428,31 +428,31 @@ const AxisLines: React.FC = () => {
             {/* X axis (red) */}
             <Line
                 points={[[0, 0, 0], [axisLength, 0, 0]]}
-                color="#ef4444"
+                color="#333333"
                 lineWidth={3}
             />
             <Html position={[axisLength + 0.15, 0, 0]} center>
-                <span style={{ color: '#ef4444', fontWeight: 'bold', fontSize: '14px' }}>X</span>
+                <span style={{ color: '#333333', fontWeight: 'bold', fontSize: '14px' }}>X</span>
             </Html>
 
             {/* Y axis (green) */}
             <Line
                 points={[[0, 0, 0], [0, axisLength, 0]]}
-                color="#22c55e"
+                color="#777777"
                 lineWidth={3}
             />
             <Html position={[0, axisLength + 0.15, 0]} center>
-                <span style={{ color: '#22c55e', fontWeight: 'bold', fontSize: '14px' }}>Y</span>
+                <span style={{ color: '#777777', fontWeight: 'bold', fontSize: '14px' }}>Y</span>
             </Html>
 
             {/* Z axis (blue) */}
             <Line
                 points={[[0, 0, 0], [0, 0, axisLength]]}
-                color="#3b82f6"
+                color="#555555"
                 lineWidth={3}
             />
             <Html position={[0, 0, axisLength + 0.1]} center>
-                <span style={{ color: '#3b82f6', fontWeight: 'bold', fontSize: '14px' }}>Z</span>
+                <span style={{ color: '#555555', fontWeight: 'bold', fontSize: '14px' }}>Z</span>
             </Html>
         </group>
     );
@@ -509,7 +509,7 @@ const DashedGuideLine: React.FC<DashedGuideLineProps> = ({ liveAngles }) => {
         <Line
             ref={lineRef}
             points={[initialPos, imageCenter]}
-            color="#fbbf24"
+            color="#777777"
             lineWidth={1}
             dashed
             dashSize={0.1}
@@ -602,10 +602,10 @@ const Scene: React.FC<SceneProps> = ({
                 args={[12, 12]}
                 cellSize={0.25}
                 cellThickness={0.3}
-                cellColor="#3a4a5a"
+                cellColor="#555555"
                 sectionSize={2}
                 sectionThickness={0.5}
-                sectionColor="#4a5a6a"
+                sectionColor="#666666"
                 fadeDistance={20}
                 fadeStrength={1.5}
                 position={[0, -0.01, 0]}
@@ -617,14 +617,14 @@ const Scene: React.FC<SceneProps> = ({
             {/* Horizontal orbit arc (green/cyan) on XZ plane */}
             <Line
                 points={horizontalArcPoints}
-                color="#22c55e"
+                color="#777777"
                 lineWidth={4}
             />
 
             {/* Vertical orbit arc (pink) on ZY plane */}
             <Line
                 points={verticalArcPoints}
-                color="#ec4899"
+                color="#777777"
                 lineWidth={4}
             />
 
@@ -638,7 +638,7 @@ const Scene: React.FC<SceneProps> = ({
             {/* Cyan control sphere (rotation) on horizontal arc */}
             <DraggableSphere
                 position={horizontalSpherePos}
-                color="#22d3ee"
+                color="#777777"
                 type="rotation"
                 liveAngles={liveAngles}
                 onDragEnd={handleDragEnd}
@@ -649,7 +649,7 @@ const Scene: React.FC<SceneProps> = ({
             {/* Pink control sphere (tilt) on vertical arc */}
             <DraggableSphere
                 position={verticalSpherePos}
-                color="#ec4899"
+                color="#777777"
                 type="tilt"
                 liveAngles={liveAngles}
                 onDragEnd={handleDragEnd}
@@ -716,7 +716,7 @@ export const OrbitCameraControl: React.FC<OrbitCameraControlProps> = ({
             </div>
 
             {/* Three.js Canvas */}
-            <div className="w-full h-[340px] rounded-xl overflow-hidden bg-[#1a1a2e] border border-neutral-800">
+            <div className="w-full h-[340px] rounded-xl overflow-hidden bg-[#1a1a1a] border border-neutral-800">
                 <Canvas
                     camera={{
                         position: [3.5, 2.5, 4.5],
@@ -726,7 +726,7 @@ export const OrbitCameraControl: React.FC<OrbitCameraControlProps> = ({
                     }}
                     gl={{ antialias: true }}
                 >
-                    <color attach="background" args={['#1a1a2e']} />
+                    <color attach="background" args={['#1a1a1a']} />
                     <Scene
                         imageUrl={imageUrl}
                         rotation={rotation}
@@ -739,7 +739,7 @@ export const OrbitCameraControl: React.FC<OrbitCameraControlProps> = ({
 
             {/* Status text */}
             <div className="flex justify-center">
-                <div className="px-4 py-1.5 rounded-lg bg-[#1a1a2e] border border-green-500/50 text-cyan-400 text-sm">
+                <div className="px-4 py-1.5 rounded-lg bg-[#1a1a1a] border border-green-500/50 text-cyan-400 text-sm">
                     {statusText}
                 </div>
             </div>

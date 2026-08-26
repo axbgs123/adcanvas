@@ -251,7 +251,7 @@ export const TikTokPostModal: React.FC<TikTokPostModalProps> = ({
                 {/* Header */}
                 <div className="flex items-center justify-between p-4 border-b border-neutral-800">
                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#ff0050] via-[#00f2ea] to-[#ff0050] flex items-center justify-center text-white">
+                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#111111] via-[#777777] to-[#111111] flex items-center justify-center text-white">
                             <TikTokIcon />
                         </div>
                         <div>
@@ -275,7 +275,7 @@ export const TikTokPostModal: React.FC<TikTokPostModalProps> = ({
                     {/* Not Authenticated State */}
                     {!user && status !== 'authenticating' && (
                         <div className="flex flex-col items-center gap-4 py-8">
-                            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#ff0050] via-[#00f2ea] to-[#ff0050] flex items-center justify-center text-white">
+                            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#111111] via-[#777777] to-[#111111] flex items-center justify-center text-white">
                                 <TikTokIcon size={32} />
                             </div>
                             <div className="text-center">
@@ -286,7 +286,7 @@ export const TikTokPostModal: React.FC<TikTokPostModalProps> = ({
                             </div>
                             <button
                                 onClick={handleLogin}
-                                className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#ff0050] to-[#00f2ea] text-white font-semibold rounded-full hover:opacity-90 transition-opacity"
+                                className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#111111] to-[#777777] text-white font-semibold rounded-full hover:opacity-90 transition-opacity"
                             >
                                 <TikTokIcon />
                                 Sign in with TikTok
@@ -300,7 +300,7 @@ export const TikTokPostModal: React.FC<TikTokPostModalProps> = ({
                     {/* Authenticating State */}
                     {status === 'authenticating' && (
                         <div className="flex flex-col items-center gap-4 py-8">
-                            <Loader2 size={40} className="text-[#00f2ea] animate-spin" />
+                            <Loader2 size={40} className="text-[#777777] animate-spin" />
                             <p className="text-neutral-400">Waiting for authorization...</p>
                             <p className="text-xs text-neutral-500">Complete sign-in in the popup window</p>
                         </div>
@@ -328,7 +328,7 @@ export const TikTokPostModal: React.FC<TikTokPostModalProps> = ({
                                     onChange={(e) => setCaptionText(e.target.value)}
                                     placeholder="Add a caption with #hashtags and @mentions..."
                                     disabled={status === 'posting'}
-                                    className="w-full bg-[#1a1a1a] border border-neutral-700 rounded-xl p-4 text-white placeholder-neutral-500 focus:outline-none focus:border-[#00f2ea] transition-colors resize-none disabled:opacity-50"
+                                    className="w-full bg-[#1a1a1a] border border-neutral-700 rounded-xl p-4 text-white placeholder-neutral-500 focus:outline-none focus:border-[#777777] transition-colors resize-none disabled:opacity-50"
                                     rows={3}
                                 />
                                 <div className="flex justify-end">
@@ -348,11 +348,11 @@ export const TikTokPostModal: React.FC<TikTokPostModalProps> = ({
                                             onClick={() => setPrivacyLevel(option.value)}
                                             disabled={status === 'posting'}
                                             className={`p-3 rounded-lg border text-left transition-all ${privacyLevel === option.value
-                                                    ? 'border-[#00f2ea] bg-[#00f2ea]/10'
+                                                    ? 'border-[#777777] bg-[#777777]/10'
                                                     : 'border-neutral-700 hover:border-neutral-600'
                                                 }`}
                                         >
-                                            <span className={`text-sm font-medium ${privacyLevel === option.value ? 'text-[#00f2ea]' : 'text-white'}`}>
+                                            <span className={`text-sm font-medium ${privacyLevel === option.value ? 'text-[#777777]' : 'text-white'}`}>
                                                 {option.label}
                                             </span>
                                             <p className="text-xs text-neutral-500 mt-0.5">{option.description}</p>
@@ -431,7 +431,7 @@ export const TikTokPostModal: React.FC<TikTokPostModalProps> = ({
                         <button
                             onClick={handlePost}
                             disabled={status === 'posting' || isOverLimit || !mediaUrl}
-                            className="flex items-center gap-2 px-6 py-2 bg-gradient-to-r from-[#ff0050] to-[#00f2ea] text-white font-semibold rounded-full hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="flex items-center gap-2 px-6 py-2 bg-gradient-to-r from-[#111111] to-[#777777] text-white font-semibold rounded-full hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             {status === 'posting' ? (
                                 <>

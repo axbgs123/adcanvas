@@ -108,7 +108,7 @@ export const TopBar: React.FC<TopBarProps> = ({
     return (
         <>
             <div
-                className="fixed left-0 top-0 z-50 flex h-16 items-center justify-between border-b border-[#dce1e7] bg-white/95 px-6 shadow-[0_4px_18px_rgba(31,42,68,0.06)] backdrop-blur pointer-events-none transition-all duration-300"
+                className="fixed left-0 top-0 z-50 flex h-16 items-center justify-between border-b border-[#d9d9d9] bg-white/95 px-6 shadow-[0_4px_18px_rgba(17,17,17,0.06)] backdrop-blur pointer-events-none transition-all duration-300"
                 style={{ width: isChatOpen ? 'calc(100% - 420px)' : '100%' }}
             >
                 {/* Left: Logo & Title */}
@@ -116,13 +116,13 @@ export const TopBar: React.FC<TopBarProps> = ({
                     {onBack && (
                         <button
                             onClick={onBack}
-                            className="flex h-9 w-9 items-center justify-center rounded-md border border-[#dce1e7] text-[#667085] transition hover:border-[#2457d6] hover:text-[#2457d6]"
+                            className="flex h-9 w-9 items-center justify-center rounded-md border border-[#d9d9d9] text-[#666666] transition hover:border-[#111111] hover:text-[#111111]"
                             title="返回项目工作台"
                         >
                             <ArrowLeft size={17} />
                         </button>
                     )}
-                    <div className="flex h-8 w-8 items-center justify-center rounded-md bg-[#2457d6] text-[10px] font-black text-white shadow-[3px_3px_0_#c8a33a]">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-md bg-[#111111] text-[10px] font-black text-white shadow-[3px_3px_0_#777777]">
                         AD
                     </div>
                     {isEditingTitle ? (
@@ -133,11 +133,11 @@ export const TopBar: React.FC<TopBarProps> = ({
                             onChange={(e) => setEditingTitleValue(e.target.value)}
                             onBlur={handleTitleBlur}
                             onKeyDown={handleTitleKeyDown}
-                            className="studio-display min-w-[100px] border-b border-[#2457d6] bg-transparent font-semibold text-[#171918] outline-none"
+                            className="studio-display min-w-[100px] border-b border-[#111111] bg-transparent font-semibold text-[#111111] outline-none"
                         />
                     ) : (
                         <span
-                            className="studio-display cursor-pointer font-semibold text-[#171918] transition-colors hover:text-[#2457d6]"
+                            className="studio-display cursor-pointer font-semibold text-[#111111] transition-colors hover:text-[#111111]"
                             onDoubleClick={handleTitleDoubleClick}
                             title="Double-click to rename"
                         >
@@ -151,7 +151,7 @@ export const TopBar: React.FC<TopBarProps> = ({
                     {onExport && (
                         <button
                             onClick={onExport}
-                            className="flex items-center gap-2 rounded-md border border-[#dce1e7] bg-white px-3 py-2 text-xs font-medium text-[#475467] transition hover:border-[#2457d6] hover:text-[#2457d6]"
+                            className="flex items-center gap-2 rounded-md border border-[#d9d9d9] bg-white px-3 py-2 text-xs font-medium text-[#555555] transition hover:border-[#111111] hover:text-[#111111]"
                         >
                             <PackageOpen size={16} /> 导出
                         </button>
@@ -159,7 +159,7 @@ export const TopBar: React.FC<TopBarProps> = ({
                     {onOpenBrandProfile && (
                         <button
                             onClick={onOpenBrandProfile}
-                            className="flex items-center gap-2 rounded-md border border-[#dce1e7] bg-white px-3 py-2 text-xs font-medium text-[#475467] transition hover:border-[#2457d6] hover:text-[#2457d6]"
+                            className="flex items-center gap-2 rounded-md border border-[#d9d9d9] bg-white px-3 py-2 text-xs font-medium text-[#555555] transition hover:border-[#111111] hover:text-[#111111]"
                         >
                             <ShieldCheck size={16} /> 品牌规范
                         </button>
@@ -167,7 +167,7 @@ export const TopBar: React.FC<TopBarProps> = ({
                     {onCreateAdvertisingDraft && (
                         <button
                             onClick={onCreateAdvertisingDraft}
-                            className="flex items-center gap-2 rounded-md border border-[#e2ce91] bg-[#f8f3e6] px-3 py-2 text-xs font-semibold text-[#6f5716] transition hover:bg-[#f3ead0]"
+                            className="flex items-center gap-2 rounded-md border border-[#c9c9c9] bg-[#efefef] px-3 py-2 text-xs font-semibold text-[#555555] transition hover:bg-[#e8e8e8]"
                         >
                             <WandSparkles size={16} />
                             AI工作流草案
@@ -184,14 +184,14 @@ export const TopBar: React.FC<TopBarProps> = ({
                     )}
                     <button
                         onClick={() => onSave()}
-                        className="flex items-center gap-2 rounded-md border border-[#171918] bg-[#171918] px-4 py-2 text-xs font-semibold text-white transition hover:bg-[#2457d6]"
+                        className="flex items-center gap-2 rounded-md border border-[#111111] bg-[#111111] px-4 py-2 text-xs font-semibold text-white transition hover:bg-[#111111]"
                     >
                         <Save size={16} />
                         保存
                     </button>
                     <button
                         onClick={handleNewClick}
-                        className="flex items-center gap-2 rounded-md border border-[#dce1e7] bg-white px-3 py-2 text-xs font-medium text-[#475467] transition hover:border-[#2457d6] hover:text-[#2457d6]"
+                        className="flex items-center gap-2 rounded-md border border-[#d9d9d9] bg-white px-3 py-2 text-xs font-medium text-[#555555] transition hover:border-[#111111] hover:text-[#111111]"
                     >
                         <Plus size={16} />
                         新建
@@ -201,31 +201,31 @@ export const TopBar: React.FC<TopBarProps> = ({
 
             {/* Unsaved Changes Confirmation Modal */}
             {showNewConfirm && (
-                <div className="fixed inset-0 bg-[#171918]/25 backdrop-blur-sm flex items-center justify-center z-[100]">
-                    <div className="w-[400px] rounded-2xl border border-[#dce1e7] bg-white p-6 text-[#171918] shadow-[0_28px_80px_rgba(23,32,51,0.2)]">
+                <div className="fixed inset-0 bg-[#111111]/25 backdrop-blur-sm flex items-center justify-center z-[100]">
+                    <div className="w-[400px] rounded-2xl border border-[#d9d9d9] bg-white p-6 text-[#111111] shadow-[0_28px_80px_rgba(17,17,17,0.2)]">
                         <h3 className="studio-display mb-2 text-lg font-semibold">尚未保存</h3>
-                        <p className="mb-6 text-sm text-[#667085]">
+                        <p className="mb-6 text-sm text-[#666666]">
                             当前画布有未保存修改。新建画布前是否保存？
                         </p>
                         <div className="flex gap-3 justify-end">
                             <button
                                 onClick={() => setShowNewConfirm(false)}
                                 disabled={isSaving}
-                                className="rounded-md border border-[#dce1e7] px-4 py-2 text-sm text-[#667085] transition-colors hover:bg-[#f2f4f7] disabled:opacity-50"
+                                className="rounded-md border border-[#d9d9d9] px-4 py-2 text-sm text-[#666666] transition-colors hover:bg-[#f4f4f4] disabled:opacity-50"
                             >
                                 取消
                             </button>
                             <button
                                 onClick={handleDiscardAndNew}
                                 disabled={isSaving}
-                                className="rounded-md bg-[#fff1f1] px-4 py-2 text-sm text-[#a52626] transition-colors hover:bg-[#ffe2e2] disabled:opacity-50"
+                                className="rounded-md bg-[#eeeeee] px-4 py-2 text-sm text-[#333333] transition-colors hover:bg-[#e5e5e5] disabled:opacity-50"
                             >
                                 放弃修改
                             </button>
                             <button
                                 onClick={handleSaveAndNew}
                                 disabled={isSaving}
-                                className="flex items-center gap-2 rounded-md bg-[#171918] px-4 py-2 text-sm text-white transition-colors hover:bg-[#2457d6] disabled:opacity-50"
+                                className="flex items-center gap-2 rounded-md bg-[#111111] px-4 py-2 text-sm text-white transition-colors hover:bg-[#111111] disabled:opacity-50"
                             >
                                 {isSaving ? (
                                     <>

@@ -50,8 +50,8 @@ export const drawArrow = (
     const headAngle = Math.PI / 6;
     const angle = Math.atan2(toY - fromY, toX - fromX);
 
-    ctx.strokeStyle = '#ff0000';
-    ctx.fillStyle = '#ff0000';
+    ctx.strokeStyle = '#111111';
+    ctx.fillStyle = '#111111';
     ctx.lineWidth = 3;
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
@@ -160,8 +160,8 @@ export const useImageEditorArrows = ({
         const headAngle = Math.PI / 6;
         const angle = Math.atan2(arrowEnd.y - arrowStart.y, arrowEnd.x - arrowStart.x);
 
-        ctx.strokeStyle = '#ff0000';
-        ctx.fillStyle = '#ff0000';
+        ctx.strokeStyle = '#111111';
+        ctx.fillStyle = '#111111';
         ctx.lineWidth = 3;
         ctx.lineCap = 'round';
         ctx.lineJoin = 'round';
@@ -232,7 +232,7 @@ export const useImageEditorArrows = ({
             startY: arrowStart.y,
             endX: arrowEnd.x,
             endY: arrowEnd.y,
-            color: '#ff0000',
+            color: '#111111',
             lineWidth: 3
         };
         setElements(prev => [...prev, newElement]);

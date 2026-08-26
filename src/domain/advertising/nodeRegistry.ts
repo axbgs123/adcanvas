@@ -18,7 +18,7 @@ export const advertisingNodeDefinitions: AdvertisingNodeDefinition[] = [
     shortLabel: 'Brief',
     description: '统一广告目标、受众、核心信息和交付约束',
     purpose: '项目源头',
-    accent: '#f59e0b',
+    accent: '#111111',
     defaultFields: {
       objective: '',
       audience: '',
@@ -32,7 +32,7 @@ export const advertisingNodeDefinitions: AdvertisingNodeDefinition[] = [
     shortLabel: 'Brand',
     description: '集中管理品牌语调、视觉规范和硬性限制',
     purpose: '全局约束',
-    accent: '#ef4444',
+    accent: '#555555',
     defaultFields: {
       tone: '',
       brandColors: '',
@@ -49,7 +49,7 @@ export const advertisingNodeDefinitions: AdvertisingNodeDefinition[] = [
     shortLabel: 'Concept',
     description: '表达一条独立的广告概念和视觉隐喻',
     purpose: '方案发散',
-    accent: '#8b5cf6',
+    accent: '#777777',
     defaultFields: {
       concept: '',
       audienceInsight: '',
@@ -63,7 +63,7 @@ export const advertisingNodeDefinitions: AdvertisingNodeDefinition[] = [
     shortLabel: 'Moodboard',
     description: '定义色彩、材质、灯光、构图和参考方向',
     purpose: '视觉语言',
-    accent: '#ec4899',
+    accent: '#999999',
     defaultFields: {
       palette: '',
       materials: '',
@@ -77,7 +77,7 @@ export const advertisingNodeDefinitions: AdvertisingNodeDefinition[] = [
     shortLabel: 'Script',
     description: '组织时间、画面、旁白、声音和品牌落点',
     purpose: '叙事结构',
-    accent: '#3b82f6',
+    accent: '#333333',
     defaultFields: {
       duration: '15s',
       opening: '',
@@ -91,7 +91,7 @@ export const advertisingNodeDefinitions: AdvertisingNodeDefinition[] = [
     shortLabel: 'Storyboard',
     description: '把脚本拆成可执行的镜头序列',
     purpose: '制作规划',
-    accent: '#06b6d4',
+    accent: '#666666',
     defaultFields: {
       shotCount: '4–6',
       aspectRatio: '16:9',
@@ -105,7 +105,7 @@ export const advertisingNodeDefinitions: AdvertisingNodeDefinition[] = [
     shortLabel: 'Shot',
     description: '管理单个镜头目标、构图、动作和采用素材',
     purpose: '素材生产',
-    accent: '#10b981',
+    accent: '#888888',
     defaultFields: {
       shotNumber: '',
       duration: '',
@@ -119,7 +119,7 @@ export const advertisingNodeDefinitions: AdvertisingNodeDefinition[] = [
     shortLabel: 'Edit',
     description: '先确认镜头顺序、节奏、声音和品牌落版',
     purpose: '草片计划',
-    accent: '#6366f1',
+    accent: '#444444',
     defaultFields: {
       targetDuration: '15s',
       pacing: '',
@@ -133,7 +133,7 @@ export const advertisingNodeDefinitions: AdvertisingNodeDefinition[] = [
     shortLabel: 'Delivery',
     description: '汇总采用素材、规格和后期说明',
     purpose: '项目交接',
-    accent: '#14b8a6',
+    accent: '#aaaaaa',
     defaultFields: {
       formats: '16:9, 9:16',
       adoptedAssets: '',

@@ -198,7 +198,7 @@ export const SelectionBoundingBox: React.FC<SelectionBoundingBoxProps> = ({
                 top: minY,
                 width,
                 height,
-                border: isGrouped ? '2px solid #6366f1' : '2px dashed #6366f1',
+                border: isGrouped ? '2px solid #555555' : '2px dashed #555555',
                 borderRadius: '12px',
                 backgroundColor: isGrouped ? 'rgba(55, 55, 55, 0.5)' : 'transparent',
                 zIndex: 5

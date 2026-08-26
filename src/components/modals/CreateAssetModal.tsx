@@ -146,7 +146,7 @@ export const CreateAssetModal: React.FC<CreateAssetModalProps> = ({
                         className={`flex items-center gap-2 px-6 py-2 rounded-lg font-medium transition-all duration-200 ${status === 'success' ? 'bg-green-600 text-white' :
                                 status === 'error' ? 'bg-red-600 text-white' :
                                     status === 'saving' ? 'bg-neutral-700 text-neutral-300' :
-                                        'bg-[#2a9d8f] hover:bg-[#21867a] text-white'
+                                        'bg-[#777777] hover:bg-[#666666] text-white'
                             }`}
                     >
                         {status === 'saving' && <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />}

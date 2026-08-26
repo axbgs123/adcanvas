@@ -1,15 +1,15 @@
 :root {
   color-scheme: light;
-  --studio-bg: #f2f4ef;
+  --studio-bg: #f4f4f4;
   --studio-paper: #ffffff;
-  --studio-ink: #171918;
-  --studio-muted: #667085;
-  --studio-faint: #98a2b3;
-  --studio-rule: #dce1e7;
-  --studio-blue: #2457d6;
-  --studio-orange: #c8a33a;
-  --studio-mint: #cdefd9;
-  --studio-shadow: 0 18px 50px rgba(31, 42, 68, 0.1);
+  --studio-ink: #111111;
+  --studio-muted: rgba(17, 17, 17, 0.62);
+  --studio-faint: rgba(17, 17, 17, 0.4);
+  --studio-rule: rgba(17, 17, 17, 0.16);
+  --studio-blue: #111111;
+  --studio-orange: #777777;
+  --studio-mint: #e8e8e8;
+  --studio-shadow: 0 18px 50px rgba(17, 17, 17, 0.1);
   font-family: "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
   background: var(--studio-bg);
   color: var(--studio-ink);
@@ -17,12 +17,13 @@
 
 * {
   box-sizing: border-box;
+  border-color: #e5e5e5;
 }
 
 body {
   margin: 0;
   background: var(--studio-bg);
-  background-image: radial-gradient(rgba(23, 25, 24, 0.035) 0.65px, transparent 0.65px);
+  background-image: radial-gradient(rgba(17, 17, 17, 0.035) 0.65px, transparent 0.65px);
   background-size: 4px 4px;
   color: var(--studio-ink);
 }
@@ -34,11 +35,15 @@ select {
   font: inherit;
 }
 
+svg {
+  filter: grayscale(1);
+}
+
 button:focus-visible,
 input:focus-visible,
 textarea:focus-visible,
 select:focus-visible {
-  outline: 3px solid rgba(36, 87, 214, 0.22);
+  outline: 3px solid rgba(17, 17, 17, 0.2);
   outline-offset: 2px;
 }
 
@@ -52,7 +57,69 @@ select:focus-visible {
 }
 
 .studio-proof-strip {
-  background: linear-gradient(90deg, #171918 0 64%, #c8a33a 64% 74%, #171918 74% 100%);
+  background: linear-gradient(90deg, #111111 0 64%, #777777 64% 74%, #111111 74% 100%);
+}
+
+/* Keep legacy generation tools monochrome without altering generated media. */
+:is(
+  [class*="text-blue-"], [class*="text-cyan-"], [class*="text-purple-"],
+  [class*="text-violet-"], [class*="text-indigo-"], [class*="text-amber-"],
+  [class*="text-orange-"], [class*="text-yellow-"], [class*="text-green-"],
+  [class*="text-emerald-"], [class*="text-teal-"], [class*="text-red-"],
+  [class*="text-rose-"], [class*="text-fuchsia-"]
+) {
+  color: #111111 !important;
+}
+
+:is(
+  [class*="bg-blue-"], [class*="bg-cyan-"], [class*="bg-purple-"],
+  [class*="bg-violet-"], [class*="bg-indigo-"], [class*="bg-amber-"],
+  [class*="bg-orange-"], [class*="bg-yellow-"], [class*="bg-green-"],
+  [class*="bg-emerald-"], [class*="bg-teal-"], [class*="bg-red-"],
+  [class*="bg-rose-"], [class*="bg-fuchsia-"]
+) {
+  background-color: #e8e8e8 !important;
+}
+
+:is(
+  [class*="bg-blue-"], [class*="bg-cyan-"], [class*="bg-purple-"],
+  [class*="bg-violet-"], [class*="bg-indigo-"], [class*="bg-amber-"],
+  [class*="bg-orange-"], [class*="bg-green-"], [class*="bg-emerald-"],
+  [class*="bg-red-"]
+)[class*="text-white"] {
+  background-color: #111111 !important;
+  color: #ffffff !important;
+}
+
+:is(
+  [class*="border-blue-"], [class*="border-cyan-"], [class*="border-purple-"],
+  [class*="border-violet-"], [class*="border-indigo-"], [class*="border-amber-"],
+  [class*="border-orange-"], [class*="border-yellow-"], [class*="border-green-"],
+  [class*="border-emerald-"], [class*="border-teal-"], [class*="border-red-"],
+  [class*="border-rose-"], [class*="border-fuchsia-"]
+) {
+  border-color: #777777 !important;
+}
+
+:is(
+  [class*="from-blue-"], [class*="from-cyan-"], [class*="from-purple-"],
+  [class*="from-violet-"], [class*="from-indigo-"], [class*="from-amber-"],
+  [class*="from-orange-"], [class*="from-yellow-"], [class*="from-green-"],
+  [class*="from-emerald-"], [class*="from-teal-"], [class*="from-red-"],
+  [class*="from-rose-"], [class*="from-fuchsia-"]
+) {
+  --tw-gradient-from: #111111 !important;
+  --tw-gradient-to: rgba(17, 17, 17, 0) !important;
+}
+
+:is(
+  [class*="to-blue-"], [class*="to-cyan-"], [class*="to-purple-"],
+  [class*="to-violet-"], [class*="to-indigo-"], [class*="to-amber-"],
+  [class*="to-orange-"], [class*="to-yellow-"], [class*="to-green-"],
+  [class*="to-emerald-"], [class*="to-teal-"], [class*="to-red-"],
+  [class*="to-rose-"], [class*="to-fuchsia-"]
+) {
+  --tw-gradient-to: #777777 !important;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -58,7 +58,7 @@ export const useImageEditorText = ({
     const [isTextMode, setIsTextMode] = useState(false);
     const [editingTextId, setEditingTextId] = useState<string | null>(null);
     const [textFontSize, setTextFontSize] = useState(DEFAULT_FONT_SIZE);
-    const [textColor, setTextColor] = useState('#ff0000');
+    const [textColor, setTextColor] = useState('#111111');
     const [showTextSettings, setShowTextSettings] = useState(false);
 
     // --- Handlers ---

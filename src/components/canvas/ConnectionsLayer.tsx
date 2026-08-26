@@ -208,8 +208,8 @@ export const ConnectionsLayer: React.FC<ConnectionsLayerProps> = ({
                     <path
                         d={path}
                         stroke={isSelected
-                            ? (canvasTheme === 'dark' ? '#fff' : '#2563eb')
-                            : (canvasTheme === 'dark' ? '#444' : '#d1d5db')}
+                            ? (canvasTheme === 'dark' ? '#fff' : '#333333')
+                            : (canvasTheme === 'dark' ? '#444' : '#d1d1d1')}
                         strokeWidth="2"
                         fill="none"
                         className={`transition-colors ${!isSelected ? (canvasTheme === 'dark' ? 'group-hover:stroke-neutral-300' : 'group-hover:stroke-neutral-500') : ''}`}
@@ -240,7 +240,7 @@ export const ConnectionsLayer: React.FC<ConnectionsLayerProps> = ({
             tempLine = (
                 <path
                     d={path}
-                    stroke={canvasTheme === 'dark' ? '#fff' : '#2563eb'}
+                    stroke={canvasTheme === 'dark' ? '#fff' : '#333333'}
                     strokeWidth="2"
                     strokeDasharray="5,5"
                     fill="none"

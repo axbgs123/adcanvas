@@ -862,7 +862,7 @@ export const CanvasNode: React.FC<CanvasNodeProps> = ({
 
         {/* Main Node Card - Video nodes are wider to fit more controls */}
         <div
-          className={`relative ${data.type === NodeType.VIDEO ? 'w-[385px]' : 'w-[365px]'} rounded-xl border transition-all duration-300 flex flex-col ${isDark ? 'bg-[#0f0f0f] shadow-2xl' : 'bg-white shadow-[0_14px_35px_rgba(31,42,68,0.1)]'} ${selected ? 'border-[#2457d6] ring-2 ring-[#2457d6]/15' : isDark ? 'border-neutral-800' : 'border-[#dce1e7]'}`}
+          className={`relative ${data.type === NodeType.VIDEO ? 'w-[385px]' : 'w-[365px]'} rounded-xl border transition-all duration-300 flex flex-col ${isDark ? 'bg-[#0f0f0f] shadow-2xl' : 'bg-white shadow-[0_14px_35px_rgba(17,17,17,0.1)]'} ${selected ? 'border-[#111111] ring-2 ring-[#111111]/15' : isDark ? 'border-neutral-800' : 'border-[#d9d9d9]'}`}
         >
           {/* Header (Editable Title) - Positioned horizontally on top-left side */}
           {isEditingTitle ? (
@@ -882,12 +882,12 @@ export const CanvasNode: React.FC<CanvasNodeProps> = ({
               }}
               onClick={(e) => e.stopPropagation()}
               onPointerDown={(e) => e.stopPropagation()}
-              className={`absolute top-2 whitespace-nowrap rounded-md border px-2 py-0.5 text-sm font-medium outline-none ${isDark ? 'border-blue-400 bg-blue-500/20 text-blue-200' : 'border-[#9bb4ed] bg-[#eef3ff] text-[#2457d6]'}`}
+              className={`absolute top-2 whitespace-nowrap rounded-md border px-2 py-0.5 text-sm font-medium outline-none ${isDark ? 'border-blue-400 bg-blue-500/20 text-blue-200' : 'border-[#c7c7c7] bg-[#f1f1f1] text-[#111111]'}`}
               style={{ right: 'calc(100% + 8px)', minWidth: '60px' }}
             />
           ) : (
             <div
-              className={`absolute top-2 whitespace-nowrap rounded-md px-2 py-0.5 text-sm font-medium transition-colors cursor-text ${selected ? (isDark ? 'bg-blue-500/20 text-blue-200' : 'bg-[#eef3ff] text-[#2457d6]') : (isDark ? 'text-neutral-600' : 'text-[#667085]')}`}
+              className={`absolute top-2 whitespace-nowrap rounded-md px-2 py-0.5 text-sm font-medium transition-colors cursor-text ${selected ? (isDark ? 'bg-blue-500/20 text-blue-200' : 'bg-[#f1f1f1] text-[#111111]') : (isDark ? 'text-neutral-600' : 'text-[#666666]')}`}
               style={{ right: 'calc(100% + 8px)' }}
               onDoubleClick={(e) => {
                 e.stopPropagation();

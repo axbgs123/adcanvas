@@ -104,4 +104,4 @@ export const IMAGE_MODELS: ImageModel[] = [
 /**
  * Preset brush colors
  */
-export const PRESET_COLORS = ['#ff0000', '#3b82f6', '#22c55e', '#eab308', '#ec4899', '#8b5cf6'];
+export const PRESET_COLORS = ['#111111', '#555555', '#777777', '#777777', '#777777', '#777777'];

@@ -1183,7 +1183,7 @@ export default function App({
 
 
   return (
-    <div className={`w-screen h-screen ${canvasTheme === 'dark' ? 'bg-[#050505] text-white' : 'bg-[#f2f4ef] text-[#171918]'} overflow-hidden select-none font-sans transition-colors duration-300`}>
+    <div className={`w-screen h-screen ${canvasTheme === 'dark' ? 'bg-[#050505] text-white' : 'bg-[#f3f3f3] text-[#111111]'} overflow-hidden select-none font-sans transition-colors duration-300`}>
       {!storyboardGenerator.isModalOpen && !isTikTokModalOpen && (
         <Toolbar
           onAddClick={handleToolbarAdd}
@@ -1375,7 +1375,7 @@ export default function App({
             style={{
               backgroundImage: canvasTheme === 'dark'
                 ? 'radial-gradient(#666 1px, transparent 1px)'
-                : 'radial-gradient(#c8d0da 1px, transparent 1px)',
+                : 'radial-gradient(#c8c8c8 1px, transparent 1px)',
               backgroundSize: '20px 20px',
               opacity: canvasTheme === 'dark' ? 0.5 : 0.58
             }}
@@ -1560,8 +1560,8 @@ export default function App({
             top: Math.min(selectionBox.startY, selectionBox.endY),
             width: Math.abs(selectionBox.endX - selectionBox.startX),
             height: Math.abs(selectionBox.endY - selectionBox.startY),
-            border: '2px solid #3b82f6',
-            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+            border: '2px solid #555555',
+            backgroundColor: 'rgba(17, 17, 17, 0.1)',
             zIndex: 1000
           }}
         />

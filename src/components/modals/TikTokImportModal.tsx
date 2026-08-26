@@ -139,7 +139,7 @@ export const TikTokImportModal: React.FC<TikTokImportModalProps> = ({
                 {/* Header */}
                 <div className="flex items-center justify-between p-4 border-b border-neutral-800">
                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#ff0050] via-[#00f2ea] to-[#ff0050] flex items-center justify-center">
+                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#111111] via-[#777777] to-[#111111] flex items-center justify-center">
                             <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
                             </svg>
@@ -174,7 +174,7 @@ export const TikTokImportModal: React.FC<TikTokImportModalProps> = ({
                                 onKeyDown={handleKeyDown}
                                 placeholder="Paste TikTok video URL here (Ctrl+V)"
                                 disabled={status === 'loading' || status === 'success'}
-                                className="w-full bg-[#1a1a1a] border border-neutral-700 rounded-lg pl-10 pr-4 py-3 text-white placeholder-neutral-500 focus:outline-none focus:border-[#00f2ea] transition-colors disabled:opacity-50"
+                                className="w-full bg-[#1a1a1a] border border-neutral-700 rounded-lg pl-10 pr-4 py-3 text-white placeholder-neutral-500 focus:outline-none focus:border-[#777777] transition-colors disabled:opacity-50"
                             />
                         </div>
                         <p className="text-xs text-neutral-500">
@@ -204,7 +204,7 @@ export const TikTokImportModal: React.FC<TikTokImportModalProps> = ({
                     {/* Loading State */}
                     {status === 'loading' && (
                         <div className="mt-6 flex flex-col items-center gap-3 py-4">
-                            <Loader2 size={32} className="text-[#00f2ea] animate-spin" />
+                            <Loader2 size={32} className="text-[#777777] animate-spin" />
                             <p className="text-neutral-400 text-sm">Downloading video...</p>
                             <p className="text-neutral-500 text-xs">This may take a moment</p>
                         </div>
@@ -253,7 +253,7 @@ export const TikTokImportModal: React.FC<TikTokImportModalProps> = ({
                     {status === 'success' ? (
                         <button
                             onClick={handleAddToCanvas}
-                            className="flex items-center gap-2 px-6 py-2 bg-[#00f2ea] hover:bg-[#00d4d4] text-black font-medium rounded-lg transition-colors"
+                            className="flex items-center gap-2 px-6 py-2 bg-[#777777] hover:bg-[#777777] text-black font-medium rounded-lg transition-colors"
                         >
                             <CheckCircle size={18} />
                             Add to Canvas
@@ -262,7 +262,7 @@ export const TikTokImportModal: React.FC<TikTokImportModalProps> = ({
                         <button
                             onClick={handleImport}
                             disabled={status === 'loading' || !url.trim()}
-                            className="flex items-center gap-2 px-6 py-2 bg-gradient-to-r from-[#ff0050] to-[#00f2ea] hover:opacity-90 text-white font-medium rounded-lg transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="flex items-center gap-2 px-6 py-2 bg-gradient-to-r from-[#111111] to-[#777777] hover:opacity-90 text-white font-medium rounded-lg transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             {status === 'loading' ? (
                                 <>

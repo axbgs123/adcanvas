@@ -56,7 +56,7 @@ export const useImageEditorDrawing = ({
     const [drawingTool, setDrawingTool] = useState<DrawingTool>('brush');
     const [brushWidth, setBrushWidth] = useState(4);
     const [eraserWidth, setEraserWidth] = useState(10);
-    const [brushColor, setBrushColor] = useState('#ff0000');
+    const [brushColor, setBrushColor] = useState('#111111');
     const [showToolSettings, setShowToolSettings] = useState(false);
 
     // --- Refs ---
