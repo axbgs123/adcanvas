@@ -109,15 +109,16 @@ export const GenerationConfirmationDialog: React.FC<GenerationConfirmationDialog
   };
 
   return (
-    <div className="fixed inset-0 z-[300] flex items-center justify-center bg-black/75 p-5 backdrop-blur-sm">
-      <div className="w-full max-w-lg rounded-3xl border border-white/10 bg-[#15171c] p-6 text-white shadow-2xl">
+    <div className="fixed inset-0 z-[300] flex items-center justify-center bg-[#172033]/25 p-5 backdrop-blur-sm">
+      <div className="w-full max-w-lg overflow-hidden rounded-2xl border border-[#dce1e7] bg-white p-6 text-[#172033] shadow-[0_28px_80px_rgba(23,32,51,0.2)]">
+        <div className="studio-proof-strip -mx-6 -mt-6 mb-6 h-1.5" />
         <div className="flex items-start justify-between gap-4">
           <div>
-            <div className="text-xs font-semibold uppercase tracking-[0.2em] text-amber-300">Generation plan</div>
-            <h2 className="mt-2 text-2xl font-semibold">确认AI任务</h2>
-            <p className="mt-2 text-sm text-neutral-500">{node.title || node.type} · {kindLabels[kind]}</p>
+            <div className="studio-utility text-[10px] font-semibold uppercase tracking-[0.18em] text-[#2457d6]">Generation plan</div>
+            <h2 className="studio-display mt-2 text-2xl font-semibold">确认AI任务</h2>
+            <p className="mt-2 text-sm text-[#667085]">{node.title || node.type} · {kindLabels[kind]}</p>
           </div>
-          <button onClick={onClose} className="rounded-full p-2 text-neutral-500 hover:bg-white/5 hover:text-white">
+          <button onClick={onClose} className="rounded-md p-2 text-[#667085] hover:bg-[#f2f4f7] hover:text-[#172033]">
             <X size={18} />
           </button>
         </div>
@@ -127,48 +128,48 @@ export const GenerationConfirmationDialog: React.FC<GenerationConfirmationDialog
             <button
               key={option.value}
               onClick={() => setQualityPreset(option.value)}
-              className={`rounded-xl border p-3 text-left transition ${qualityPreset === option.value ? 'border-amber-300/50 bg-amber-300/10' : 'border-white/10 bg-black/15 hover:bg-white/5'}`}
+              className={`rounded-lg border p-3 text-left transition ${qualityPreset === option.value ? 'border-[#ff9a78] bg-[#fff2ed]' : 'border-[#dce1e7] bg-[#fafbfc] hover:bg-white'}`}
             >
               <div className="flex items-center justify-between text-sm font-medium">
                 {option.label}
-                {qualityPreset === option.value && <Check size={14} className="text-amber-300" />}
+                {qualityPreset === option.value && <Check size={14} className="text-[#ff6b3d]" />}
               </div>
-              <div className="mt-1 text-[10px] leading-4 text-neutral-500">{option.description}</div>
+              <div className="mt-1 text-[10px] leading-4 text-[#667085]">{option.description}</div>
             </button>
           ))}
         </div>
 
-        <div className="mt-5 rounded-2xl border border-white/10 bg-black/20 p-4">
+        <div className="mt-5 rounded-xl border border-[#dce1e7] bg-[#fafbfc] p-4">
           <div className="mb-4 grid grid-cols-2 gap-2">
             <button
               onClick={() => recommendation?.available && setExecutionMode('provider')}
               disabled={!recommendation?.available}
-              className={`rounded-xl border p-3 text-left text-xs transition ${executionMode === 'provider' ? 'border-emerald-300/40 bg-emerald-300/10' : 'border-white/10'} disabled:cursor-not-allowed disabled:opacity-35`}
+              className={`rounded-lg border p-3 text-left text-xs transition ${executionMode === 'provider' ? 'border-[#9bd5b0] bg-[#e8f8ed]' : 'border-[#dce1e7] bg-white'} disabled:cursor-not-allowed disabled:opacity-35`}
             >
-              <span className="block font-medium text-neutral-200">真实模型</span>
-              <span className="mt-1 block text-[10px] text-neutral-500">
+              <span className="block font-medium text-[#344054]">真实模型</span>
+              <span className="mt-1 block text-[10px] text-[#667085]">
                 {recommendation?.available ? '调用已配置Provider' : '当前没有可用密钥'}
               </span>
             </button>
             <button
               onClick={() => setExecutionMode('simulation')}
-              className={`rounded-xl border p-3 text-left text-xs transition ${executionMode === 'simulation' ? 'border-cyan-300/40 bg-cyan-300/10' : 'border-white/10'}`}
+              className={`rounded-lg border p-3 text-left text-xs transition ${executionMode === 'simulation' ? 'border-[#bfd0f7] bg-[#eef3ff]' : 'border-[#dce1e7] bg-white'}`}
             >
-              <span className="block font-medium text-neutral-200">模拟执行</span>
-              <span className="mt-1 block text-[10px] text-neutral-500">验证状态与费用流程</span>
+              <span className="block font-medium text-[#344054]">模拟执行</span>
+              <span className="mt-1 block text-[10px] text-[#667085]">验证状态与费用流程</span>
             </button>
           </div>
           <div className="flex items-center justify-between text-sm">
-            <span className="text-neutral-400">推荐模型</span>
+            <span className="text-[#667085]">推荐模型</span>
             <span>{recommendation?.model || '未配置'}</span>
           </div>
           <div className="mt-3 flex items-center justify-between text-sm">
-            <span className="text-neutral-400">预计费用</span>
-            <span className="text-lg font-semibold text-amber-200">
+            <span className="text-[#667085]">预计费用</span>
+            <span className="studio-utility text-lg font-semibold text-[#ff6b3d]">
               {estimate ? `¥${estimate.estimatedCost.toFixed(2)}` : '计算中…'}
             </span>
           </div>
-          <div className={`mt-3 flex gap-2 rounded-lg p-2 text-xs leading-5 ${executionMode === 'simulation' ? 'bg-cyan-400/10 text-cyan-200' : 'bg-emerald-400/10 text-emerald-200'}`}>
+          <div className={`mt-3 flex gap-2 rounded-lg border p-2 text-xs leading-5 ${executionMode === 'simulation' ? 'border-[#bfd0f7] bg-[#eef3ff] text-[#274b9f]' : 'border-[#9bd5b0] bg-[#e8f8ed] text-[#176b43]'}`}>
             <AlertTriangle className="mt-0.5 shrink-0" size={14} />
             {executionMode === 'simulation'
               ? '当前任务使用明确标注的模拟执行器，不会调用付费模型。'
@@ -176,26 +177,26 @@ export const GenerationConfirmationDialog: React.FC<GenerationConfirmationDialog
           </div>
         </div>
 
-        <label className="mt-5 flex cursor-pointer items-start gap-3 rounded-xl border border-white/10 p-3 text-sm text-neutral-300">
+        <label className="mt-5 flex cursor-pointer items-start gap-3 rounded-lg border border-[#dce1e7] bg-[#fafbfc] p-3 text-sm text-[#475467]">
           <input
             type="checkbox"
             checked={confirmed}
             onChange={(event) => setConfirmed(event.target.checked)}
-            className="mt-0.5 h-4 w-4 accent-amber-300"
+            className="mt-0.5 h-4 w-4 accent-[#2457d6]"
           />
           <span>我已确认任务类型、生成档位和预计费用。</span>
         </label>
 
         {error && (
-          <div className="mt-4 rounded-xl border border-red-400/20 bg-red-400/10 p-3 text-sm text-red-200">{error}</div>
+          <div className="mt-4 rounded-lg border border-[#f3a7a7] bg-[#fff1f1] p-3 text-sm text-[#a52626]">{error}</div>
         )}
 
         <div className="mt-6 flex justify-end gap-3">
-          <button onClick={onClose} className="rounded-full px-5 py-2.5 text-sm text-neutral-400 hover:bg-white/5">取消</button>
+          <button onClick={onClose} className="rounded-md px-5 py-2.5 text-sm text-[#667085] hover:bg-[#f2f4f7]">取消</button>
           <button
             onClick={submit}
             disabled={!confirmed || !estimate || isSubmitting}
-            className="flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-black disabled:cursor-not-allowed disabled:opacity-30"
+            className="flex items-center gap-2 rounded-md bg-[#172033] px-5 py-2.5 text-sm font-semibold text-white shadow-[3px_3px_0_#ff6b3d] disabled:cursor-not-allowed disabled:opacity-30"
           >
             {isSubmitting ? <Loader2 size={16} className="animate-spin" /> : <Sparkles size={16} />}
             创建任务

@@ -862,7 +862,7 @@ export const CanvasNode: React.FC<CanvasNodeProps> = ({
 
         {/* Main Node Card - Video nodes are wider to fit more controls */}
         <div
-          className={`relative ${data.type === NodeType.VIDEO ? 'w-[385px]' : 'w-[365px]'} rounded-2xl border transition-all duration-300 flex flex-col shadow-2xl ${isDark ? 'bg-[#0f0f0f]' : 'bg-white'} ${selected ? 'border-blue-500/50 ring-1 ring-blue-500/30' : isDark ? 'border-neutral-800' : 'border-neutral-200'}`}
+          className={`relative ${data.type === NodeType.VIDEO ? 'w-[385px]' : 'w-[365px]'} rounded-xl border transition-all duration-300 flex flex-col ${isDark ? 'bg-[#0f0f0f] shadow-2xl' : 'bg-white shadow-[0_14px_35px_rgba(31,42,68,0.1)]'} ${selected ? 'border-[#2457d6] ring-2 ring-[#2457d6]/15' : isDark ? 'border-neutral-800' : 'border-[#dce1e7]'}`}
         >
           {/* Header (Editable Title) - Positioned horizontally on top-left side */}
           {isEditingTitle ? (
@@ -882,12 +882,12 @@ export const CanvasNode: React.FC<CanvasNodeProps> = ({
               }}
               onClick={(e) => e.stopPropagation()}
               onPointerDown={(e) => e.stopPropagation()}
-              className="absolute top-2 text-sm px-2 py-0.5 rounded font-medium bg-blue-500/20 text-blue-200 outline-none border border-blue-400 whitespace-nowrap"
+              className={`absolute top-2 whitespace-nowrap rounded-md border px-2 py-0.5 text-sm font-medium outline-none ${isDark ? 'border-blue-400 bg-blue-500/20 text-blue-200' : 'border-[#9bb4ed] bg-[#eef3ff] text-[#2457d6]'}`}
               style={{ right: 'calc(100% + 8px)', minWidth: '60px' }}
             />
           ) : (
             <div
-              className={`absolute top-2 text-sm px-2 py-0.5 rounded font-medium transition-colors cursor-text whitespace-nowrap ${selected ? 'bg-blue-500/20 text-blue-200' : 'text-neutral-600'}`}
+              className={`absolute top-2 whitespace-nowrap rounded-md px-2 py-0.5 text-sm font-medium transition-colors cursor-text ${selected ? (isDark ? 'bg-blue-500/20 text-blue-200' : 'bg-[#eef3ff] text-[#2457d6]') : (isDark ? 'text-neutral-600' : 'text-[#667085]')}`}
               style={{ right: 'calc(100% + 8px)' }}
               onDoubleClick={(e) => {
                 e.stopPropagation();

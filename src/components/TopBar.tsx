@@ -29,7 +29,6 @@ interface TopBarProps {
     isChatOpen?: boolean;
     // Theme
     canvasTheme: 'dark' | 'light';
-    onToggleTheme: () => void;
 }
 
 export const TopBar: React.FC<TopBarProps> = ({
@@ -49,8 +48,7 @@ export const TopBar: React.FC<TopBarProps> = ({
     hasUnsavedChanges,
     lastAutoSaveTime,
     isChatOpen = false,
-    canvasTheme,
-    onToggleTheme
+    canvasTheme
 }) => {
     const [showNewConfirm, setShowNewConfirm] = useState(false);
     const [isSaving, setIsSaving] = useState(false);
@@ -110,21 +108,21 @@ export const TopBar: React.FC<TopBarProps> = ({
     return (
         <>
             <div
-                className="fixed top-0 left-0 h-14 flex items-center justify-between px-6 z-50 pointer-events-none transition-all duration-300"
-                style={{ width: isChatOpen ? 'calc(100% - 400px)' : '100%' }}
+                className="fixed left-0 top-0 z-50 flex h-16 items-center justify-between border-b border-[#dce1e7] bg-white/95 px-6 shadow-[0_4px_18px_rgba(31,42,68,0.06)] backdrop-blur pointer-events-none transition-all duration-300"
+                style={{ width: isChatOpen ? 'calc(100% - 420px)' : '100%' }}
             >
                 {/* Left: Logo & Title */}
                 <div className="flex items-center gap-3 pointer-events-auto">
                     {onBack && (
                         <button
                             onClick={onBack}
-                            className={`flex h-9 w-9 items-center justify-center rounded-full border transition ${canvasTheme === 'dark' ? 'border-neutral-800 text-neutral-400 hover:bg-neutral-800 hover:text-white' : 'border-neutral-200 text-neutral-500 hover:bg-neutral-100'}`}
+                            className="flex h-9 w-9 items-center justify-center rounded-md border border-[#dce1e7] text-[#667085] transition hover:border-[#2457d6] hover:text-[#2457d6]"
                             title="返回项目工作台"
                         >
                             <ArrowLeft size={17} />
                         </button>
                     )}
-                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-amber-300 via-orange-500 to-fuchsia-600 text-[10px] font-black text-black">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-md bg-[#2457d6] text-[10px] font-black text-white shadow-[3px_3px_0_#ff6b3d]">
                         AD
                     </div>
                     {isEditingTitle ? (
@@ -135,11 +133,11 @@ export const TopBar: React.FC<TopBarProps> = ({
                             onChange={(e) => setEditingTitleValue(e.target.value)}
                             onBlur={handleTitleBlur}
                             onKeyDown={handleTitleKeyDown}
-                            className="font-semibold text-neutral-300 bg-transparent border-b border-blue-500 outline-none min-w-[100px]"
+                            className="studio-display min-w-[100px] border-b border-[#2457d6] bg-transparent font-semibold text-[#172033] outline-none"
                         />
                     ) : (
                         <span
-                            className={`font-semibold cursor-pointer transition-colors ${canvasTheme === 'dark' ? 'text-neutral-300 hover:text-white' : 'text-neutral-900 hover:text-neutral-600'}`}
+                            className="studio-display cursor-pointer font-semibold text-[#172033] transition-colors hover:text-[#2457d6]"
                             onDoubleClick={handleTitleDoubleClick}
                             title="Double-click to rename"
                         >
@@ -153,10 +151,7 @@ export const TopBar: React.FC<TopBarProps> = ({
                     {onExport && (
                         <button
                             onClick={onExport}
-                            className={`text-sm px-4 py-2.5 rounded-full flex items-center gap-2 transition-colors font-medium border ${canvasTheme === 'dark'
-                                ? 'border-neutral-700 bg-neutral-900 text-neutral-300 hover:bg-neutral-800'
-                                : 'border-neutral-200 bg-white text-neutral-700 hover:bg-neutral-50'
-                                }`}
+                            className="flex items-center gap-2 rounded-md border border-[#dce1e7] bg-white px-3 py-2 text-xs font-medium text-[#475467] transition hover:border-[#2457d6] hover:text-[#2457d6]"
                         >
                             <PackageOpen size={16} /> 导出
                         </button>
@@ -164,10 +159,7 @@ export const TopBar: React.FC<TopBarProps> = ({
                     {onOpenBrandProfile && (
                         <button
                             onClick={onOpenBrandProfile}
-                            className={`text-sm px-4 py-2.5 rounded-full flex items-center gap-2 transition-colors font-medium border ${canvasTheme === 'dark'
-                                ? 'border-neutral-700 bg-neutral-900 text-neutral-300 hover:bg-neutral-800'
-                                : 'border-neutral-200 bg-white text-neutral-700 hover:bg-neutral-50'
-                                }`}
+                            className="flex items-center gap-2 rounded-md border border-[#dce1e7] bg-white px-3 py-2 text-xs font-medium text-[#475467] transition hover:border-[#2457d6] hover:text-[#2457d6]"
                         >
                             <ShieldCheck size={16} /> 品牌规范
                         </button>
@@ -175,10 +167,7 @@ export const TopBar: React.FC<TopBarProps> = ({
                     {onCreateAdvertisingDraft && (
                         <button
                             onClick={onCreateAdvertisingDraft}
-                            className={`text-sm px-4 py-2.5 rounded-full flex items-center gap-2 transition-colors font-medium border ${canvasTheme === 'dark'
-                                ? 'border-amber-300/30 bg-amber-300/10 text-amber-200 hover:bg-amber-300/20'
-                                : 'border-amber-300 bg-amber-50 text-amber-800 hover:bg-amber-100'
-                                }`}
+                            className="flex items-center gap-2 rounded-md border border-[#ffc2ae] bg-[#fff2ed] px-3 py-2 text-xs font-semibold text-[#a23d20] transition hover:bg-[#ffe5dc]"
                         >
                             <WandSparkles size={16} />
                             AI工作流草案
@@ -195,76 +184,56 @@ export const TopBar: React.FC<TopBarProps> = ({
                     )}
                     <button
                         onClick={() => onSave()}
-                        className={`text-sm px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors font-medium border ${canvasTheme === 'dark'
-                            ? 'bg-neutral-800 hover:bg-neutral-700 text-white border-neutral-600'
-                            : 'bg-neutral-100 hover:bg-neutral-200 text-neutral-900 border-neutral-300 shadow-sm'
-                            }`}
+                        className="flex items-center gap-2 rounded-md border border-[#172033] bg-[#172033] px-4 py-2 text-xs font-semibold text-white transition hover:bg-[#2457d6]"
                     >
                         <Save size={16} />
-                        Save
+                        保存
                     </button>
                     <button
                         onClick={handleNewClick}
-                        className={`text-sm px-4 py-2.5 rounded-full flex items-center gap-2 transition-colors font-medium border ${canvasTheme === 'dark'
-                            ? 'bg-neutral-800 hover:bg-neutral-700 text-white border-neutral-600'
-                            : 'bg-neutral-200 hover:bg-neutral-300 text-neutral-900 border-neutral-300'
-                            }`}
+                        className="flex items-center gap-2 rounded-md border border-[#dce1e7] bg-white px-3 py-2 text-xs font-medium text-[#475467] transition hover:border-[#2457d6] hover:text-[#2457d6]"
                     >
                         <Plus size={16} />
-                        New
-                    </button>
-                    <button
-                        onClick={onToggleTheme}
-                        className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors border ${canvasTheme === 'dark'
-                            ? 'bg-neutral-900 border-neutral-700 text-yellow-400 hover:bg-neutral-800'
-                            : 'bg-white border-neutral-200 text-orange-500 hover:bg-neutral-50 shadow-sm'
-                            }`}
-                        title={canvasTheme === 'dark' ? "Switch to Day Mode" : "Switch to Night Mode"}
-                    >
-                        {canvasTheme === 'dark' ? (
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5" /><line x1="12" y1="1" x2="12" y2="3" /><line x1="12" y1="21" x2="12" y2="23" /><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" /><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" /><line x1="1" y1="12" x2="3" y2="12" /><line x1="21" y1="12" x2="23" y2="12" /><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" /><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" /></svg>
-                        ) : (
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg>
-                        )}
+                        新建
                     </button>
                 </div>
             </div>
 
             {/* Unsaved Changes Confirmation Modal */}
             {showNewConfirm && (
-                <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-[100]">
-                    <div className="bg-[#1a1a1a] border border-neutral-700 rounded-2xl p-6 w-[400px] shadow-2xl">
-                        <h3 className="text-lg font-semibold text-white mb-2">Unsaved Changes</h3>
-                        <p className="text-neutral-400 text-sm mb-6">
-                            You have unsaved changes. Would you like to save before creating a new canvas?
+                <div className="fixed inset-0 bg-[#172033]/25 backdrop-blur-sm flex items-center justify-center z-[100]">
+                    <div className="w-[400px] rounded-2xl border border-[#dce1e7] bg-white p-6 text-[#172033] shadow-[0_28px_80px_rgba(23,32,51,0.2)]">
+                        <h3 className="studio-display mb-2 text-lg font-semibold">尚未保存</h3>
+                        <p className="mb-6 text-sm text-[#667085]">
+                            当前画布有未保存修改。新建画布前是否保存？
                         </p>
                         <div className="flex gap-3 justify-end">
                             <button
                                 onClick={() => setShowNewConfirm(false)}
                                 disabled={isSaving}
-                                className="px-4 py-2 rounded-lg bg-neutral-800 hover:bg-neutral-700 text-white text-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="rounded-md border border-[#dce1e7] px-4 py-2 text-sm text-[#667085] transition-colors hover:bg-[#f2f4f7] disabled:opacity-50"
                             >
-                                Cancel
+                                取消
                             </button>
                             <button
                                 onClick={handleDiscardAndNew}
                                 disabled={isSaving}
-                                className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-500 text-white text-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="rounded-md bg-[#fff1f1] px-4 py-2 text-sm text-[#a52626] transition-colors hover:bg-[#ffe2e2] disabled:opacity-50"
                             >
-                                Discard
+                                放弃修改
                             </button>
                             <button
                                 onClick={handleSaveAndNew}
                                 disabled={isSaving}
-                                className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-sm transition-colors flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="flex items-center gap-2 rounded-md bg-[#172033] px-4 py-2 text-sm text-white transition-colors hover:bg-[#2457d6] disabled:opacity-50"
                             >
                                 {isSaving ? (
                                     <>
                                         <Loader2 className="w-4 h-4 animate-spin" />
-                                        Saving...
+                                        正在保存…
                                     </>
                                 ) : (
-                                    'Save & New'
+                                    '保存并新建'
                                 )}
                             </button>
                         </div>

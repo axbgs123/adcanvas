@@ -1,0 +1,72 @@
+:root {
+  color-scheme: light;
+  --studio-bg: #f5f7f4;
+  --studio-paper: #ffffff;
+  --studio-ink: #172033;
+  --studio-muted: #667085;
+  --studio-faint: #98a2b3;
+  --studio-rule: #dce1e7;
+  --studio-blue: #2457d6;
+  --studio-orange: #ff6b3d;
+  --studio-mint: #cdefd9;
+  --studio-shadow: 0 18px 50px rgba(31, 42, 68, 0.1);
+  font-family: "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+  background: var(--studio-bg);
+  color: var(--studio-ink);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--studio-bg);
+  color: var(--studio-ink);
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 3px solid rgba(36, 87, 214, 0.22);
+  outline-offset: 2px;
+}
+
+.studio-display {
+  font-family: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+}
+
+.studio-utility {
+  font-family: "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
+}
+
+.studio-proof-strip {
+  background: linear-gradient(
+    90deg,
+    #ffb000 0 18%,
+    #ff6b3d 18% 36%,
+    #8a4fff 36% 54%,
+    #2457d6 54% 72%,
+    #00a67d 72% 88%,
+    #172033 88% 100%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

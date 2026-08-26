@@ -5,6 +5,8 @@
 
 AdCanvas is an AI advertising creative and production canvas for agency teams. The current Demo adds advertising briefs, brand constraints, creative routes, moodboards, scripts, storyboards, shots, edit plans, delivery packages, and a project workbench on top of the TwitCanva generation foundation.
 
+The interface uses a light “daylight proofing desk” direction: paper-white production sheets, editorial ink, cobalt annotations, signal-orange review marks, and a workflow proof strip instead of the original dark node-tool aesthetic.
+
 This repository is a modified derivative of [SankaiAI/TwitCanva-Video-Workflow](https://github.com/SankaiAI/TwitCanva-Video-Workflow). The original Apache-2.0 `LICENSE`, `NOTICE`, copyright notices, and modification history are retained. See `docs/plans/2026-08-25-ai-ad-platform-implementation-plan.md` for the implementation boundary and roadmap.
 
 ### Current Demo milestone

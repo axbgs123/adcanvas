@@ -133,7 +133,7 @@ export default function App({
     type: 'global'
   });
 
-  const [canvasTheme, setCanvasTheme] = useState<'dark' | 'light'>('dark');
+  const [canvasTheme, setCanvasTheme] = useState<'dark' | 'light'>('light');
 
   // Panel state management (history, chat, asset library, expand)
   const {
@@ -1183,7 +1183,7 @@ export default function App({
 
 
   return (
-    <div className={`w-screen h-screen ${canvasTheme === 'dark' ? 'bg-[#050505] text-white' : 'bg-neutral-50 text-neutral-900'} overflow-hidden select-none font-sans transition-colors duration-300`}>
+    <div className={`w-screen h-screen ${canvasTheme === 'dark' ? 'bg-[#050505] text-white' : 'bg-[#f5f7f4] text-[#172033]'} overflow-hidden select-none font-sans transition-colors duration-300`}>
       {!storyboardGenerator.isModalOpen && !isTikTokModalOpen && (
         <Toolbar
           onAddClick={handleToolbarAdd}
@@ -1247,6 +1247,7 @@ export default function App({
         projectId={projectId}
         refreshSignal={taskRefreshSignal}
         onTaskCompleted={handleGenerationTaskCompleted}
+        assistantOpen={isChatOpen}
       />
 
       <BrandProfilePanel
@@ -1343,7 +1344,6 @@ export default function App({
           hasUnsavedChanges={hasUnsavedChanges}
           isChatOpen={isChatOpen}
           canvasTheme={canvasTheme}
-          onToggleTheme={() => setCanvasTheme(prev => prev === 'dark' ? 'light' : 'dark')}
           lastAutoSaveTime={lastAutoSaveTime}
         />
       )}
@@ -1375,9 +1375,9 @@ export default function App({
             style={{
               backgroundImage: canvasTheme === 'dark'
                 ? 'radial-gradient(#666 1px, transparent 1px)'
-                : 'radial-gradient(#ccc 1px, transparent 1px)',
+                : 'radial-gradient(#c8d0da 1px, transparent 1px)',
               backgroundSize: '20px 20px',
-              opacity: canvasTheme === 'dark' ? 0.5 : 0.8
+              opacity: canvasTheme === 'dark' ? 0.5 : 0.58
             }}
           />
 

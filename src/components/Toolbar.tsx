@@ -84,10 +84,10 @@ export const Toolbar: React.FC<ToolbarProps> = ({
   const isDark = canvasTheme === 'dark';
 
   return (
-    <div className={`fixed left-4 top-1/2 -translate-y-1/2 flex flex-col items-center gap-2 p-1 rounded-full shadow-2xl z-50 transition-colors duration-300 ${isDark ? 'bg-[#1a1a1a] border border-neutral-800' : 'bg-white/90 backdrop-blur-sm border border-neutral-200'
+    <div className={`fixed left-4 top-1/2 -translate-y-1/2 flex flex-col items-center gap-2 p-1 rounded-xl shadow-[0_16px_40px_rgba(31,42,68,0.12)] z-50 transition-colors duration-300 ${isDark ? 'bg-[#1a1a1a] border border-neutral-800' : 'bg-white border border-[#dce1e7]'
       }`}>
       <button
-        className={`w-10 h-10 rounded-full flex items-center justify-center hover:scale-110 transition-all duration-200 mb-2 ${isDark ? 'bg-white text-black hover:bg-neutral-200' : 'bg-neutral-900 text-white hover:bg-neutral-700'
+        className={`w-10 h-10 rounded-lg flex items-center justify-center hover:-translate-y-0.5 transition-all duration-200 mb-2 ${isDark ? 'bg-white text-black hover:bg-neutral-200' : 'bg-[#2457d6] text-white hover:bg-[#1744b8] shadow-[3px_3px_0_#ff6b3d]'
           }`}
         onClick={onAddClick}
       >
@@ -177,9 +177,9 @@ export const Toolbar: React.FC<ToolbarProps> = ({
 
       <div className={`w-8 h-[1px] my-1 ${isDark ? 'bg-neutral-800' : 'bg-neutral-200'}`}></div>
 
-      <button className={`w-8 h-8 rounded-full overflow-hidden mb-2 hover:scale-110 transition-all duration-200 ${isDark ? 'border border-neutral-700' : 'border border-neutral-300'
+      <button className={`studio-utility mb-2 flex h-8 w-8 items-center justify-center rounded-md text-[8px] font-bold transition-all duration-200 hover:-translate-y-0.5 ${isDark ? 'border border-neutral-700 text-neutral-300' : 'border border-[#dce1e7] bg-[#f5f7f4] text-[#2457d6]'
         }`}>
-        <img src="https://picsum.photos/40/40" alt="Profile" className="w-full h-full object-cover" />
+        DEMO
       </button>
     </div>
   );
