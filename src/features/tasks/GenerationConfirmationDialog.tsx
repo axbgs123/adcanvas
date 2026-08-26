@@ -109,8 +109,8 @@ export const GenerationConfirmationDialog: React.FC<GenerationConfirmationDialog
   };
 
   return (
-    <div className="fixed inset-0 z-[300] flex items-center justify-center bg-[#172033]/25 p-5 backdrop-blur-sm">
-      <div className="w-full max-w-lg overflow-hidden rounded-2xl border border-[#dce1e7] bg-white p-6 text-[#172033] shadow-[0_28px_80px_rgba(23,32,51,0.2)]">
+    <div className="fixed inset-0 z-[300] flex items-center justify-center bg-[#171918]/25 p-5 backdrop-blur-sm">
+      <div className="w-full max-w-lg overflow-hidden rounded-2xl border border-[#dce1e7] bg-white p-6 text-[#171918] shadow-[0_28px_80px_rgba(23,32,51,0.2)]">
         <div className="studio-proof-strip -mx-6 -mt-6 mb-6 h-1.5" />
         <div className="flex items-start justify-between gap-4">
           <div>
@@ -118,7 +118,7 @@ export const GenerationConfirmationDialog: React.FC<GenerationConfirmationDialog
             <h2 className="studio-display mt-2 text-2xl font-semibold">确认AI任务</h2>
             <p className="mt-2 text-sm text-[#667085]">{node.title || node.type} · {kindLabels[kind]}</p>
           </div>
-          <button onClick={onClose} className="rounded-md p-2 text-[#667085] hover:bg-[#f2f4f7] hover:text-[#172033]">
+          <button onClick={onClose} className="rounded-md p-2 text-[#667085] hover:bg-[#f2f4f7] hover:text-[#171918]">
             <X size={18} />
           </button>
         </div>
@@ -128,11 +128,11 @@ export const GenerationConfirmationDialog: React.FC<GenerationConfirmationDialog
             <button
               key={option.value}
               onClick={() => setQualityPreset(option.value)}
-              className={`rounded-lg border p-3 text-left transition ${qualityPreset === option.value ? 'border-[#ff9a78] bg-[#fff2ed]' : 'border-[#dce1e7] bg-[#fafbfc] hover:bg-white'}`}
+              className={`rounded-lg border p-3 text-left transition ${qualityPreset === option.value ? 'border-[#c8a33a] bg-[#f8f3e6]' : 'border-[#dce1e7] bg-[#fafbfc] hover:bg-white'}`}
             >
               <div className="flex items-center justify-between text-sm font-medium">
                 {option.label}
-                {qualityPreset === option.value && <Check size={14} className="text-[#ff6b3d]" />}
+                {qualityPreset === option.value && <Check size={14} className="text-[#c8a33a]" />}
               </div>
               <div className="mt-1 text-[10px] leading-4 text-[#667085]">{option.description}</div>
             </button>
@@ -165,7 +165,7 @@ export const GenerationConfirmationDialog: React.FC<GenerationConfirmationDialog
           </div>
           <div className="mt-3 flex items-center justify-between text-sm">
             <span className="text-[#667085]">预计费用</span>
-            <span className="studio-utility text-lg font-semibold text-[#ff6b3d]">
+            <span className="studio-utility text-lg font-semibold text-[#c8a33a]">
               {estimate ? `¥${estimate.estimatedCost.toFixed(2)}` : '计算中…'}
             </span>
           </div>
@@ -196,7 +196,7 @@ export const GenerationConfirmationDialog: React.FC<GenerationConfirmationDialog
           <button
             onClick={submit}
             disabled={!confirmed || !estimate || isSubmitting}
-            className="flex items-center gap-2 rounded-md bg-[#172033] px-5 py-2.5 text-sm font-semibold text-white shadow-[3px_3px_0_#ff6b3d] disabled:cursor-not-allowed disabled:opacity-30"
+            className="flex items-center gap-2 rounded-md bg-[#171918] px-5 py-2.5 text-sm font-semibold text-white shadow-[3px_3px_0_#c8a33a] disabled:cursor-not-allowed disabled:opacity-30"
           >
             {isSubmitting ? <Loader2 size={16} className="animate-spin" /> : <Sparkles size={16} />}
             创建任务

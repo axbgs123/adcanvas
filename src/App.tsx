@@ -1183,7 +1183,7 @@ export default function App({
 
 
   return (
-    <div className={`w-screen h-screen ${canvasTheme === 'dark' ? 'bg-[#050505] text-white' : 'bg-[#f5f7f4] text-[#172033]'} overflow-hidden select-none font-sans transition-colors duration-300`}>
+    <div className={`w-screen h-screen ${canvasTheme === 'dark' ? 'bg-[#050505] text-white' : 'bg-[#f2f4ef] text-[#171918]'} overflow-hidden select-none font-sans transition-colors duration-300`}>
       {!storyboardGenerator.isModalOpen && !isTikTokModalOpen && (
         <Toolbar
           onAddClick={handleToolbarAdd}

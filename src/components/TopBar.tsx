@@ -122,7 +122,7 @@ export const TopBar: React.FC<TopBarProps> = ({
                             <ArrowLeft size={17} />
                         </button>
                     )}
-                    <div className="flex h-8 w-8 items-center justify-center rounded-md bg-[#2457d6] text-[10px] font-black text-white shadow-[3px_3px_0_#ff6b3d]">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-md bg-[#2457d6] text-[10px] font-black text-white shadow-[3px_3px_0_#c8a33a]">
                         AD
                     </div>
                     {isEditingTitle ? (
@@ -133,11 +133,11 @@ export const TopBar: React.FC<TopBarProps> = ({
                             onChange={(e) => setEditingTitleValue(e.target.value)}
                             onBlur={handleTitleBlur}
                             onKeyDown={handleTitleKeyDown}
-                            className="studio-display min-w-[100px] border-b border-[#2457d6] bg-transparent font-semibold text-[#172033] outline-none"
+                            className="studio-display min-w-[100px] border-b border-[#2457d6] bg-transparent font-semibold text-[#171918] outline-none"
                         />
                     ) : (
                         <span
-                            className="studio-display cursor-pointer font-semibold text-[#172033] transition-colors hover:text-[#2457d6]"
+                            className="studio-display cursor-pointer font-semibold text-[#171918] transition-colors hover:text-[#2457d6]"
                             onDoubleClick={handleTitleDoubleClick}
                             title="Double-click to rename"
                         >
@@ -167,7 +167,7 @@ export const TopBar: React.FC<TopBarProps> = ({
                     {onCreateAdvertisingDraft && (
                         <button
                             onClick={onCreateAdvertisingDraft}
-                            className="flex items-center gap-2 rounded-md border border-[#ffc2ae] bg-[#fff2ed] px-3 py-2 text-xs font-semibold text-[#a23d20] transition hover:bg-[#ffe5dc]"
+                            className="flex items-center gap-2 rounded-md border border-[#e2ce91] bg-[#f8f3e6] px-3 py-2 text-xs font-semibold text-[#6f5716] transition hover:bg-[#f3ead0]"
                         >
                             <WandSparkles size={16} />
                             AI工作流草案
@@ -184,7 +184,7 @@ export const TopBar: React.FC<TopBarProps> = ({
                     )}
                     <button
                         onClick={() => onSave()}
-                        className="flex items-center gap-2 rounded-md border border-[#172033] bg-[#172033] px-4 py-2 text-xs font-semibold text-white transition hover:bg-[#2457d6]"
+                        className="flex items-center gap-2 rounded-md border border-[#171918] bg-[#171918] px-4 py-2 text-xs font-semibold text-white transition hover:bg-[#2457d6]"
                     >
                         <Save size={16} />
                         保存
@@ -201,8 +201,8 @@ export const TopBar: React.FC<TopBarProps> = ({
 
             {/* Unsaved Changes Confirmation Modal */}
             {showNewConfirm && (
-                <div className="fixed inset-0 bg-[#172033]/25 backdrop-blur-sm flex items-center justify-center z-[100]">
-                    <div className="w-[400px] rounded-2xl border border-[#dce1e7] bg-white p-6 text-[#172033] shadow-[0_28px_80px_rgba(23,32,51,0.2)]">
+                <div className="fixed inset-0 bg-[#171918]/25 backdrop-blur-sm flex items-center justify-center z-[100]">
+                    <div className="w-[400px] rounded-2xl border border-[#dce1e7] bg-white p-6 text-[#171918] shadow-[0_28px_80px_rgba(23,32,51,0.2)]">
                         <h3 className="studio-display mb-2 text-lg font-semibold">尚未保存</h3>
                         <p className="mb-6 text-sm text-[#667085]">
                             当前画布有未保存修改。新建画布前是否保存？
@@ -225,7 +225,7 @@ export const TopBar: React.FC<TopBarProps> = ({
                             <button
                                 onClick={handleSaveAndNew}
                                 disabled={isSaving}
-                                className="flex items-center gap-2 rounded-md bg-[#172033] px-4 py-2 text-sm text-white transition-colors hover:bg-[#2457d6] disabled:opacity-50"
+                                className="flex items-center gap-2 rounded-md bg-[#171918] px-4 py-2 text-sm text-white transition-colors hover:bg-[#2457d6] disabled:opacity-50"
                             >
                                 {isSaving ? (
                                     <>

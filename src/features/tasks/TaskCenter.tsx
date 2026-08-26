@@ -71,7 +71,7 @@ export const TaskCenter: React.FC<TaskCenterProps> = ({ projectId, refreshSignal
   };
 
   return (
-    <aside className={`fixed top-20 z-[120] text-[#172033] transition-[right] ${assistantOpen ? 'right-4 sm:right-[436px]' : 'right-4'}`}>
+    <aside className={`fixed top-20 z-[120] text-[#171918] transition-[right] ${assistantOpen ? 'right-4 sm:right-[436px]' : 'right-4'}`}>
       <button
         onClick={() => setIsOpen((current) => !current)}
         className="ml-auto flex items-center gap-2 rounded-lg border border-[#dce1e7] bg-white px-4 py-2.5 text-sm shadow-[0_8px_24px_rgba(31,42,68,0.1)] hover:border-[#2457d6] hover:text-[#2457d6]"

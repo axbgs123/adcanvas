@@ -40,7 +40,7 @@ export const VersionPanel: React.FC<VersionPanelProps> = ({
               aria-label={`采用版本：${version.label}`}
               onClick={() => onAdoptVersion(node.id, version.id)}
               onPointerDown={(event) => event.stopPropagation()}
-              className={`flex w-full items-center justify-between rounded-md border px-3 py-2 text-left text-xs transition ${isActive ? 'border-[#9bd5b0] bg-[#e8f8ed]' : 'border-[#e5e9ee] hover:bg-[#f5f7f4]'}`}
+              className={`flex w-full items-center justify-between rounded-md border px-3 py-2 text-left text-xs transition ${isActive ? 'border-[#9bd5b0] bg-[#e8f8ed]' : 'border-[#e5e9ee] hover:bg-[#f2f4ef]'}`}
             >
               <span>
                 <span className="block text-[#344054]">{version.label}</span>

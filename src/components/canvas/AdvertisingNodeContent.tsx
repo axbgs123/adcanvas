@@ -122,7 +122,7 @@ export const AdvertisingNodeContent: React.FC<AdvertisingNodeContentProps> = ({
   };
 
   return (
-    <section className="overflow-hidden rounded-xl bg-white text-[#172033]">
+    <section className="overflow-hidden rounded-xl bg-white text-[#171918]">
       <header
         className="relative border-b border-[#dce1e7] px-4 py-4"
         style={{ background: `linear-gradient(135deg, ${definition.accent}12, #ffffff 70%)` }}
@@ -133,7 +133,7 @@ export const AdvertisingNodeContent: React.FC<AdvertisingNodeContentProps> = ({
             <div className="studio-utility mb-1 text-[9px] font-semibold uppercase tracking-[0.18em] text-[#667085]">
               {definition.purpose}
             </div>
-            <h3 className="studio-display text-lg font-semibold text-[#172033]">{definition.label}</h3>
+            <h3 className="studio-display text-lg font-semibold text-[#171918]">{definition.label}</h3>
             <p className="mt-1 text-xs leading-5 text-[#667085]">{definition.description}</p>
           </div>
           <span
@@ -225,7 +225,7 @@ export const AdvertisingNodeContent: React.FC<AdvertisingNodeContentProps> = ({
           aria-label={`交给AI：${definition.label}`}
           onClick={() => onRequestGeneration?.(data.id)}
           onPointerDown={(event) => event.stopPropagation()}
-          className="mt-3 flex w-full items-center justify-center gap-2 rounded-md bg-[#172033] px-3 py-2.5 text-xs font-semibold text-white shadow-[3px_3px_0_#ff6b3d] transition hover:bg-[#2457d6]"
+          className="mt-3 flex w-full items-center justify-center gap-2 rounded-md bg-[#171918] px-3 py-2.5 text-xs font-semibold text-white shadow-[3px_3px_0_#c8a33a] transition hover:bg-[#2457d6]"
         >
           <Sparkles size={14} /> 交给AI
         </button>

@@ -120,7 +120,7 @@ export const CanvasAssistantPanel: React.FC<CanvasAssistantPanelProps> = ({
   };
 
   return (
-    <aside className="fixed right-0 top-0 z-[160] flex h-full w-full flex-col border-l border-[#dce1e7] bg-white text-[#172033] shadow-[-16px_0_50px_rgba(31,42,68,0.1)] sm:w-[420px]">
+    <aside className="fixed right-0 top-0 z-[160] flex h-full w-full flex-col border-l border-[#dce1e7] bg-white text-[#171918] shadow-[-16px_0_50px_rgba(31,42,68,0.1)] sm:w-[420px]">
       <div className="studio-proof-strip h-1.5 w-full shrink-0" />
       <header className="flex items-start justify-between border-b border-[#dce1e7] p-5">
         <div>
@@ -130,19 +130,19 @@ export const CanvasAssistantPanel: React.FC<CanvasAssistantPanelProps> = ({
           <h2 className="studio-display mt-2 text-xl font-semibold">AI画布助手</h2>
           <p className="mt-1 text-xs leading-5 text-[#667085]">先生成结构化操作计划，再按风险等级执行。</p>
         </div>
-        <button onClick={onClose} className="rounded-md p-2 text-[#667085] hover:bg-[#f2f4f7] hover:text-[#172033]"><X size={18} /></button>
+        <button onClick={onClose} className="rounded-md p-2 text-[#667085] hover:bg-[#f2f4f7] hover:text-[#171918]"><X size={18} /></button>
       </header>
 
       <div className="grid grid-cols-2 border-b border-[#dce1e7] bg-[#f7f8fa] p-2">
         <button
           onClick={() => setActiveTab('actions')}
-          className={`flex items-center justify-center gap-2 rounded-md px-3 py-2.5 text-xs font-medium transition ${activeTab === 'actions' ? 'bg-[#172033] text-white shadow-sm' : 'text-[#667085] hover:bg-white hover:text-[#2457d6]'}`}
+          className={`flex items-center justify-center gap-2 rounded-md px-3 py-2.5 text-xs font-medium transition ${activeTab === 'actions' ? 'bg-[#171918] text-white shadow-sm' : 'text-[#667085] hover:bg-white hover:text-[#2457d6]'}`}
         >
           <Command size={14} /> 画布操作
         </button>
         <button
           onClick={() => setActiveTab('chat')}
-          className={`flex items-center justify-center gap-2 rounded-md px-3 py-2.5 text-xs font-medium transition ${activeTab === 'chat' ? 'bg-[#172033] text-white shadow-sm' : 'text-[#667085] hover:bg-white hover:text-[#2457d6]'}`}
+          className={`flex items-center justify-center gap-2 rounded-md px-3 py-2.5 text-xs font-medium transition ${activeTab === 'chat' ? 'bg-[#171918] text-white shadow-sm' : 'text-[#667085] hover:bg-white hover:text-[#2457d6]'}`}
         >
           <MessageCircle size={14} /> 创意对话
         </button>
@@ -177,7 +177,7 @@ export const CanvasAssistantPanel: React.FC<CanvasAssistantPanelProps> = ({
               <button
                 onClick={() => execute(pendingPlan)}
                 disabled={isExecuting}
-                className="flex items-center gap-2 rounded-md bg-[#172033] px-4 py-2 text-xs font-semibold text-white disabled:opacity-40"
+                className="flex items-center gap-2 rounded-md bg-[#171918] px-4 py-2 text-xs font-semibold text-white disabled:opacity-40"
               >
                 {isExecuting && <Loader2 size={13} className="animate-spin" />} 确认执行
               </button>
@@ -278,7 +278,7 @@ export const CanvasAssistantPanel: React.FC<CanvasAssistantPanelProps> = ({
           <button
             onClick={submit}
             disabled={!message.trim() || isExecuting}
-            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-[#172033] text-white disabled:opacity-25"
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-[#171918] text-white disabled:opacity-25"
           >
             <CornerDownLeft size={16} />
           </button>

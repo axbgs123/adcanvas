@@ -529,7 +529,7 @@ export const ChatBubble: React.FC<ChatBubbleProps> = ({ onClick, isOpen }) => {
     return (
         <button
             onClick={onClick}
-            className="fixed bottom-6 right-6 z-50 flex h-12 w-12 items-center justify-center rounded-lg bg-[#2457d6] shadow-[4px_4px_0_#ff6b3d] transition-all hover:-translate-y-1 hover:bg-[#1744b8]"
+            className="fixed bottom-6 right-6 z-50 flex h-12 w-12 items-center justify-center rounded-lg bg-[#2457d6] shadow-[4px_4px_0_#c8a33a] transition-all hover:-translate-y-1 hover:bg-[#1744b8]"
         >
             <Sparkles size={22} className="text-white" />
         </button>

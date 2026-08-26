@@ -41,17 +41,17 @@ export const BrandProfilePanel: React.FC<BrandProfilePanelProps> = ({
   };
 
   return (
-    <aside className="fixed left-20 top-20 z-[130] w-[390px] overflow-hidden rounded-xl border border-[#dce1e7] bg-white text-[#172033] shadow-[0_20px_60px_rgba(31,42,68,0.15)]">
-      <div className="h-1.5 bg-[#ff6b3d]" />
+    <aside className="fixed left-20 top-20 z-[130] w-[390px] overflow-hidden rounded-xl border border-[#dce1e7] bg-white text-[#171918] shadow-[0_20px_60px_rgba(31,42,68,0.15)]">
+      <div className="h-1.5 bg-[#c8a33a]" />
       <header className="flex items-start justify-between border-b border-[#dce1e7] p-5">
         <div>
-          <div className="studio-utility flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#ff6b3d]">
+          <div className="studio-utility flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#c8a33a]">
             <ShieldCheck size={15} /> Brand context
           </div>
           <h2 className="studio-display mt-2 text-xl font-semibold">项目品牌规范</h2>
           <p className="mt-1 text-xs leading-5 text-[#667085]">默认传递到创意、脚本、分镜和镜头节点。</p>
         </div>
-        <button onClick={onClose} className="rounded-md p-2 text-[#667085] hover:bg-[#f2f4f7] hover:text-[#172033]">
+        <button onClick={onClose} className="rounded-md p-2 text-[#667085] hover:bg-[#f2f4f7] hover:text-[#171918]">
           <X size={17} />
         </button>
       </header>
