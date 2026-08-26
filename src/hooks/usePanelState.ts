@@ -7,7 +7,7 @@
 
 import React, { useState, useCallback } from 'react';
 
-export const usePanelState = () => {
+export const usePanelState = (initialChatOpen = false) => {
     // ============================================================================
     // HISTORY PANEL
     // ============================================================================
@@ -30,7 +30,7 @@ export const usePanelState = () => {
     // CHAT PANEL
     // ============================================================================
 
-    const [isChatOpen, setIsChatOpen] = useState(false);
+    const [isChatOpen, setIsChatOpen] = useState(initialChatOpen);
 
     const toggleChat = useCallback(() => setIsChatOpen(prev => !prev), []);
     const closeChat = useCallback(() => setIsChatOpen(false), []);

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Ban, CheckCircle2, ChevronDown, ChevronUp, Clock3, Coins, ListTodo, Loader2, RefreshCw, RotateCcw, XCircle } from 'lucide-react';
 import type { BudgetSummary, GenerationTask, GenerationTaskStatus } from '../../domain/generation/types';
 import { cancelTask, getBudget, listTasks, retryTask } from './taskApi';
@@ -6,6 +6,7 @@ import { cancelTask, getBudget, listTasks, retryTask } from './taskApi';
 interface TaskCenterProps {
   projectId: string;
   refreshSignal?: number;
+  onTaskCompleted?: (task: GenerationTask) => void;
 }
 
 const statusMeta: Record<GenerationTaskStatus, { label: string; color: string; icon: React.ReactNode }> = {
@@ -23,11 +24,12 @@ const kindLabel = {
   'rough-cut': '草片'
 };
 
-export const TaskCenter: React.FC<TaskCenterProps> = ({ projectId, refreshSignal = 0 }) => {
+export const TaskCenter: React.FC<TaskCenterProps> = ({ projectId, refreshSignal = 0, onTaskCompleted }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [tasks, setTasks] = useState<GenerationTask[]>([]);
   const [budget, setBudget] = useState<BudgetSummary | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const notifiedTaskIdsRef = useRef(new Set<string>());
 
   const refresh = useCallback(async () => {
     try {
@@ -35,10 +37,16 @@ export const TaskCenter: React.FC<TaskCenterProps> = ({ projectId, refreshSignal
       setTasks(nextTasks);
       setBudget(nextBudget);
       setError(null);
+      nextTasks
+        .filter((task) => task.status === 'succeeded' && !notifiedTaskIdsRef.current.has(task.id))
+        .forEach((task) => {
+          notifiedTaskIdsRef.current.add(task.id);
+          onTaskCompleted?.(task);
+        });
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : '任务中心加载失败');
     }
-  }, [projectId]);
+  }, [projectId, onTaskCompleted]);
 
   useEffect(() => {
     refresh();
@@ -127,6 +135,16 @@ export const TaskCenter: React.FC<TaskCenterProps> = ({ projectId, refreshSignal
                     <span>尝试 {task.attempt}/{task.maxAttempts}</span>
                   </div>
                   {task.error && <div className="mt-2 rounded-lg bg-red-400/10 p-2 text-xs text-red-200">{task.error.message}</div>}
+                  {typeof task.output?.resultUrl === 'string' && (
+                    <a
+                      href={task.output.resultUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="mt-3 inline-flex text-xs text-cyan-300 hover:text-cyan-200"
+                    >
+                      查看生成结果
+                    </a>
+                  )}
                   {['queued', 'running'].includes(task.status) && (
                     <button onClick={() => handleCancel(task.id)} className="mt-3 flex items-center gap-1.5 text-xs text-neutral-500 hover:text-red-300">
                       <Ban size={13} /> 取消任务

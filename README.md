@@ -21,6 +21,9 @@ This repository is a modified derivative of [SankaiAI/TwitCanva-Video-Workflow](
 - Provider Adapter registry for Gemini text/image/video and OpenAI image generation, with availability checks and no-key fail-closed behavior
 - Versioned editable project packages and production handoff manifests with graph validation and round-trip import
 - Explainable canvas-command planner with low-risk direct execution, high-risk confirmation, and persisted operation history
+- Real FFmpeg rough-cut rendering that collects successful project videos, normalizes them to 720p, concatenates them, and returns the result to the canvas node
+- Default-open right-side agent with separate Canvas Actions and Creative Chat modes, Gemini support, project context, and an explicit local fallback
+- Successful generation tasks automatically create an AI-authored node version and propagate stale state downstream
 
 ## Upstream TwitCanva foundation
 

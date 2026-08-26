@@ -45,6 +45,7 @@ export interface NodeData {
   parentIds?: string[]; // For connecting lines (supports multiple inputs)
   groupId?: string; // ID of the group this node belongs to
   errorMessage?: string;
+  lastAppliedTaskId?: string;
 
   // Text node specific
   textMode?: 'menu' | 'editing'; // For Text nodes: current mode

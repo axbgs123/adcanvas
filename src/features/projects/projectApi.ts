@@ -1,7 +1,7 @@
 import type { NodeData, NodeGroup, Viewport } from '../../types';
 import { apiRequest } from '../../services/apiClient';
 import type { DemoProject } from './projectStore';
-import type { CanvasOperationRecord } from '../../domain/assistant/types';
+import type { AssistantConversationMessage, CanvasOperationRecord } from '../../domain/assistant/types';
 
 export interface ProjectCanvasDocument {
   schemaVersion: 1;
@@ -10,6 +10,7 @@ export interface ProjectCanvasDocument {
   groups: NodeGroup[];
   viewport: Viewport;
   operationLog: CanvasOperationRecord[];
+  assistantConversation: AssistantConversationMessage[];
   updatedAt: string | null;
 }
 
@@ -20,6 +21,7 @@ export const emptyProjectCanvas = (title: string): ProjectCanvasDocument => ({
   groups: [],
   viewport: { x: 0, y: 0, zoom: 1 },
   operationLog: [],
+  assistantConversation: [],
   updatedAt: null
 });
 

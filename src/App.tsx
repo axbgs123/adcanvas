@@ -66,7 +66,7 @@ import { applyBrandComplianceToNodes } from './domain/advertising/brandRules';
 import { BrandProfilePanel } from './features/brand/BrandProfilePanel';
 import { ExportDialog } from './features/export/ExportDialog';
 import { CanvasAssistantPanel } from './features/assistant/CanvasAssistantPanel';
-import type { CanvasCommandPlan, CanvasOperationRecord } from './domain/assistant/types';
+import type { AssistantConversationMessage, CanvasCommandPlan, CanvasOperationRecord } from './domain/assistant/types';
 import { layoutCanvasNodes } from './domain/assistant/layout';
 
 // ============================================================================
@@ -100,6 +100,7 @@ interface AppProps {
     groups: NodeGroup[];
     viewport: Viewport;
     operationLog?: CanvasOperationRecord[];
+    assistantConversation?: AssistantConversationMessage[];
   };
   projectId?: string;
   onExitProject?: () => void;
@@ -109,6 +110,7 @@ interface AppProps {
     groups: NodeGroup[];
     viewport: Viewport;
     operationLog: CanvasOperationRecord[];
+    assistantConversation: AssistantConversationMessage[];
   }) => Promise<void>;
 }
 
@@ -154,7 +156,7 @@ export default function App({
     isDraggingNodeToChat,
     handleNodeDragStart,
     handleNodeDragEnd
-  } = usePanelState();
+  } = usePanelState(true);
 
   const [canvasHoveredNodeId, setCanvasHoveredNodeId] = useState<string | null>(null);
   const [generationNodeId, setGenerationNodeId] = useState<string | null>(null);
@@ -162,6 +164,7 @@ export default function App({
   const [isBrandProfileOpen, setIsBrandProfileOpen] = useState(false);
   const [isExportDialogOpen, setIsExportDialogOpen] = useState(false);
   const [operationLog, setOperationLog] = useState<CanvasOperationRecord[]>(initialCanvas?.operationLog || []);
+  const [assistantConversation, setAssistantConversation] = useState<AssistantConversationMessage[]>(initialCanvas?.assistantConversation || []);
 
 
   // Canvas title state (via hook)
@@ -322,7 +325,8 @@ export default function App({
         nodes,
         groups,
         viewport,
-        operationLog
+        operationLog,
+        assistantConversation
       });
     } else {
       await handleSaveWorkflow();
@@ -459,6 +463,48 @@ export default function App({
     setGenerationNodeId(null);
     setTaskRefreshSignal((current) => current + 1);
   };
+
+  const handleGenerationTaskCompleted = React.useCallback((task: GenerationTask) => {
+    if (!task.nodeId) return;
+    setNodes((currentNodes) => {
+      const source = currentNodes.find((node) => node.id === task.nodeId);
+      if (!source || source.lastAppliedTaskId === task.id) return currentNodes;
+      const resultUrl = typeof task.output?.resultUrl === 'string' ? task.output.resultUrl : undefined;
+      const aiOutput = typeof task.output?.content === 'string'
+        ? task.output.content
+        : typeof task.output?.message === 'string'
+          ? task.output.message
+          : '';
+      let updatedNode: NodeData = {
+        ...source,
+        status: NodeStatus.SUCCESS,
+        resultUrl: resultUrl || source.resultUrl,
+        lastAppliedTaskId: task.id
+      };
+      if (source.advertising) {
+        updatedNode = {
+          ...updatedNode,
+          advertising: {
+            ...source.advertising,
+            fields: {
+              ...source.advertising.fields,
+              ...(aiOutput ? { aiOutput } : {}),
+              ...(resultUrl ? { generatedAsset: resultUrl } : {})
+            },
+            lifecycle: 'needs-review'
+          }
+        };
+        updatedNode = saveAdvertisingNodeVersion(updatedNode, 'ai');
+      }
+      const nextNodes = currentNodes.map((node) => node.id === source.id ? updatedNode : node);
+      return applyBrandComplianceToNodes(markAdvertisingDescendantsStale(
+        nextNodes,
+        source.id,
+        `${source.title || source.type}生成了新的AI版本，请确认是否更新下游。`
+      ));
+    });
+    setIsDirty(true);
+  }, [setNodes]);
 
   // Image editor modal
   const {
@@ -1197,7 +1243,11 @@ export default function App({
         onCreated={handleGenerationTaskCreated}
       />
 
-      <TaskCenter projectId={projectId} refreshSignal={taskRefreshSignal} />
+      <TaskCenter
+        projectId={projectId}
+        refreshSignal={taskRefreshSignal}
+        onTaskCompleted={handleGenerationTaskCompleted}
+      />
 
       <BrandProfilePanel
         isOpen={isBrandProfileOpen}
@@ -1264,6 +1314,11 @@ export default function App({
             operationLog={operationLog}
             onExecutePlan={handleExecuteCanvasPlan}
             onRecordCancelled={(plan) => appendOperationRecord(plan, 'cancelled', '用户取消执行')}
+            conversation={assistantConversation}
+            onConversationChange={(messages) => {
+              setAssistantConversation(messages.slice(-100));
+              setIsDirty(true);
+            }}
           />
         </>
       )}

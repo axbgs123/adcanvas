@@ -51,7 +51,9 @@ const fieldLabels: Record<string, string> = {
   formats: '交付规格',
   adoptedAssets: '采用素材',
   postNotes: '后期说明',
-  missingItems: '缺失项'
+  missingItems: '缺失项',
+  aiOutput: 'AI输出',
+  generatedAsset: '生成素材'
 };
 
 const lifecycleLabels = {
@@ -141,6 +143,16 @@ export const AdvertisingNodeContent: React.FC<AdvertisingNodeContentProps> = ({
           </span>
         </div>
       </header>
+
+      {data.resultUrl && (
+        <div className="border-b border-white/10 bg-black/30 p-3">
+          {data.resultUrl.toLowerCase().includes('.mp4') ? (
+            <video src={data.resultUrl} controls className="aspect-video w-full rounded-xl object-cover" />
+          ) : (
+            <img src={data.resultUrl} alt="AI生成结果" className="aspect-video w-full rounded-xl object-cover" />
+          )}
+        </div>
+      )}
 
       {(advertising.isStale || advertising.hasBrandConflict) && (
         <div className="space-y-2 border-b border-white/10 px-4 py-3">

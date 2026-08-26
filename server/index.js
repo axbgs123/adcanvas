@@ -26,6 +26,7 @@ import { createProviderRegistry } from './providers/providerRegistry.js';
 import { createProviderExecutor } from './providers/providerExecutor.js';
 import { createProvidersRouter } from './routes/providers.js';
 import { createExportsRouter } from './routes/exports.js';
+import assistantRoutes from './routes/assistant.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -145,6 +146,7 @@ app.use('/api/projects', createProjectsRouter(projectRepository));
 app.use('/api/tasks', createTasksRouter({ taskRepository, generationQueue, projectRepository, providerRegistry }));
 app.use('/api/providers', createProvidersRouter(providerRegistry));
 app.use('/api/exports', createExportsRouter({ projectRepository, taskRepository }));
+app.use('/api/assistant', assistantRoutes);
 
 // ============================================================================
 // WORKFLOW SANITIZATION HELPERS

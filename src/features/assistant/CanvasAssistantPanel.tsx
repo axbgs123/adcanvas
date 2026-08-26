@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { AlertTriangle, CheckCircle2, Command, CornerDownLeft, Loader2, Sparkles, X, XCircle } from 'lucide-react';
+import { AlertTriangle, CheckCircle2, Command, CornerDownLeft, Loader2, MessageCircle, Send, Sparkles, X, XCircle } from 'lucide-react';
 import type { NodeData } from '../../types';
 import { planCanvasCommand } from '../../domain/assistant/canvasCommandPlanner';
-import type { CanvasCommandPlan, CanvasOperationRecord } from '../../domain/assistant/types';
+import type { AssistantConversationMessage, CanvasCommandPlan, CanvasOperationRecord } from '../../domain/assistant/types';
+import { sendAssistantMessage } from './assistantApi';
 
 interface CanvasAssistantPanelProps {
   isOpen: boolean;
@@ -12,6 +13,8 @@ interface CanvasAssistantPanelProps {
   operationLog: CanvasOperationRecord[];
   onExecutePlan: (plan: CanvasCommandPlan) => Promise<{ success: boolean; message: string }>;
   onRecordCancelled: (plan: CanvasCommandPlan) => void;
+  conversation: AssistantConversationMessage[];
+  onConversationChange: (messages: AssistantConversationMessage[]) => void;
 }
 
 const examples = [
@@ -29,12 +32,18 @@ export const CanvasAssistantPanel: React.FC<CanvasAssistantPanelProps> = ({
   selectedNodeIds,
   operationLog,
   onExecutePlan,
-  onRecordCancelled
+  onRecordCancelled,
+  conversation,
+  onConversationChange
 }) => {
+  const [activeTab, setActiveTab] = useState<'actions' | 'chat'>('actions');
   const [message, setMessage] = useState('');
   const [pendingPlan, setPendingPlan] = useState<CanvasCommandPlan | null>(null);
   const [feedback, setFeedback] = useState<{ success: boolean; message: string } | null>(null);
   const [isExecuting, setIsExecuting] = useState(false);
+  const [chatMessage, setChatMessage] = useState('');
+  const [isChatLoading, setIsChatLoading] = useState(false);
+  const [chatError, setChatError] = useState<string | null>(null);
 
   if (!isOpen) return null;
 
@@ -64,6 +73,52 @@ export const CanvasAssistantPanel: React.FC<CanvasAssistantPanelProps> = ({
     }
   };
 
+  const submitChat = async () => {
+    const content = chatMessage.trim();
+    if (!content || isChatLoading) return;
+    const userMessage: AssistantConversationMessage = {
+      id: crypto.randomUUID(),
+      role: 'user',
+      content,
+      createdAt: new Date().toISOString()
+    };
+    const nextConversation = [...conversation, userMessage];
+    onConversationChange(nextConversation);
+    setChatMessage('');
+    setIsChatLoading(true);
+    setChatError(null);
+    try {
+      const response = await sendAssistantMessage({
+        message: content,
+        history: nextConversation.slice(-10),
+        context: {
+          nodes: nodes.slice(0, 100).map((node) => ({
+            id: node.id,
+            type: node.type,
+            title: node.title,
+            lifecycle: node.advertising?.lifecycle,
+            isStale: node.advertising?.isStale,
+            hasBrandConflict: node.advertising?.hasBrandConflict
+          })),
+          selectedNodes: nodes
+            .filter((node) => selectedNodeIds.includes(node.id))
+            .map((node) => ({ id: node.id, type: node.type, title: node.title }))
+        }
+      });
+      onConversationChange([...nextConversation, {
+        id: crypto.randomUUID(),
+        role: 'assistant',
+        content: response.response,
+        mode: response.mode,
+        createdAt: new Date().toISOString()
+      }]);
+    } catch (reason) {
+      setChatError(reason instanceof Error ? reason.message : '智能体回复失败');
+    } finally {
+      setIsChatLoading(false);
+    }
+  };
+
   return (
     <aside className="fixed right-0 top-0 z-[160] flex h-full w-[420px] flex-col border-l border-white/10 bg-[#121419]/98 text-white shadow-2xl backdrop-blur-xl">
       <header className="flex items-start justify-between border-b border-white/10 p-5">
@@ -77,7 +132,22 @@ export const CanvasAssistantPanel: React.FC<CanvasAssistantPanelProps> = ({
         <button onClick={onClose} className="rounded-full p-2 text-neutral-500 hover:bg-white/5 hover:text-white"><X size={18} /></button>
       </header>
 
-      <div className="flex-1 overflow-y-auto p-5">
+      <div className="grid grid-cols-2 border-b border-white/10 p-2">
+        <button
+          onClick={() => setActiveTab('actions')}
+          className={`flex items-center justify-center gap-2 rounded-xl px-3 py-2.5 text-xs font-medium transition ${activeTab === 'actions' ? 'bg-white text-black' : 'text-neutral-500 hover:bg-white/5 hover:text-white'}`}
+        >
+          <Command size={14} /> 画布操作
+        </button>
+        <button
+          onClick={() => setActiveTab('chat')}
+          className={`flex items-center justify-center gap-2 rounded-xl px-3 py-2.5 text-xs font-medium transition ${activeTab === 'chat' ? 'bg-white text-black' : 'text-neutral-500 hover:bg-white/5 hover:text-white'}`}
+        >
+          <MessageCircle size={14} /> 创意对话
+        </button>
+      </div>
+
+      <div className={activeTab === 'actions' ? 'flex-1 overflow-y-auto p-5' : 'hidden'}>
         <div className="rounded-2xl border border-cyan-300/15 bg-cyan-300/10 p-4 text-xs leading-5 text-cyan-100">
           当前使用本地可解释规划器，不依赖模型密钥。创建和整理等低风险操作直接执行；删除、清空和替换画布必须确认。
         </div>
@@ -155,6 +225,39 @@ export const CanvasAssistantPanel: React.FC<CanvasAssistantPanelProps> = ({
         </section>
       </div>
 
+      {activeTab === 'chat' && (
+        <div className="flex-1 overflow-y-auto p-5">
+          <div className="rounded-2xl border border-violet-300/15 bg-violet-300/10 p-4 text-xs leading-5 text-violet-100">
+            智能体会读取当前节点类型、采用状态、品牌冲突和选中节点。配置模型密钥后使用Gemini；否则使用明确标注的本地回退回答。
+          </div>
+          <div className="mt-5 space-y-3">
+            {conversation.length === 0 && (
+              <div className="rounded-2xl border border-dashed border-white/10 p-6 text-center text-sm text-neutral-600">
+                可以问：项目进度怎么样？下一步应该做什么？当前有没有品牌冲突？
+              </div>
+            )}
+            {conversation.map((item) => (
+              <article
+                key={item.id}
+                className={`max-w-[92%] rounded-2xl px-4 py-3 text-sm leading-6 ${item.role === 'user' ? 'ml-auto rounded-br-md bg-white text-black' : 'rounded-bl-md border border-white/10 bg-white/[0.05] text-neutral-200'}`}
+              >
+                {item.content}
+                {item.role === 'assistant' && item.mode && (
+                  <div className={`mt-2 text-[10px] ${item.mode === 'provider' ? 'text-emerald-300' : 'text-amber-300'}`}>
+                    {item.mode === 'provider' ? 'Gemini智能体' : '本地回退模式'}
+                  </div>
+                )}
+              </article>
+            ))}
+            {isChatLoading && (
+              <div className="flex items-center gap-2 text-xs text-neutral-500"><Loader2 size={14} className="animate-spin" /> 智能体正在分析画布…</div>
+            )}
+            {chatError && <div className="rounded-xl bg-red-300/10 p-3 text-xs text-red-200">{chatError}</div>}
+          </div>
+        </div>
+      )}
+
+      {activeTab === 'actions' ? (
       <footer className="border-t border-white/10 p-4">
         <div className="flex items-end gap-2 rounded-2xl border border-white/10 bg-black/20 p-2 focus-within:border-cyan-300/30">
           <Command className="mb-2 ml-1 shrink-0 text-neutral-600" size={17} />
@@ -180,6 +283,33 @@ export const CanvasAssistantPanel: React.FC<CanvasAssistantPanelProps> = ({
           </button>
         </div>
       </footer>
+      ) : (
+        <footer className="border-t border-white/10 p-4">
+          <div className="flex items-end gap-2 rounded-2xl border border-white/10 bg-black/20 p-2 focus-within:border-violet-300/30">
+            <MessageCircle className="mb-2 ml-1 shrink-0 text-neutral-600" size={17} />
+            <textarea
+              value={chatMessage}
+              onChange={(event) => setChatMessage(event.target.value)}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter' && !event.shiftKey) {
+                  event.preventDefault();
+                  submitChat();
+                }
+              }}
+              placeholder="结合当前画布提问…"
+              rows={2}
+              className="min-h-[48px] flex-1 resize-none bg-transparent px-1 py-2 text-sm outline-none placeholder:text-neutral-700"
+            />
+            <button
+              onClick={submitChat}
+              disabled={!chatMessage.trim() || isChatLoading}
+              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-violet-200 text-violet-950 disabled:opacity-25"
+            >
+              <Send size={16} />
+            </button>
+          </div>
+        </footer>
+      )}
     </aside>
   );
 };

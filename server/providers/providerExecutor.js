@@ -4,6 +4,7 @@ import { GoogleGenAI } from '@google/genai';
 import { generateGeminiImage, generateVeoVideo } from '../services/gemini.js';
 import { generateOpenAIImage } from '../services/openai.js';
 import { saveBufferToFile } from '../utils/imageHelpers.js';
+import { executeRoughCut } from '../services/roughCutExecutor.js';
 
 const buildPrompt = (task) => {
     const payload = task.input || {};
@@ -33,12 +34,18 @@ export const createProviderExecutor = ({ credentials, imagesDirectory, videosDir
     const prompt = buildPrompt(task);
 
     if (task.kind === 'rough-cut') {
+        const result = await executeRoughCut({
+            sourceVideos: task.input.sourceVideos,
+            targetDuration: task.input.fields?.targetDuration || task.input.targetDuration,
+            videosDirectory,
+            taskId: task.id
+        });
         return {
             actualCost: 0,
             output: {
                 provider: 'local',
                 model: 'ffmpeg-plan',
-                content: 'Rough-cut provider boundary is ready; FFmpeg rendering will be implemented in the export milestone.'
+                ...result
             }
         };
     }

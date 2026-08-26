@@ -34,3 +34,11 @@ export interface CanvasCommandContext {
   nodeCount: number;
   selectedNodeCount: number;
 }
+
+export interface AssistantConversationMessage {
+  id: string;
+  role: 'user' | 'assistant';
+  content: string;
+  mode?: 'provider' | 'local-fallback';
+  createdAt: string;
+}
