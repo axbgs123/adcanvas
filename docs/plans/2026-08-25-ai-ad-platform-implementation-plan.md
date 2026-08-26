@@ -202,3 +202,10 @@ Requirements:
 - Add one browser-level happy path for Brief → branches → storyboard → selected assets → export.
 - Keep upstream image/video flows functional throughout the migration.
 - Do not implement payments, realtime collaboration, or a professional multitrack editor in the four-week Demo.
+
+## Final delivery
+
+- Keep the upstream TwitCanva repository configured as the `upstream` remote.
+- After all Demo acceptance checks pass, create `axbgs123/adcanvas` as a private GitHub repository if it does not already exist.
+- Configure the private repository as `origin` and push the completed `codex/ai-ad-platform` branch.
+- Verify repository visibility is `PRIVATE`, confirm the pushed commit hash, and never commit `.env`, API keys, generated media, or local library data.
