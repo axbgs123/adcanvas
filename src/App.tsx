@@ -39,7 +39,7 @@ import { extractVideoLastFrame } from './utils/videoHelpers';
 import { SelectionBoundingBox } from './components/canvas/SelectionBoundingBox';
 import { WorkflowPanel } from './components/WorkflowPanel';
 import { HistoryPanel } from './components/HistoryPanel';
-import { ChatPanel, ChatBubble } from './components/ChatPanel';
+import { ChatBubble } from './components/ChatPanel';
 import { ImageEditorModal } from './components/modals/ImageEditorModal';
 import { VideoEditorModal } from './components/modals/VideoEditorModal';
 import { ExpandedMediaModal } from './components/modals/ExpandedMediaModal';
@@ -65,6 +65,9 @@ import {
 import { applyBrandComplianceToNodes } from './domain/advertising/brandRules';
 import { BrandProfilePanel } from './features/brand/BrandProfilePanel';
 import { ExportDialog } from './features/export/ExportDialog';
+import { CanvasAssistantPanel } from './features/assistant/CanvasAssistantPanel';
+import type { CanvasCommandPlan, CanvasOperationRecord } from './domain/assistant/types';
+import { layoutCanvasNodes } from './domain/assistant/layout';
 
 // ============================================================================
 // MAIN COMPONENT
@@ -96,6 +99,7 @@ interface AppProps {
     nodes: NodeData[];
     groups: NodeGroup[];
     viewport: Viewport;
+    operationLog?: CanvasOperationRecord[];
   };
   projectId?: string;
   onExitProject?: () => void;
@@ -104,6 +108,7 @@ interface AppProps {
     nodes: NodeData[];
     groups: NodeGroup[];
     viewport: Viewport;
+    operationLog: CanvasOperationRecord[];
   }) => Promise<void>;
 }
 
@@ -156,6 +161,7 @@ export default function App({
   const [taskRefreshSignal, setTaskRefreshSignal] = useState(0);
   const [isBrandProfileOpen, setIsBrandProfileOpen] = useState(false);
   const [isExportDialogOpen, setIsExportDialogOpen] = useState(false);
+  const [operationLog, setOperationLog] = useState<CanvasOperationRecord[]>(initialCanvas?.operationLog || []);
 
 
   // Canvas title state (via hook)
@@ -315,7 +321,8 @@ export default function App({
         title: canvasTitle,
         nodes,
         groups,
-        viewport
+        viewport,
+        operationLog
       });
     } else {
       await handleSaveWorkflow();
@@ -361,18 +368,77 @@ export default function App({
       if (!shouldReplace) return;
     }
 
+    replaceWithAdvertisingDraft();
+  };
+
+  const replaceWithAdvertisingDraft = React.useCallback(() => {
     ignoreNextChange.current = true;
-    const draftNodes = createAdvertisingWorkflowTemplate({
-      projectId,
-      projectTitle: canvasTitle
-    });
+    const draftNodes = createAdvertisingWorkflowTemplate({ projectId, projectTitle: canvasTitle });
     setNodes(applyBrandComplianceToNodes(draftNodes));
     setGroups([]);
     setSelectedNodeIds([]);
     setViewport({ x: 100, y: 100, zoom: 0.55 });
     resetWorkflowId();
     setIsDirty(true);
-  };
+  }, [projectId, canvasTitle, setNodes, setGroups, setSelectedNodeIds, setViewport, resetWorkflowId]);
+
+  const appendOperationRecord = React.useCallback((
+    plan: CanvasCommandPlan,
+    status: CanvasOperationRecord['status'],
+    message?: string
+  ) => {
+    setOperationLog((current) => [...current, {
+      id: crypto.randomUUID(),
+      request: plan.request,
+      planTitle: plan.title,
+      risk: plan.risk,
+      status,
+      operationTypes: plan.operations.map((operation) => operation.type),
+      createdAt: new Date().toISOString(),
+      message
+    }].slice(-200));
+    setIsDirty(true);
+  }, []);
+
+  const handleExecuteCanvasPlan = React.useCallback(async (plan: CanvasCommandPlan) => {
+    try {
+      for (const operation of plan.operations) {
+        if (operation.type === 'add-node') {
+          addNode(
+            operation.nodeType as NodeType,
+            Math.max(520, window.innerWidth / 2),
+            Math.max(320, window.innerHeight / 2),
+            undefined,
+            viewport
+          );
+        } else if (operation.type === 'tidy-layout') {
+          setNodes((current) => layoutCanvasNodes(current));
+        } else if (operation.type === 'branch-selected') {
+          if (selectedNodeIds.length !== 1) throw new Error('请先且只选择一个业务节点。');
+          const source = nodes.find((node) => node.id === selectedNodeIds[0]);
+          if (!source?.advertising) throw new Error('选中的节点不是广告业务节点。');
+          const branch = createAdvertisingBranchNode(source);
+          setNodes((current) => applyBrandComplianceToNodes([...current, branch]));
+          setSelectedNodeIds([branch.id]);
+        } else if (operation.type === 'delete-selected') {
+          if (selectedNodeIds.length === 0) throw new Error('当前没有选中节点。');
+          deleteNodes(selectedNodeIds);
+        } else if (operation.type === 'clear-canvas') {
+          setNodes([]);
+          setGroups([]);
+          setSelectedNodeIds([]);
+        } else if (operation.type === 'create-workflow') {
+          replaceWithAdvertisingDraft();
+        }
+      }
+      appendOperationRecord(plan, 'executed', '操作已完成');
+      return { success: true, message: plan.summary };
+    } catch (reason) {
+      const message = reason instanceof Error ? reason.message : '画布操作失败';
+      appendOperationRecord(plan, 'failed', message);
+      return { success: false, message };
+    }
+  }, [addNode, viewport, setNodes, selectedNodeIds, nodes, setSelectedNodeIds, deleteNodes, setGroups, replaceWithAdvertisingDraft, appendOperationRecord]);
 
   const handleGenerationTaskCreated = (task: GenerationTask) => {
     if (task.nodeId) {
@@ -1190,7 +1256,15 @@ export default function App({
       {!storyboardGenerator.isModalOpen && !isTikTokModalOpen && (
         <>
           <ChatBubble onClick={toggleChat} isOpen={isChatOpen} />
-          <ChatPanel isOpen={isChatOpen} onClose={closeChat} isDraggingNode={isDraggingNodeToChat} canvasTheme={canvasTheme} />
+          <CanvasAssistantPanel
+            isOpen={isChatOpen}
+            onClose={closeChat}
+            nodes={nodes}
+            selectedNodeIds={selectedNodeIds}
+            operationLog={operationLog}
+            onExecutePlan={handleExecuteCanvasPlan}
+            onRecordCancelled={(plan) => appendOperationRecord(plan, 'cancelled', '用户取消执行')}
+          />
         </>
       )}
 

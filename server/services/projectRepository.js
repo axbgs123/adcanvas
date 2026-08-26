@@ -107,6 +107,7 @@ export const createProjectRepository = (projectsDirectory) => {
                 nodes: [],
                 groups: [],
                 viewport: { x: 0, y: 0, zoom: 1 },
+                operationLog: [],
                 updatedAt: null
             });
         },
@@ -121,6 +122,7 @@ export const createProjectRepository = (projectsDirectory) => {
                 nodes: Array.isArray(canvas.nodes) ? canvas.nodes : [],
                 groups: Array.isArray(canvas.groups) ? canvas.groups : [],
                 viewport: canvas.viewport || { x: 0, y: 0, zoom: 1 },
+                operationLog: Array.isArray(canvas.operationLog) ? canvas.operationLog.slice(-200) : [],
                 updatedAt: new Date().toISOString()
             };
             writeJsonAtomic(getCanvasFile(userId, projectId), document);

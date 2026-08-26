@@ -20,6 +20,7 @@ This repository is a modified derivative of [SankaiAI/TwitCanva-Video-Workflow](
 - Project-level brand rules with inherited constraints, prohibited-content checks, required-element checks, and explicit local override
 - Provider Adapter registry for Gemini text/image/video and OpenAI image generation, with availability checks and no-key fail-closed behavior
 - Versioned editable project packages and production handoff manifests with graph validation and round-trip import
+- Explainable canvas-command planner with low-risk direct execution, high-risk confirmation, and persisted operation history
 
 ## Upstream TwitCanva foundation
 
