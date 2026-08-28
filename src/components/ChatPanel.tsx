@@ -365,12 +365,14 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
                         {/* Tip Card */}
                         {showTip && (
                             <div className={`rounded-2xl p-4 mb-4 ${isDark ? 'bg-neutral-800/50' : 'bg-neutral-100'}`}>
-                                <div className={`rounded-xl overflow-hidden mb-3 flex items-center justify-center ${isDark ? 'bg-neutral-700/50' : 'bg-neutral-200'}`}>
-                                    <img
-                                        src="/chat-preview.gif"
-                                        alt="Drag and drop preview"
-                                        className="w-full h-auto object-cover rounded-xl"
-                                    />
+                                <div className={`mb-3 grid grid-cols-[1fr_auto_1fr] items-center gap-3 rounded-xl border border-dashed p-4 ${isDark ? 'border-neutral-700 bg-neutral-900/30' : 'border-neutral-300 bg-white'}`}>
+                                    <div className={`rounded-lg border px-3 py-4 text-center text-xs ${isDark ? 'border-neutral-700 text-neutral-400' : 'border-neutral-300 text-neutral-600'}`}>
+                                        素材节点
+                                    </div>
+                                    <span className={isDark ? 'text-neutral-500' : 'text-neutral-400'}>→</span>
+                                    <div className={`rounded-lg border px-3 py-4 text-center text-xs ${isDark ? 'border-neutral-700 text-neutral-400' : 'border-neutral-300 text-neutral-600'}`}>
+                                        创意对话
+                                    </div>
                                 </div>
                                 <p className={`text-sm leading-relaxed mb-3 ${isDark ? 'text-neutral-400' : 'text-neutral-600'}`}>
                                     Drag image/video nodes into the chat dialog to unlock advanced features like prompt generation based on node content, providing more inspiration for your creativity~
