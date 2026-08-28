@@ -2,6 +2,7 @@
   <img src="public/adcanvas-mark.svg" alt="AdCanvas" width="88" />
   <h1>AdCanvas</h1>
   <p>面向广告创意与制作流程的 AI 自由画布</p>
+  <p><strong>简体中文</strong> · <a href="./README_EN.md">English</a></p>
 </div>
 
 ![AdCanvas 项目工作台](docs/design/screenshots/light-workbench.png)
