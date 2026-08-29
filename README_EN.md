@@ -11,8 +11,6 @@
 
 AdCanvas is a PC web demo built for advertising creative teams. It brings the advertising brief, brand rules, creative routes, moodboards, scripts, storyboards, generated shots, edit plans, and delivery packages into one extensible canvas. AI assists with generation and organization, while people retain control over judgment, revision, and final version adoption.
 
-The project is designed both as a game / AI product management portfolio piece and as a foundation for a product that can continue toward release. Its interface uses a black, white, and neutral-gray visual system, while advertising images and videos retain their original colors.
-
 ## Current Demo
 
 - Advertising project workbench with local project persistence
