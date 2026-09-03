@@ -23,7 +23,7 @@ test('selects configured providers according to quality preference', () => {
         {
             available: true,
             provider: 'google',
-            model: 'gemini-3-pro-image-preview',
+            model: 'gemini-3.1-flash-image',
             kind: 'image',
             preset: 'quick',
             reason: 'Recommended for the quick quality preset.'

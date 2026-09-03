@@ -47,7 +47,7 @@ test('delegates provider tasks to the configured provider executor', async () =>
             kind: 'text',
             qualityPreset: 'balanced',
             provider: 'google',
-            model: 'gemini-2.0-flash',
+            model: 'gemini-3.5-flash',
             mode: 'provider',
             estimatedCost: 0.03,
             pricingVersion: 'test',

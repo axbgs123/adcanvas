@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { AlertTriangle, Check, Loader2, Sparkles, X } from 'lucide-react';
 import { NodeData } from '../../types';
 import {
@@ -8,11 +8,18 @@ import {
   ProviderRecommendation,
   getGenerationKindForNode
 } from '../../domain/generation/types';
+import {
+  compileGenerationSkillPrompt,
+  getGenerationSkill,
+  getGenerationSkillsForKind,
+  validateGenerationSkillReferences
+} from '../../domain/generation/skillRegistry';
 import { createTask, estimateTask, getProviderRecommendation } from './taskApi';
 
 interface GenerationConfirmationDialogProps {
   projectId: string;
   node: NodeData | null;
+  nodes: NodeData[];
   onClose: () => void;
   onCreated: (task: GenerationTask) => void;
 }
@@ -33,6 +40,7 @@ const kindLabels = {
 export const GenerationConfirmationDialog: React.FC<GenerationConfirmationDialogProps> = ({
   projectId,
   node,
+  nodes,
   onClose,
   onCreated
 }) => {
@@ -43,9 +51,28 @@ export const GenerationConfirmationDialog: React.FC<GenerationConfirmationDialog
   const [confirmed, setConfirmed] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [selectedSkillId, setSelectedSkillId] = useState<string>('');
   const idempotencyKeyRef = useRef(crypto.randomUUID());
 
   const kind = node ? getGenerationKindForNode(node.type) : 'text';
+  const availableSkills = useMemo(() => getGenerationSkillsForKind(kind), [kind]);
+  const selectedSkill = getGenerationSkill(selectedSkillId);
+  const referenceImages = useMemo(() => {
+    if (!node) return [];
+    const parentAssets = (node.parentIds || [])
+      .map((parentId) => nodes.find((candidate) => candidate.id === parentId))
+      .map((parent) => parent?.resultUrl || parent?.advertising?.fields.generatedAsset)
+      .filter((value): value is string => Boolean(value));
+    const ownInput = node.inputUrl ? [node.inputUrl] : [];
+    return [...new Set([...parentAssets, ...ownInput])];
+  }, [node, nodes]);
+  const brandRules = useMemo(
+    () => nodes.find((candidate) => candidate.type === 'Brand Profile')?.advertising?.fields || {},
+    [nodes]
+  );
+  const referenceValidation = selectedSkill
+    ? validateGenerationSkillReferences(selectedSkill, Math.min(referenceImages.length, selectedSkill.referenceImageCount.max))
+    : { valid: true, message: '' };
 
   useEffect(() => {
     if (!node) return;
@@ -54,6 +81,8 @@ export const GenerationConfirmationDialog: React.FC<GenerationConfirmationDialog
     setRecommendation(null);
     setConfirmed(false);
     setError(null);
+    const firstSkill = getGenerationSkillsForKind(kind)[0];
+    setSelectedSkillId(firstSkill?.id || '');
     idempotencyKeyRef.current = crypto.randomUUID();
 
     Promise.all([
@@ -93,8 +122,21 @@ export const GenerationConfirmationDialog: React.FC<GenerationConfirmationDialog
         payload: {
           nodeType: node.type,
           title: node.title,
-          prompt: node.prompt,
-          fields: node.advertising?.fields || {}
+          prompt: compileGenerationSkillPrompt(selectedSkillId, {
+            title: node.title,
+            prompt: node.prompt,
+            fields: node.advertising?.fields || {},
+            brandRules
+          }),
+          fields: node.advertising?.fields || {},
+          brandRules,
+          skillId: selectedSkill?.id || null,
+          skillVersion: selectedSkill?.version || null,
+          referenceImages: selectedSkill
+            ? referenceImages.slice(0, selectedSkill.referenceImageCount.max)
+            : referenceImages,
+          aspectRatio: selectedSkill?.defaultAspectRatio || node.aspectRatio || '16:9',
+          duration: selectedSkill?.defaultDuration || node.videoDuration || 6
         },
         mode: executionMode,
         provider: recommendation?.provider || 'auto',
@@ -110,7 +152,7 @@ export const GenerationConfirmationDialog: React.FC<GenerationConfirmationDialog
 
   return (
     <div className="fixed inset-0 z-[300] flex items-center justify-center bg-[#111111]/25 p-5 backdrop-blur-sm">
-      <div className="w-full max-w-lg overflow-hidden rounded-2xl border border-[#d9d9d9] bg-white p-6 text-[#111111] shadow-[0_28px_80px_rgba(17,17,17,0.2)]">
+      <div className="max-h-[92vh] w-full max-w-lg overflow-y-auto rounded-2xl border border-[#d9d9d9] bg-white p-6 text-[#111111] shadow-[0_28px_80px_rgba(17,17,17,0.2)]">
         <div className="studio-proof-strip -mx-6 -mt-6 mb-6 h-1.5" />
         <div className="flex items-start justify-between gap-4">
           <div>
@@ -138,6 +180,37 @@ export const GenerationConfirmationDialog: React.FC<GenerationConfirmationDialog
             </button>
           ))}
         </div>
+
+        {availableSkills.length > 0 && (
+          <div className="mt-5 rounded-xl border border-[#d9d9d9] bg-white p-4">
+            <div className="flex items-center justify-between gap-3">
+              <div>
+                <div className="text-sm font-semibold">广告生成 Skill</div>
+                <div className="mt-1 text-[10px] text-[#777777]">结构化 Prompt、素材约束与模型参数</div>
+              </div>
+              <span className="studio-utility text-[10px] text-[#777777]">{referenceImages.length} 张上游素材</span>
+            </div>
+            <div className="mt-3 grid grid-cols-2 gap-2">
+              {availableSkills.map((skill) => {
+                const validation = validateGenerationSkillReferences(
+                  skill,
+                  Math.min(referenceImages.length, skill.referenceImageCount.max)
+                );
+                return (
+                  <button
+                    key={skill.id}
+                    onClick={() => setSelectedSkillId(skill.id)}
+                    className={`rounded-lg border p-3 text-left transition ${selectedSkillId === skill.id ? 'border-[#111111] bg-[#eeeeee]' : 'border-[#d9d9d9] bg-[#fafafa] hover:bg-white'}`}
+                  >
+                    <span className="block text-xs font-semibold">{skill.label}</span>
+                    <span className="mt-1 block text-[10px] leading-4 text-[#666666]">{skill.description}</span>
+                    {!validation.valid && <span className="mt-2 block text-[9px] font-medium text-[#333333]">{validation.message}</span>}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
 
         <div className="mt-5 rounded-xl border border-[#d9d9d9] bg-[#fafafa] p-4">
           <div className="mb-4 grid grid-cols-2 gap-2">
@@ -195,7 +268,7 @@ export const GenerationConfirmationDialog: React.FC<GenerationConfirmationDialog
           <button onClick={onClose} className="rounded-md px-5 py-2.5 text-sm text-[#666666] hover:bg-[#f4f4f4]">取消</button>
           <button
             onClick={submit}
-            disabled={!confirmed || !estimate || isSubmitting}
+            disabled={!confirmed || !estimate || isSubmitting || !referenceValidation.valid}
             className="flex items-center gap-2 rounded-md bg-[#111111] px-5 py-2.5 text-sm font-semibold text-white shadow-[3px_3px_0_#777777] disabled:cursor-not-allowed disabled:opacity-30"
           >
             {isSubmitting ? <Loader2 size={16} className="animate-spin" /> : <Sparkles size={16} />}

@@ -72,7 +72,7 @@ router.post('/generate-scripts', async (req, res) => {
 
         // Initialize Gemini
         const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
-        const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
+        const model = genAI.getGenerativeModel({ model: 'gemini-3.5-flash' });
 
         // Categorize reference images
         const refs = referenceImages || [];
@@ -329,7 +329,7 @@ router.post('/brainstorm-story', async (req, res) => {
 
         // Initialize Gemini
         const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
-        const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
+        const model = genAI.getGenerativeModel({ model: 'gemini-3.5-flash' });
 
         // Build character context
         const characterContext = characterDescriptions && characterDescriptions.length > 0
@@ -446,7 +446,7 @@ router.post('/optimize-story', async (req, res) => {
 
         // Initialize Gemini
         const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
-        const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
+        const model = genAI.getGenerativeModel({ model: 'gemini-3.5-flash' });
 
         const systemPrompt = `You are an expert storyboard artist and writer.
         
@@ -735,7 +735,7 @@ CRITICAL:
         // Initialize Gemini for image generation
         const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
         const model = genAI.getGenerativeModel({
-            model: 'gemini-3-pro-image-preview',
+            model: 'gemini-3-pro-image',
             generationConfig: {
                 // Adjusting timeout by NOT setting it (default is usually reasonable, but 503 suggests server-side limit)
                 responseModalities: ['Text', 'Image']

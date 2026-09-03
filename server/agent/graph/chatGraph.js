@@ -25,7 +25,7 @@ import { CHAT_AGENT_SYSTEM_PROMPT, TOPIC_GENERATION_PROMPT } from "../prompts/sy
  */
 export function createModel(apiKey) {
     return new ChatGoogleGenerativeAI({
-        model: "gemini-2.0-flash",
+        model: "gemini-3.5-flash",
         apiKey: apiKey,
         temperature: 0.7,
         maxOutputTokens: 2048,

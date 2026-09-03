@@ -56,6 +56,7 @@ import { createAdvertisingWorkflowTemplate } from './domain/advertising/workflow
 import { GenerationConfirmationDialog } from './features/tasks/GenerationConfirmationDialog';
 import { TaskCenter } from './features/tasks/TaskCenter';
 import type { GenerationTask } from './domain/generation/types';
+import { applyCompletedGenerationTask } from './domain/generation/applyTaskResult';
 import {
   adoptAdvertisingNodeVersion,
   createAdvertisingBranchNode,
@@ -466,43 +467,7 @@ export default function App({
 
   const handleGenerationTaskCompleted = React.useCallback((task: GenerationTask) => {
     if (!task.nodeId) return;
-    setNodes((currentNodes) => {
-      const source = currentNodes.find((node) => node.id === task.nodeId);
-      if (!source || source.lastAppliedTaskId === task.id) return currentNodes;
-      const resultUrl = typeof task.output?.resultUrl === 'string' ? task.output.resultUrl : undefined;
-      const aiOutput = typeof task.output?.content === 'string'
-        ? task.output.content
-        : typeof task.output?.message === 'string'
-          ? task.output.message
-          : '';
-      let updatedNode: NodeData = {
-        ...source,
-        status: NodeStatus.SUCCESS,
-        resultUrl: resultUrl || source.resultUrl,
-        lastAppliedTaskId: task.id
-      };
-      if (source.advertising) {
-        updatedNode = {
-          ...updatedNode,
-          advertising: {
-            ...source.advertising,
-            fields: {
-              ...source.advertising.fields,
-              ...(aiOutput ? { aiOutput } : {}),
-              ...(resultUrl ? { generatedAsset: resultUrl } : {})
-            },
-            lifecycle: 'needs-review'
-          }
-        };
-        updatedNode = saveAdvertisingNodeVersion(updatedNode, 'ai');
-      }
-      const nextNodes = currentNodes.map((node) => node.id === source.id ? updatedNode : node);
-      return applyBrandComplianceToNodes(markAdvertisingDescendantsStale(
-        nextNodes,
-        source.id,
-        `${source.title || source.type}生成了新的AI版本，请确认是否更新下游。`
-      ));
-    });
+    setNodes((currentNodes) => applyCompletedGenerationTask(currentNodes, task));
     setIsDirty(true);
   }, [setNodes]);
 
@@ -1239,6 +1204,7 @@ export default function App({
       <GenerationConfirmationDialog
         projectId={projectId}
         node={generationNodeId ? nodes.find((node) => node.id === generationNodeId) || null : null}
+        nodes={nodes}
         onClose={() => setGenerationNodeId(null)}
         onCreated={handleGenerationTaskCreated}
       />

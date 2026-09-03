@@ -10,19 +10,17 @@ import { GoogleGenAI } from '@google/genai';
 // CLIENT SETUP
 // ============================================================================
 
-let _ai = null;
+const clients = new Map();
 
 /**
  * Get or create Gemini AI client
  */
 export function getGeminiClient(apiKey) {
-    if (!_ai) {
-        if (!apiKey) {
-            throw new Error('Gemini API key not configured');
-        }
-        _ai = new GoogleGenAI({ apiKey });
+    if (!apiKey) {
+        throw new Error('Gemini API key not configured');
     }
-    return _ai;
+    if (!clients.has(apiKey)) clients.set(apiKey, new GoogleGenAI({ apiKey }));
+    return clients.get(apiKey);
 }
 
 // ============================================================================
@@ -33,11 +31,9 @@ export function getGeminiClient(apiKey) {
  * Generate image using Gemini
  * @returns {Promise<Buffer>} Image buffer
  */
-export async function generateGeminiImage({ prompt, imageBase64Array, aspectRatio, resolution, apiKey }) {
+export async function generateGeminiImage({ prompt, imageBase64Array, aspectRatio, resolution, apiKey, model = 'gemini-3.1-flash-image' }) {
     const ai = getGeminiClient(apiKey);
-    const modelName = 'gemini-3-pro-image-preview';
-
-    const parts = [];
+    const input = [];
 
     // Add input images
     if (imageBase64Array && imageBase64Array.length > 0) {
@@ -45,16 +41,10 @@ export async function generateGeminiImage({ prompt, imageBase64Array, aspectRati
             const match = img.match(/^data:(image\/\w+);base64,/);
             const mimeType = match ? match[1] : "image/png";
             const base64Clean = img.replace(/^data:image\/\w+;base64,/, "");
-            parts.push({
-                inlineData: {
-                    mimeType: mimeType,
-                    data: base64Clean
-                }
-            });
+            input.push({ type: 'image', mime_type: mimeType, data: base64Clean });
         }
     }
-
-    parts.push({ text: prompt });
+    input.unshift({ type: 'text', text: prompt });
 
     // Map aspect ratio - Gemini supports: "1:1", "3:4", "4:3", "9:16", "16:9"
     // Default to 16:9 for video-ready format
@@ -84,7 +74,7 @@ export async function generateGeminiImage({ prompt, imageBase64Array, aspectRati
     const mappedResolution = resolutionMap[resolution] || '1K';
 
     console.log('[Gemini Image] Generating with:', {
-        model: modelName,
+        model,
         hasInputImages: imageBase64Array?.length || 0,
         aspectRatio: mappedRatio,
         resolution: mappedResolution,
@@ -93,18 +83,13 @@ export async function generateGeminiImage({ prompt, imageBase64Array, aspectRati
 
     let response;
     try {
-        response = await ai.models.generateContent({
-            model: modelName,
-            contents: {
-                parts: parts
-            },
-            config: {
-                responseModalities: ["TEXT", "IMAGE"],
-                temperature: 1.0,
-                imageConfig: {
-                    aspectRatio: mappedRatio,
-                    imageSize: mappedResolution
-                }
+        response = await ai.interactions.create({
+            model,
+            input,
+            response_format: {
+                type: 'image',
+                aspect_ratio: mappedRatio,
+                image_size: mappedResolution
             }
         });
     } catch (error) {
@@ -118,14 +103,8 @@ export async function generateGeminiImage({ prompt, imageBase64Array, aspectRati
         throw error;
     }
 
-    const candidates = response.candidates || [];
-    if (candidates.length > 0 && candidates[0].content && candidates[0].content.parts) {
-        for (const part of candidates[0].content.parts) {
-            if (part.inlineData && part.inlineData.data) {
-                return Buffer.from(part.inlineData.data, 'base64');
-            }
-        }
-    }
+    const imageOutput = response.outputs?.find((output) => output.type === 'image' && output.data);
+    if (imageOutput?.data) return Buffer.from(imageOutput.data, 'base64');
 
     throw new Error("No image data returned from Gemini");
 }
@@ -138,10 +117,7 @@ export async function generateGeminiImage({ prompt, imageBase64Array, aspectRati
  * Generate video using Veo
  * @returns {Promise<Buffer>} Video buffer
  */
-export async function generateVeoVideo({ prompt, imageBase64, lastFrameBase64, aspectRatio, resolution, duration, generateAudio = true, apiKey }) {
-    const ai = getGeminiClient(apiKey);
-    const model = 'veo-3.1-fast-generate-preview';
-
+export function buildVeoRequestArgs({ prompt, imageBase64, lastFrameBase64, aspectRatio, resolution, duration, model = 'veo-3.1-fast-generate-preview' }) {
     // Map resolution
     const resolutionMap = {
         '1080p': '1080p',
@@ -181,14 +157,8 @@ export async function generateVeoVideo({ prompt, imageBase64, lastFrameBase64, a
     // Add image inputs
     if (imageBase64) {
         const match = imageBase64.match(/^data:(image\/\w+);base64,/);
-        let mimeType = match ? match[1] : "image/png";
-        let base64Clean = imageBase64.replace(/^data:image\/\w+;base64,/, "");
-
-        // Veo prefers JPEG, but accepts other formats
-        // Just update the mimeType header - the API handles conversion
-        if (mimeType === 'image/png' || mimeType === 'image/webp') {
-            mimeType = 'image/jpeg';
-        }
+        const mimeType = match ? match[1] : "image/png";
+        const base64Clean = imageBase64.replace(/^data:image\/\w+;base64,/, "");
 
         args.image = {
             imageBytes: base64Clean,
@@ -199,23 +169,22 @@ export async function generateVeoVideo({ prompt, imageBase64, lastFrameBase64, a
     // Add last frame for interpolation
     if (lastFrameBase64) {
         const match = lastFrameBase64.match(/^data:(image\/\w+);base64,/);
-        let mimeType = match ? match[1] : "image/png";
-        let base64Clean = lastFrameBase64.replace(/^data:image\/\w+;base64,/, "");
+        const mimeType = match ? match[1] : "image/png";
+        const base64Clean = lastFrameBase64.replace(/^data:image\/\w+;base64,/, "");
 
-        // Veo prefers JPEG
-        if (mimeType === 'image/png' || mimeType === 'image/webp') {
-            mimeType = 'image/jpeg';
-        }
-
-        args.referenceImages = [{
-            referenceId: 1,
-            referenceType: 'REFERENCE_TYPE_LAST_FRAME',
-            image: {
-                imageBytes: base64Clean,
-                mimeType: mimeType
-            }
-        }];
+        // Veo interpolation expects the ending frame in config.lastFrame.
+        args.config.lastFrame = {
+            imageBytes: base64Clean,
+            mimeType
+        };
     }
+
+    return args;
+}
+
+export async function generateVeoVideo({ prompt, imageBase64, lastFrameBase64, aspectRatio, resolution, duration, generateAudio = true, apiKey, model = 'veo-3.1-fast-generate-preview' }) {
+    const ai = getGeminiClient(apiKey);
+    const args = buildVeoRequestArgs({ prompt, imageBase64, lastFrameBase64, aspectRatio, resolution, duration, model });
 
     console.log('Calling Veo API with args:', {
         model: args.model,
@@ -223,7 +192,7 @@ export async function generateVeoVideo({ prompt, imageBase64, lastFrameBase64, a
         config: args.config,
         image: args.image ? { mimeType: args.image.mimeType, length: args.image.imageBytes?.length } : undefined,
         requestedDuration: duration,
-        mappedDuration: mappedDuration
+        mappedDuration: args.config.durationSeconds
     });
 
     // Start generation
@@ -232,7 +201,7 @@ export async function generateVeoVideo({ prompt, imageBase64, lastFrameBase64, a
     // Poll for completion
     while (!operation.done) {
         await new Promise(resolve => setTimeout(resolve, 5000));
-        operation = await ai.operations.get({ operation: operation });
+        operation = await ai.operations.getVideosOperation({ operation });
     }
 
     // Get video data - Veo returns either a URI or direct bytes

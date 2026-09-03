@@ -415,9 +415,9 @@ export const useStoryboardGenerator = ({ onCreateNodes, viewport }: UseStoryboar
                 prompt,
                 // Set to IDLE - handleGenerate will set to LOADING when called
                 status: NodeStatus.IDLE,
-                // Default to Nano Banana Pro (gemini-3-pro-image-preview)
+                // Default to Nano Banana Pro (gemini-3-pro-image)
                 model: 'gemini-pro',
-                imageModel: 'gemini-3-pro-image-preview',
+                imageModel: 'gemini-3-pro-image',
                 aspectRatio: '16:9',
                 resolution: '1K',
                 title: `Scene ${sceneNumber}`,

@@ -22,6 +22,7 @@ AdCanvas 是一款面向广告创意团队的 PC Web Demo。它把广告 Brief�
 - 可编辑项目包导入导出与生产交接清单
 - 可解释的画布操作智能体与右侧创意对话智能体
 - Gemini / OpenAI 等模型的 Provider Adapter 与无密钥安全降级
+- 5 个内置广告生成 Skill：产品主视觉、产品换景、电影感产品镜头、首尾帧转场、竖屏 UGC 开场
 - FFmpeg 多镜头粗剪输出
 - 黑白灰桌面工作台与画布界面
 
@@ -90,13 +91,14 @@ npm run test:domain
 npm run build
 ```
 
-当前自动化测试共 30 项，覆盖 Provider 选择、任务状态机、预算与费用确认、项目包、品牌约束、画布操作规划、节点版本和 FFmpeg 粗剪。
+当前自动化测试共 39 项，覆盖 Provider 选择、任务状态机、API 任务链路、广告生成 Skill、参考素材传递、预算与费用确认、项目包、品牌约束、画布操作规划、节点版本和 FFmpeg 粗剪。
 
 ## 文档
 
 - [产品与开发计划](docs/plans/2026-08-25-ai-ad-platform-implementation-plan.md)
 - [前端视觉方向](docs/design/2026-08-26-light-ui-direction.md)
 - [视频剪辑节点](docs/video-editor-node.md)
+- [广告生成 Skill 与参考来源](docs/generation-skills.md)
 
 ## 来源与许可
 

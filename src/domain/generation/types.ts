@@ -27,6 +27,7 @@ export interface GenerationTask {
   actualCost: number | null;
   currency: 'CNY';
   idempotencyKey: string;
+  input?: Record<string, unknown>;
   attempt: number;
   maxAttempts: number;
   output: Record<string, unknown> | null;

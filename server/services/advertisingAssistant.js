@@ -70,10 +70,10 @@ export const answerAdvertisingQuestion = async ({ message, context, history = []
         `User: ${String(message).slice(0, 4000)}`
     ].join('\n\n');
     const result = await client.models.generateContent({
-        model: 'gemini-2.0-flash',
+        model: 'gemini-3.5-flash',
         contents: { parts: [{ text: prompt }] }
     });
     const response = extractText(result);
     if (!response) throw new Error('Advertising assistant returned no content');
-    return { response, mode: 'provider', model: 'gemini-2.0-flash' };
+    return { response, mode: 'provider', model: 'gemini-3.5-flash' };
 };

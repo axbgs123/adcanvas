@@ -22,6 +22,7 @@ AdCanvas is a PC web demo built for advertising creative teams. It brings the ad
 - Editable project-package import/export and production handoff manifests
 - Explainable canvas-action agent and a separate creative-chat agent
 - Provider Adapters for Gemini, OpenAI, and other models, with safe no-key fallback behavior
+- Five built-in advertising generation skills for key visuals, product scene remixing, cinematic shots, first/last-frame transitions, and vertical UGC hooks
 - FFmpeg multi-shot rough-cut rendering
 - Monochrome desktop workbench and canvas interface
 
@@ -90,13 +91,14 @@ npm run test:domain
 npm run build
 ```
 
-The current suite contains 30 automated tests covering provider selection, task state transitions, budget and cost confirmation, project packages, brand constraints, canvas-operation planning, node versions, and FFmpeg rough-cut rendering.
+The current suite contains 39 automated tests covering provider selection, task state transitions, the API task pipeline, advertising generation skills, reference-asset forwarding, budget and cost confirmation, project packages, brand constraints, canvas-operation planning, node versions, and FFmpeg rough-cut rendering.
 
 ## Documentation
 
 - [Product and implementation plan](docs/plans/2026-08-25-ai-ad-platform-implementation-plan.md)
 - [Frontend visual direction](docs/design/2026-08-26-light-ui-direction.md)
 - [Video editor node](docs/video-editor-node.md)
+- [Advertising generation skills and references](docs/generation-skills.md)
 
 ## Attribution and License
 

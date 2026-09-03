@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Ban, CheckCircle2, ChevronDown, ChevronUp, Clock3, Coins, ListTodo, Loader2, RefreshCw, RotateCcw, XCircle } from 'lucide-react';
 import type { BudgetSummary, GenerationTask, GenerationTaskStatus } from '../../domain/generation/types';
 import { cancelTask, getBudget, listTasks, retryTask } from './taskApi';
+import { getGenerationSkill } from '../../domain/generation/skillRegistry';
 
 interface TaskCenterProps {
   projectId: string;
@@ -117,6 +118,7 @@ export const TaskCenter: React.FC<TaskCenterProps> = ({ projectId, refreshSignal
             )}
             {tasks.map((task) => {
               const meta = statusMeta[task.status];
+              const skill = getGenerationSkill(typeof task.input?.skillId === 'string' ? task.input.skillId : null);
               return (
                 <article key={task.id} className="rounded-lg border border-[#e5e5e5] bg-[#fafafa] p-3">
                   <div className="flex items-start justify-between gap-3">
@@ -125,6 +127,7 @@ export const TaskCenter: React.FC<TaskCenterProps> = ({ projectId, refreshSignal
                       <div className="studio-utility mt-1 text-[9px] text-[#666666]">
                         {task.mode === 'simulation' ? '模拟执行' : `${task.provider}/${task.model}`}
                       </div>
+                      {skill && <div className="mt-1 text-[10px] text-[#555555]">Skill · {skill.label} v{skill.version}</div>}
                       <div className="studio-utility mt-1 text-[9px] text-[#999999]">节点 {task.nodeId?.slice(0, 10) || '—'}</div>
                     </div>
                     <span className={`flex items-center gap-1 rounded-full border px-2 py-1 text-[10px] ${meta.color}`}>

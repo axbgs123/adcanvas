@@ -2,7 +2,7 @@ const providerDefinitions = [
     {
         id: 'gemini-text',
         provider: 'google',
-        model: 'gemini-2.0-flash',
+        model: 'gemini-3.5-flash',
         kind: 'text',
         presets: ['quick', 'balanced', 'high'],
         requiredCredential: 'GEMINI_API_KEY'
@@ -18,7 +18,7 @@ const providerDefinitions = [
     {
         id: 'gemini-image',
         provider: 'google',
-        model: 'gemini-3-pro-image-preview',
+        model: 'gemini-3.1-flash-image',
         kind: 'image',
         presets: ['quick', 'balanced', 'high'],
         requiredCredential: 'GEMINI_API_KEY'

@@ -737,7 +737,7 @@ app.post('/api/gemini/describe-image', async (req, res) => {
         const client = getClient();
         // Correct SDK usage for @google/genai ^1.32.0
         const result = await client.models.generateContent({
-            model: "gemini-2.0-flash",
+            model: "gemini-3.5-flash",
             contents: {
                 parts: [
                     { text: prompt || "Describe this image in detail for video generation." },
@@ -787,7 +787,7 @@ app.post('/api/gemini/optimize-prompt', async (req, res) => {
         const systemInstruction = "You are an expert video prompt engineer. Your goal is to rewrite the user's prompt to be descriptive, visual, and optimized for AI video generation models like Veo, Kling, and Hailuo. detailed, cinematic, and focused on motion and atmosphere. Keep it under 60 words. Output ONLY the rewritten prompt.";
 
         const result = await client.models.generateContent({
-            model: "gemini-2.0-flash",
+            model: "gemini-3.5-flash",
             contents: {
                 parts: [
                     { text: `${systemInstruction}\n\nUser Prompt: ${prompt}` }

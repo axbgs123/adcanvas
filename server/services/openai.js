@@ -84,7 +84,7 @@ async function base64ToFile(base64Data, filename = 'image.png') {
  * @param {string} params.apiKey - OpenAI API key
  * @returns {Promise<Buffer>} Image buffer
  */
-export async function generateOpenAIImage({ prompt, imageBase64Array, aspectRatio, resolution, apiKey }) {
+export async function generateOpenAIImage({ prompt, imageBase64Array, aspectRatio, resolution, apiKey, model = 'gpt-image-1.5' }) {
     const openai = new OpenAI({ apiKey });
 
     const size = mapAspectRatioToSize(aspectRatio);
@@ -106,7 +106,7 @@ export async function generateOpenAIImage({ prompt, imageBase64Array, aspectRati
 
         // Build request options
         const editOptions = {
-            model: 'gpt-image-1.5',
+            model,
             image: imageFiles.length === 1 ? imageFiles[0] : imageFiles,
             prompt,
             quality: quality === 'auto' ? undefined : quality,
@@ -129,7 +129,7 @@ export async function generateOpenAIImage({ prompt, imageBase64Array, aspectRati
 
         // Build request options
         const generateOptions = {
-            model: 'gpt-image-1.5',
+            model,
             prompt,
             quality: quality === 'auto' ? undefined : quality,
         };
