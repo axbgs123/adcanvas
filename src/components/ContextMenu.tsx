@@ -26,6 +26,7 @@ import {
   PanelsTopLeft,
   Camera,
   Scissors,
+  ClipboardCheck,
   PackageCheck
 } from 'lucide-react';
 import { ContextMenuState, NodeType } from '../types';
@@ -351,6 +352,13 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({
           icon={<Scissors size={18} />}
           label="Edit Plan"
           onClick={() => onSelectType(NodeType.EDIT_PLAN)}
+          canvasTheme={canvasTheme}
+        />
+        <MenuItem
+          icon={<ClipboardCheck size={18} />}
+          label="AI Quality Audit"
+          desc="Brand, product, copy, and platform checks"
+          onClick={() => onSelectType(NodeType.QUALITY_AUDIT)}
           canvasTheme={canvasTheme}
         />
         <MenuItem

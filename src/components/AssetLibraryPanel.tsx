@@ -222,7 +222,7 @@ const AssetLibraryContent = ({
                                         <span className="text-white text-xs font-medium">Delete?</span>
                                         <div className="flex gap-2">
                                             <button
-                                                className="px-2 py-1 bg-red-500 hover:bg-red-600 text-white text-xs rounded transition-colors"
+                                                className="px-2 py-1 bg-neutral-500 hover:bg-neutral-600 text-white text-xs rounded transition-colors"
                                                 onClick={(e) => handleConfirmDelete(e, asset.id)}
                                             >
                                                 Yes
@@ -237,7 +237,7 @@ const AssetLibraryContent = ({
                                     </div>
                                 ) : (
                                     <button
-                                        className="absolute top-1 right-1 p-1.5 bg-black/60 text-white rounded-md opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-500/80 z-10"
+                                        className="absolute top-1 right-1 p-1.5 bg-black/60 text-white rounded-md opacity-0 group-hover:opacity-100 transition-opacity hover:bg-neutral-500/80 z-10"
                                         onClick={(e) => handleDeleteClick(e, asset.id)}
                                         title="Delete Asset"
                                     >

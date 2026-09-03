@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { AlertTriangle, Check, Loader2, Sparkles, X } from 'lucide-react';
-import { NodeData } from '../../types';
+import { NodeData, NodeType } from '../../types';
 import {
   GenerationCostEstimate,
   GenerationQualityPreset,
@@ -15,6 +15,7 @@ import {
   validateGenerationSkillReferences
 } from '../../domain/generation/skillRegistry';
 import { createTask, estimateTask, getProviderRecommendation } from './taskApi';
+import { buildQualityAuditSnapshot } from '../../domain/advertising/qualityAudit';
 
 interface GenerationConfirmationDialogProps {
   projectId: string;
@@ -70,6 +71,7 @@ export const GenerationConfirmationDialog: React.FC<GenerationConfirmationDialog
     () => nodes.find((candidate) => candidate.type === 'Brand Profile')?.advertising?.fields || {},
     [nodes]
   );
+  const isQualityAudit = node?.type === NodeType.QUALITY_AUDIT;
   const referenceValidation = selectedSkill
     ? validateGenerationSkillReferences(selectedSkill, Math.min(referenceImages.length, selectedSkill.referenceImageCount.max))
     : { valid: true, message: '' };
@@ -124,12 +126,15 @@ export const GenerationConfirmationDialog: React.FC<GenerationConfirmationDialog
           title: node.title,
           prompt: compileGenerationSkillPrompt(selectedSkillId, {
             title: node.title,
-            prompt: node.prompt,
+            prompt: isQualityAudit
+              ? `${node.prompt || ''}\nReturn JSON only with: overallScore, verdict, brandScore, productScore, copyScore, platformScore, issues[], recommendations[]. Score each dimension from 0 to 100. Evaluate only the supplied project evidence; identify missing evidence instead of inventing facts.`
+              : node.prompt,
             fields: node.advertising?.fields || {},
             brandRules
           }),
           fields: node.advertising?.fields || {},
           brandRules,
+          ...(isQualityAudit ? { auditSnapshot: buildQualityAuditSnapshot(nodes, node) } : {}),
           skillId: selectedSkill?.id || null,
           skillVersion: selectedSkill?.version || null,
           referenceImages: selectedSkill

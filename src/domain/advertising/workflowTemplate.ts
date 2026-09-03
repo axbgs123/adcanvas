@@ -67,7 +67,9 @@ export const createAdvertisingWorkflowTemplate = ({
 
   const editPlanId = `${prefix}-edit-plan`;
   nodes.push(createNode(NodeType.EDIT_PLAN, editPlanId, 2670, 520, terminalShotIds));
-  nodes.push(createNode(NodeType.DELIVERY, `${prefix}-delivery`, 3100, 520, [editPlanId]));
+  const qualityAuditId = `${prefix}-quality-audit`;
+  nodes.push(createNode(NodeType.QUALITY_AUDIT, qualityAuditId, 3100, 520, [editPlanId]));
+  nodes.push(createNode(NodeType.DELIVERY, `${prefix}-delivery`, 3530, 520, [qualityAuditId]));
 
   return nodes;
 };

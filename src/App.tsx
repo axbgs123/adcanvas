@@ -33,7 +33,6 @@ import { useImageNodeHandlers } from './hooks/useImageNodeHandlers';
 import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts';
 import { useContextMenuHandlers } from './hooks/useContextMenuHandlers';
 import { useAutoSave } from './hooks/useAutoSave';
-import { useGenerationRecovery } from './hooks/useGenerationRecovery';
 import { useVideoFrameExtraction } from './hooks/useVideoFrameExtraction';
 import { extractVideoLastFrame } from './utils/videoHelpers';
 import { SelectionBoundingBox } from './components/canvas/SelectionBoundingBox';
@@ -343,6 +342,7 @@ export default function App({
   };
 
   const { handleGenerate } = useGeneration({
+    projectId,
     nodes,
     updateNode
   });
@@ -551,12 +551,6 @@ export default function App({
     nodes,
     onSave: handleSaveWithTracking,
     interval: 60000 // Save every 60 seconds
-  });
-
-  // Generation Recovery Management
-  useGenerationRecovery({
-    nodes,
-    updateNode
   });
 
   // Video Frame Extraction (auto-extract lastFrame for videos missing thumbnails)
@@ -1632,6 +1626,8 @@ export default function App({
           newNodes.forEach(async (node) => {
             try {
               const resultUrl = await generateImage({
+                projectId,
+                nodeId: node.id,
                 prompt: node.prompt || '',
                 imageBase64: imageBase64,
                 imageModel: imageModel,

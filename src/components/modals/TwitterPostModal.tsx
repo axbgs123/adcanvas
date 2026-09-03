@@ -292,7 +292,7 @@ export const TwitterPostModal: React.FC<TwitterPostModalProps> = ({
                                 Sign in with X
                             </button>
                             {error && (
-                                <p className="text-sm text-red-400 mt-2">{error}</p>
+                                <p className="text-sm text-neutral-400 mt-2">{error}</p>
                             )}
                         </div>
                     )}
@@ -335,14 +335,14 @@ export const TwitterPostModal: React.FC<TwitterPostModalProps> = ({
                                     onChange={(e) => setTweetText(e.target.value)}
                                     placeholder="What's happening?"
                                     disabled={status === 'posting'}
-                                    className="w-full bg-[#1a1a1a] border border-neutral-700 rounded-xl p-4 text-white placeholder-neutral-500 focus:outline-none focus:border-blue-500 transition-colors resize-none disabled:opacity-50"
+                                    className="w-full bg-[#1a1a1a] border border-neutral-700 rounded-xl p-4 text-white placeholder-neutral-500 focus:outline-none focus:border-neutral-500 transition-colors resize-none disabled:opacity-50"
                                     rows={3}
                                 />
                                 <div className="flex justify-between items-center text-sm">
                                     <span className="text-neutral-500">
                                         Optional caption for your post
                                     </span>
-                                    <span className={`${isOverLimit ? 'text-red-400' : charsRemaining <= 20 ? 'text-yellow-400' : 'text-neutral-500'}`}>
+                                    <span className={`${isOverLimit ? 'text-neutral-400' : charsRemaining <= 20 ? 'text-neutral-400' : 'text-neutral-500'}`}>
                                         {charsRemaining}
                                     </span>
                                 </div>
@@ -350,16 +350,16 @@ export const TwitterPostModal: React.FC<TwitterPostModalProps> = ({
 
                             {/* Error Message */}
                             {error && status === 'error' && (
-                                <div className="p-3 bg-red-500/10 border border-red-500/30 rounded-lg flex items-start gap-3">
-                                    <AlertCircle size={20} className="text-red-400 flex-shrink-0 mt-0.5" />
+                                <div className="p-3 bg-neutral-500/10 border border-neutral-500/30 rounded-lg flex items-start gap-3">
+                                    <AlertCircle size={20} className="text-neutral-400 flex-shrink-0 mt-0.5" />
                                     <div>
-                                        <p className="text-sm text-red-400">{error}</p>
+                                        <p className="text-sm text-neutral-400">{error}</p>
                                         <button
                                             onClick={() => {
                                                 setStatus('idle');
                                                 setError(null);
                                             }}
-                                            className="text-xs text-red-400/70 hover:text-red-400 mt-1 underline"
+                                            className="text-xs text-neutral-400/70 hover:text-neutral-400 mt-1 underline"
                                         >
                                             Try again
                                         </button>
@@ -381,8 +381,8 @@ export const TwitterPostModal: React.FC<TwitterPostModalProps> = ({
                     {/* Success State */}
                     {status === 'success' && tweetUrl && (
                         <div className="flex flex-col items-center gap-4 py-8">
-                            <div className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center">
-                                <CheckCircle size={40} className="text-green-400" />
+                            <div className="w-16 h-16 rounded-full bg-neutral-500/20 flex items-center justify-center">
+                                <CheckCircle size={40} className="text-neutral-400" />
                             </div>
                             <div className="text-center">
                                 <h3 className="text-lg font-semibold text-white">Posted successfully!</h3>

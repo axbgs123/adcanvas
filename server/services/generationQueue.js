@@ -1,11 +1,21 @@
-const defaultSimulationExecutor = async (task) => ({
-    actualCost: task.estimatedCost,
-    output: {
-        mode: 'simulation',
-        message: `${task.kind} task completed in Demo simulation mode`,
-        completedForNodeId: task.nodeId
-    }
-});
+import { evaluateQualityAudit } from './qualityAudit.js';
+
+const defaultSimulationExecutor = async (task) => {
+    const audit = task.input?.auditSnapshot ? evaluateQualityAudit(task.input.auditSnapshot) : null;
+    return {
+        actualCost: task.estimatedCost,
+        output: audit ? {
+            mode: 'simulation',
+            content: JSON.stringify(audit),
+            audit,
+            completedForNodeId: task.nodeId
+        } : {
+            mode: 'simulation',
+            message: `${task.kind} task completed in Demo simulation mode`,
+            completedForNodeId: task.nodeId
+        }
+    };
+};
 
 export const createGenerationQueue = (repository, options = {}) => {
     const concurrency = Math.max(1, Number(options.concurrency || 2));

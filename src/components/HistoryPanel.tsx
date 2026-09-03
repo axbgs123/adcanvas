@@ -317,7 +317,7 @@ export const HistoryPanel: React.FC<HistoryPanelProps> = ({
                                                         e.stopPropagation();
                                                         setDeleteConfirm(asset.id);
                                                     }}
-                                                    className="absolute top-2 right-2 p-1.5 bg-black/50 hover:bg-red-500 rounded-lg opacity-0 group-hover:opacity-100 transition-all"
+                                                    className="absolute top-2 right-2 p-1.5 bg-black/50 hover:bg-neutral-500 rounded-lg opacity-0 group-hover:opacity-100 transition-all"
                                                 >
                                                     <Trash2 size={14} className="text-white" />
                                                 </button>
@@ -360,7 +360,7 @@ export const HistoryPanel: React.FC<HistoryPanelProps> = ({
                             </button>
                             <button
                                 onClick={() => handleDelete(deleteConfirm)}
-                                className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-500 text-white text-sm transition-colors"
+                                className="px-4 py-2 rounded-lg bg-neutral-600 hover:bg-neutral-500 text-white text-sm transition-colors"
                             >
                                 Delete
                             </button>

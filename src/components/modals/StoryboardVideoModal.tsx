@@ -285,7 +285,7 @@ export const StoryboardVideoModal: React.FC<StoryboardVideoModalProps> = ({
                 {/* Header */}
                 <div className="px-6 py-4 border-b border-neutral-800 flex items-center justify-between bg-[#1a1a1a] z-10">
                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-purple-500/25">
+                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-neutral-500 to-neutral-600 flex items-center justify-center shadow-lg shadow-neutral-500/25">
                             <Film size={20} className="text-white" />
                         </div>
                         <div>
@@ -313,7 +313,7 @@ export const StoryboardVideoModal: React.FC<StoryboardVideoModalProps> = ({
                                 {/* Remove Button - Left side */}
                                 <button
                                     onClick={() => handleRemoveScene(scene.id)}
-                                    className="p-2 text-neutral-600 hover:text-red-400 hover:bg-neutral-800/50 rounded-full transition-all opacity-0 group-hover/card:opacity-100 flex-shrink-0"
+                                    className="p-2 text-neutral-600 hover:text-neutral-400 hover:bg-neutral-800/50 rounded-full transition-all opacity-0 group-hover/card:opacity-100 flex-shrink-0"
                                     title="Remove scene"
                                 >
                                     <Trash2 size={16} />
@@ -340,7 +340,7 @@ export const StoryboardVideoModal: React.FC<StoryboardVideoModalProps> = ({
                                                 <button
                                                     onClick={() => handleOptimizePrompt(scene.id)}
                                                     disabled={generatingPrompts[scene.id] || optimizingPrompts[scene.id] || !prompts[scene.id]}
-                                                    className="flex items-center gap-1.5 text-xs text-blue-400 hover:text-blue-300 transition-colors disabled:opacity-50"
+                                                    className="flex items-center gap-1.5 text-xs text-neutral-400 hover:text-neutral-300 transition-colors disabled:opacity-50"
                                                     title="Enhance your prompt with AI"
                                                 >
                                                     {optimizingPrompts[scene.id] ? (
@@ -357,7 +357,7 @@ export const StoryboardVideoModal: React.FC<StoryboardVideoModalProps> = ({
                                                 value={prompts[scene.id] || ''}
                                                 onChange={(e) => setPrompts(prev => ({ ...prev, [scene.id]: e.target.value }))}
                                                 placeholder="Describe the motion for this scene (e.g., 'Slow pan right, character smiles')..."
-                                                className="w-full h-full min-h-[100px] bg-neutral-950 border border-neutral-800 rounded-lg p-3 text-sm text-neutral-200 focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/20 resize-none"
+                                                className="w-full h-full min-h-[100px] bg-neutral-950 border border-neutral-800 rounded-lg p-3 text-sm text-neutral-200 focus:outline-none focus:border-neutral-500/50 focus:ring-1 focus:ring-neutral-500/20 resize-none"
                                             />
 
                                             {/* Auto-Generate Overlay Button */}
@@ -366,7 +366,7 @@ export const StoryboardVideoModal: React.FC<StoryboardVideoModalProps> = ({
                                                     <button
                                                         onClick={() => handleGeneratePrompt(scene.id)}
                                                         disabled={generatingPrompts[scene.id]}
-                                                        className="pointer-events-auto flex items-center gap-2 text-purple-400 hover:text-purple-300 hover:scale-105 transition-all opacity-80 hover:opacity-100"
+                                                        className="pointer-events-auto flex items-center gap-2 text-neutral-400 hover:text-neutral-300 hover:scale-105 transition-all opacity-80 hover:opacity-100"
                                                     >
                                                         {generatingPrompts[scene.id] ? (
                                                             <Loader2 size={14} className="animate-spin" />
@@ -418,10 +418,10 @@ export const StoryboardVideoModal: React.FC<StoryboardVideoModalProps> = ({
                                                 <button
                                                     key={model.id}
                                                     onClick={() => handleModelChange(model.id)}
-                                                    className={`w-full flex items-center justify-between px-3 py-2.5 text-xs hover:bg-[#2a2a2a] transition-colors ${settings.model === model.id ? 'text-blue-400 bg-blue-500/10' : 'text-neutral-300'}`}
+                                                    className={`w-full flex items-center justify-between px-3 py-2.5 text-xs hover:bg-[#2a2a2a] transition-colors ${settings.model === model.id ? 'text-neutral-400 bg-neutral-500/10' : 'text-neutral-300'}`}
                                                 >
                                                     <div className="flex items-center gap-2">
-                                                        <GoogleIcon size={14} className={settings.model === model.id ? 'text-blue-400' : 'text-neutral-400'} />
+                                                        <GoogleIcon size={14} className={settings.model === model.id ? 'text-neutral-400' : 'text-neutral-400'} />
                                                         {model.name}
                                                     </div>
                                                     {settings.model === model.id && <Check size={14} />}
@@ -434,13 +434,13 @@ export const StoryboardVideoModal: React.FC<StoryboardVideoModalProps> = ({
                                                 <button
                                                     key={model.id}
                                                     onClick={() => handleModelChange(model.id)}
-                                                    className={`w-full flex items-center justify-between px-3 py-2.5 text-xs hover:bg-[#2a2a2a] transition-colors ${settings.model === model.id ? 'text-blue-400 bg-blue-500/10' : 'text-neutral-300'}`}
+                                                    className={`w-full flex items-center justify-between px-3 py-2.5 text-xs hover:bg-[#2a2a2a] transition-colors ${settings.model === model.id ? 'text-neutral-400 bg-neutral-500/10' : 'text-neutral-300'}`}
                                                 >
                                                     <div className="flex items-center gap-2">
                                                         <KlingIcon size={16} />
                                                         {model.name}
                                                         {model.recommended && (
-                                                            <span className="text-[9px] px-1 py-0.5 bg-green-500/20 text-green-400 rounded font-medium">REC</span>
+                                                            <span className="text-[9px] px-1 py-0.5 bg-neutral-500/20 text-neutral-400 rounded font-medium">REC</span>
                                                         )}
                                                     </div>
                                                     {settings.model === model.id && <Check size={14} />}
@@ -453,7 +453,7 @@ export const StoryboardVideoModal: React.FC<StoryboardVideoModalProps> = ({
                                                 <button
                                                     key={model.id}
                                                     onClick={() => handleModelChange(model.id)}
-                                                    className={`w-full flex items-center justify-between px-3 py-2.5 text-xs hover:bg-[#2a2a2a] transition-colors ${settings.model === model.id ? 'text-blue-400 bg-blue-500/10' : 'text-neutral-300'}`}
+                                                    className={`w-full flex items-center justify-between px-3 py-2.5 text-xs hover:bg-[#2a2a2a] transition-colors ${settings.model === model.id ? 'text-neutral-400 bg-neutral-500/10' : 'text-neutral-300'}`}
                                                 >
                                                     <div className="flex items-center gap-2">
                                                         <HailuoIcon size={16} />
@@ -473,7 +473,7 @@ export const StoryboardVideoModal: React.FC<StoryboardVideoModalProps> = ({
                                 <select
                                     value={settings.duration}
                                     onChange={(e) => setSettings(prev => ({ ...prev, duration: Number(e.target.value) }))}
-                                    className="bg-neutral-800 text-white text-xs px-3 py-2 rounded-lg border border-neutral-700 focus:outline-none focus:border-purple-500 min-w-[80px]"
+                                    className="bg-neutral-800 text-white text-xs px-3 py-2 rounded-lg border border-neutral-700 focus:outline-none focus:border-neutral-500 min-w-[80px]"
                                 >
                                     {currentModel.durations.map(d => (
                                         <option key={d} value={d}>{d}s</option>
@@ -487,7 +487,7 @@ export const StoryboardVideoModal: React.FC<StoryboardVideoModalProps> = ({
                                 <select
                                     value={settings.resolution}
                                     onChange={(e) => setSettings(prev => ({ ...prev, resolution: e.target.value }))}
-                                    className="bg-neutral-800 text-white text-xs px-3 py-2 rounded-lg border border-neutral-700 focus:outline-none focus:border-purple-500 min-w-[80px]"
+                                    className="bg-neutral-800 text-white text-xs px-3 py-2 rounded-lg border border-neutral-700 focus:outline-none focus:border-neutral-500 min-w-[80px]"
                                 >
                                     {availableResolutions.map(res => (
                                         <option key={res} value={res}>{res}</option>
@@ -504,7 +504,7 @@ export const StoryboardVideoModal: React.FC<StoryboardVideoModalProps> = ({
                             </div>
                             <button
                                 onClick={() => onCreateVideos(prompts, settings, sortedScenes.map(s => s.id))}
-                                className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white pl-4 pr-5 py-2.5 rounded-xl text-sm font-medium transition-all shadow-lg shadow-purple-900/40 flex items-center gap-2"
+                                className="bg-gradient-to-r from-neutral-600 to-neutral-600 hover:from-neutral-500 hover:to-neutral-500 text-white pl-4 pr-5 py-2.5 rounded-xl text-sm font-medium transition-all shadow-lg shadow-neutral-900/40 flex items-center gap-2"
                             >
                                 <Play size={16} fill="currentColor" />
                                 Generate Story Videos

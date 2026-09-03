@@ -11,11 +11,12 @@ import { generateLocalImage } from '../services/localModelService';
 import { extractVideoLastFrame } from '../utils/videoHelpers';
 
 interface UseGenerationProps {
+    projectId: string;
     nodes: NodeData[];
     updateNode: (id: string, updates: Partial<NodeData>) => void;
 }
 
-export const useGeneration = ({ nodes, updateNode }: UseGenerationProps) => {
+export const useGeneration = ({ projectId, nodes, updateNode }: UseGenerationProps) => {
     // ============================================================================
     // HELPERS
     // ============================================================================
@@ -149,6 +150,7 @@ export const useGeneration = ({ nodes, updateNode }: UseGenerationProps) => {
 
                 // Generate image with all parent images and character references
                 const rawResultUrl = await generateImage({
+                    projectId,
                     prompt: combinedPrompt,
                     aspectRatio: node.aspectRatio,
                     resolution: node.resolution,
@@ -315,6 +317,7 @@ export const useGeneration = ({ nodes, updateNode }: UseGenerationProps) => {
 
                 // Generate video
                 const rawResultUrl = await generateVideo({
+                    projectId,
                     prompt: combinedPrompt,
                     imageBase64,
                     lastFrameBase64,

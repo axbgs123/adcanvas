@@ -1,90 +1,92 @@
-/**
- * generationService.ts
- * 
- * Frontend service layer for AI content generation.
- * Proxies requests to backend API which handles multiple providers:
- * - Image: Gemini Pro, Kling AI
- * - Video: Veo 3.1, Kling AI
- */
+import type { GenerationQualityPreset, GenerationTask, GenerationTaskKind } from '../domain/generation/types';
+import { apiRequest } from './apiClient';
 
-export interface GenerateImageParams {
+interface BaseGenerationParams {
+  projectId: string;
+  nodeId: string;
   prompt: string;
   aspectRatio?: string;
   resolution?: string;
-  imageBase64?: string | string[]; // Supports single image or array of images
-  imageModel?: string; // Image model version (e.g., 'gemini-pro', 'kling-v2')
-  nodeId?: string; // ID of the node initiating generation
-  // Kling V1.5 reference settings
+}
+
+export interface GenerateImageParams extends BaseGenerationParams {
+  imageBase64?: string | string[];
+  imageModel?: string;
   klingReferenceMode?: 'subject' | 'face';
-  klingFaceIntensity?: number; // 0-100
-  klingSubjectIntensity?: number; // 0-100
+  klingFaceIntensity?: number;
+  klingSubjectIntensity?: number;
 }
 
-export interface GenerateVideoParams {
-  prompt: string;
-  imageBase64?: string; // For Image-to-Video (start frame)
-  lastFrameBase64?: string; // For frame-to-frame interpolation (end frame)
-  aspectRatio?: string;
-  resolution?: string; // Add resolution to params
-  duration?: number; // Video duration in seconds (e.g., 5, 6, 8, 10)
-  videoModel?: string; // Video model version (e.g., 'veo-3.1', 'kling-v2-1')
-  motionReferenceUrl?: string; // For Kling 2.6 motion control
-  generateAudio?: boolean; // For Kling 2.6 and Veo 3.1 native audio (default: true)
-  nodeId?: string; // ID of the node initiating generation
+export interface GenerateVideoParams extends BaseGenerationParams {
+  imageBase64?: string;
+  lastFrameBase64?: string;
+  duration?: number;
+  videoModel?: string;
+  motionReferenceUrl?: string;
+  generateAudio?: boolean;
 }
 
-/**
- * Generates an image by calling the backend API
- */
-export const generateImage = async (params: GenerateImageParams): Promise<string> => {
-  try {
-    const response = await fetch('/api/generate-image', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(params)
-    });
-
-    if (!response.ok) {
-      const errData = await response.json().catch(() => ({}));
-      throw new Error(errData.error || response.statusText);
-    }
-
-    const data = await response.json();
-    if (!data.resultUrl) {
-      throw new Error("No image data returned from server");
-    }
-    return data.resultUrl;
-
-  } catch (error) {
-    console.error("Image Generation Error:", error);
-    throw error;
-  }
+const inferProvider = (model = '') => {
+  if (model.startsWith('gpt-image-')) return 'openai';
+  if (model.startsWith('kling-v2-6')) return 'fal';
+  if (model.startsWith('kling-')) return 'kling';
+  if (model.startsWith('hailuo-')) return 'hailuo';
+  return model ? 'google' : 'auto';
 };
 
-/**
- * Generates a video by calling the backend API
- */
-export const generateVideo = async (params: GenerateVideoParams): Promise<string> => {
-  try {
-    const response = await fetch('/api/generate-video', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(params)
-    });
+const inferQuality = (resolution = ''): GenerationQualityPreset =>
+  ['4K', '1080p'].includes(resolution) ? 'high' : resolution === '512' ? 'quick' : 'balanced';
 
-    if (!response.ok) {
-      const errData = await response.json().catch(() => ({}));
-      throw new Error(errData.error || response.statusText);
+const waitForTask = async (taskId: string, timeoutMs = 15 * 60 * 1000): Promise<GenerationTask> => {
+  const startedAt = Date.now();
+  while (Date.now() - startedAt < timeoutMs) {
+    const task = await apiRequest<GenerationTask>(`/api/tasks/${taskId}`);
+    if (task.status === 'succeeded') return task;
+    if (task.status === 'failed' || task.status === 'cancelled') {
+      throw new Error(task.error?.message || `Generation task ${task.status}`);
     }
-
-    const data = await response.json();
-    if (!data.resultUrl) {
-      throw new Error("No video data returned from server");
-    }
-    return data.resultUrl;
-
-  } catch (error) {
-    console.error("Video Generation Error:", error);
-    throw error;
+    await new Promise((resolve) => window.setTimeout(resolve, 1500));
   }
+  throw new Error('Generation task timed out');
 };
+
+const runGenerationTask = async (
+  kind: Extract<GenerationTaskKind, 'image' | 'video'>,
+  params: BaseGenerationParams & Record<string, unknown>,
+  model?: string
+) => {
+  const qualityPreset = inferQuality(String(params.resolution || ''));
+  const created = await apiRequest<GenerationTask>('/api/tasks', {
+    method: 'POST',
+    body: JSON.stringify({
+      projectId: params.projectId,
+      nodeId: params.nodeId,
+      kind,
+      qualityPreset,
+      confirmed: true,
+      idempotencyKey: crypto.randomUUID(),
+      mode: 'provider',
+      provider: inferProvider(model),
+      model: model || 'auto',
+      payload: {
+        ...params,
+        referenceImages: [
+          ...(Array.isArray(params.imageBase64) ? params.imageBase64 : params.imageBase64 ? [params.imageBase64] : []),
+          ...(typeof params.lastFrameBase64 === 'string' ? [params.lastFrameBase64] : [])
+        ]
+      }
+    })
+  });
+  const completed = await waitForTask(created.id);
+  const resultUrl = completed.output?.resultUrl;
+  if (typeof resultUrl !== 'string') throw new Error('Generation task returned no media result');
+  return resultUrl;
+};
+
+/** All cloud image generation now runs through the persistent task API. */
+export const generateImage = (params: GenerateImageParams): Promise<string> =>
+  runGenerationTask('image', params as GenerateImageParams & Record<string, unknown>, params.imageModel);
+
+/** All cloud video generation now runs through the same task API and provider executor. */
+export const generateVideo = (params: GenerateVideoParams): Promise<string> =>
+  runGenerationTask('video', params as GenerateVideoParams & Record<string, unknown>, params.videoModel);

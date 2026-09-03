@@ -50,7 +50,7 @@ const CodeBlock: React.FC<CodeBlockProps> = ({ code }) => {
     return (
         <div className="relative my-2 group">
             <pre className="bg-neutral-900 border border-neutral-700 rounded-lg p-3 text-sm overflow-x-auto">
-                <code className="text-cyan-300 whitespace-pre-wrap break-words">{code}</code>
+                <code className="text-neutral-300 whitespace-pre-wrap break-words">{code}</code>
             </pre>
             <button
                 onClick={handleCopy}
@@ -58,7 +58,7 @@ const CodeBlock: React.FC<CodeBlockProps> = ({ code }) => {
                 title={copied ? 'Copied!' : 'Copy to clipboard'}
             >
                 {copied ? (
-                    <Check size={14} className="text-green-400" />
+                    <Check size={14} className="text-neutral-400" />
                 ) : (
                     <Copy size={14} className="text-neutral-300" />
                 )}
@@ -134,7 +134,7 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({
         <div className={`flex ${isUser ? 'justify-end' : 'justify-start'} mb-4`}>
             <div
                 className={`max-w-[85%] rounded-2xl px-4 py-3 ${isUser
-                    ? 'bg-cyan-600 text-white rounded-br-md'
+                    ? 'bg-neutral-600 text-white rounded-br-md'
                     : 'bg-neutral-800 text-neutral-100 rounded-bl-md'
                     }`}
             >
@@ -177,7 +177,7 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({
                 {/* Timestamp (optional) */}
                 {timestamp && (
                     <div
-                        className={`text-[10px] mt-1 ${isUser ? 'text-cyan-200' : 'text-neutral-500'
+                        className={`text-[10px] mt-1 ${isUser ? 'text-neutral-200' : 'text-neutral-500'
                             }`}
                     >
                         {timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}

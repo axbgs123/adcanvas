@@ -105,13 +105,13 @@ export const PromptBar: React.FC<PromptBarProps> = ({
                     className="flex items-center gap-1 text-[11px] text-neutral-300 hover:bg-neutral-700 px-2 py-1.5 rounded-md transition-colors border border-neutral-600"
                 >
                     {currentModel.provider === 'google' ? (
-                        <Banana size={11} className="text-yellow-400" />
+                        <Banana size={11} className="text-neutral-400" />
                     ) : currentModel.provider === 'openai' ? (
-                        <OpenAIIcon size={11} className="text-green-400" />
+                        <OpenAIIcon size={11} className="text-neutral-400" />
                     ) : currentModel.provider === 'kling' ? (
                         <KlingIcon size={14} />
                     ) : (
-                        <ImageIcon size={11} className="text-cyan-400" />
+                        <ImageIcon size={11} className="text-neutral-400" />
                     )}
                     <span className="font-medium whitespace-nowrap">{currentModel.name}</span>
                     <ChevronDown size={10} className="opacity-50" />
@@ -129,13 +129,13 @@ export const PromptBar: React.FC<PromptBarProps> = ({
                                     <button
                                         key={model.id}
                                         onClick={() => onModelChange(model.id)}
-                                        className={`w-full flex items-center justify-between px-3 py-2 text-xs text-left hover:bg-[#333] transition-colors ${currentModel.id === model.id ? 'text-blue-400' : 'text-neutral-300'}`}
+                                        className={`w-full flex items-center justify-between px-3 py-2 text-xs text-left hover:bg-[#333] transition-colors ${currentModel.id === model.id ? 'text-neutral-400' : 'text-neutral-300'}`}
                                     >
                                         <span className="flex items-center gap-2">
-                                            <OpenAIIcon size={12} className="text-green-400" />
+                                            <OpenAIIcon size={12} className="text-neutral-400" />
                                             {model.name}
                                             {model.recommended && (
-                                                <span className="text-[9px] px-1 py-0.5 bg-green-600/30 text-green-400 rounded">REC</span>
+                                                <span className="text-[9px] px-1 py-0.5 bg-neutral-600/30 text-neutral-400 rounded">REC</span>
                                             )}
                                         </span>
                                         {currentModel.id === model.id && <Check size={12} />}
@@ -150,10 +150,10 @@ export const PromptBar: React.FC<PromptBarProps> = ({
                                     <button
                                         key={model.id}
                                         onClick={() => onModelChange(model.id)}
-                                        className={`w-full flex items-center justify-between px-3 py-2 text-xs text-left hover:bg-[#333] transition-colors ${currentModel.id === model.id ? 'text-blue-400' : 'text-neutral-300'}`}
+                                        className={`w-full flex items-center justify-between px-3 py-2 text-xs text-left hover:bg-[#333] transition-colors ${currentModel.id === model.id ? 'text-neutral-400' : 'text-neutral-300'}`}
                                     >
                                         <span className="flex items-center gap-2">
-                                            <Banana size={12} className="text-yellow-400" />
+                                            <Banana size={12} className="text-neutral-400" />
                                             {model.name}
                                         </span>
                                         {currentModel.id === model.id && <Check size={12} />}
@@ -168,13 +168,13 @@ export const PromptBar: React.FC<PromptBarProps> = ({
                                     <button
                                         key={model.id}
                                         onClick={() => onModelChange(model.id)}
-                                        className={`w-full flex items-center justify-between px-3 py-2 text-xs text-left hover:bg-[#333] transition-colors ${currentModel.id === model.id ? 'text-blue-400' : 'text-neutral-300'}`}
+                                        className={`w-full flex items-center justify-between px-3 py-2 text-xs text-left hover:bg-[#333] transition-colors ${currentModel.id === model.id ? 'text-neutral-400' : 'text-neutral-300'}`}
                                     >
                                         <span className="flex items-center gap-2">
                                             <KlingIcon size={14} />
                                             {model.name}
                                             {model.recommended && (
-                                                <span className="text-[9px] px-1 py-0.5 bg-green-600/30 text-green-400 rounded">REC</span>
+                                                <span className="text-[9px] px-1 py-0.5 bg-neutral-600/30 text-neutral-400 rounded">REC</span>
                                             )}
                                         </span>
                                         {currentModel.id === model.id && <Check size={12} />}
@@ -203,7 +203,7 @@ export const PromptBar: React.FC<PromptBarProps> = ({
                         onClick={() => setShowAspectDropdown(!showAspectDropdown)}
                         className="flex items-center gap-1 text-[11px] font-medium bg-neutral-700/50 hover:bg-neutral-600 border border-neutral-600 text-white px-2 py-1.5 rounded-md transition-colors"
                     >
-                        <Crop size={10} className="text-blue-400" />
+                        <Crop size={10} className="text-neutral-400" />
                         <span>{selectedAspectRatio}</span>
                     </button>
 
@@ -214,7 +214,7 @@ export const PromptBar: React.FC<PromptBarProps> = ({
                                 <button
                                     key={ratio}
                                     onClick={() => onAspectChange(ratio)}
-                                    className={`w-full flex items-center justify-between px-3 py-2 text-xs text-left hover:bg-[#333] transition-colors ${selectedAspectRatio === ratio ? 'text-blue-400' : 'text-neutral-300'}`}
+                                    className={`w-full flex items-center justify-between px-3 py-2 text-xs text-left hover:bg-[#333] transition-colors ${selectedAspectRatio === ratio ? 'text-neutral-400' : 'text-neutral-300'}`}
                                 >
                                     <span>{ratio}</span>
                                     {selectedAspectRatio === ratio && <Check size={12} />}
@@ -230,7 +230,7 @@ export const PromptBar: React.FC<PromptBarProps> = ({
                         onClick={() => setShowResolutionDropdown(!showResolutionDropdown)}
                         className="flex items-center gap-1 text-[11px] font-medium bg-neutral-700/50 hover:bg-neutral-600 border border-neutral-600 text-white px-2 py-1.5 rounded-md transition-colors"
                     >
-                        <Monitor size={10} className="text-green-400" />
+                        <Monitor size={10} className="text-neutral-400" />
                         <span>{selectedResolution}</span>
                     </button>
 
@@ -241,7 +241,7 @@ export const PromptBar: React.FC<PromptBarProps> = ({
                                 <button
                                     key={res}
                                     onClick={() => onResolutionChange(res)}
-                                    className={`w-full flex items-center justify-between px-3 py-2 text-xs text-left hover:bg-[#333] transition-colors ${selectedResolution === res ? 'text-blue-400' : 'text-neutral-300'}`}
+                                    className={`w-full flex items-center justify-between px-3 py-2 text-xs text-left hover:bg-[#333] transition-colors ${selectedResolution === res ? 'text-neutral-400' : 'text-neutral-300'}`}
                                 >
                                     <span>{res}</span>
                                     {selectedResolution === res && <Check size={12} />}

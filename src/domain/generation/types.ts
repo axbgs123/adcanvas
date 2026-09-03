@@ -56,8 +56,8 @@ export interface ProviderRecommendation {
 }
 
 export const getGenerationKindForNode = (type: NodeType): GenerationTaskKind => {
-  if ([NodeType.MOODBOARD, NodeType.AD_STORYBOARD].includes(type)) return 'image';
-  if (type === NodeType.AD_SHOT) return 'video';
+  if ([NodeType.IMAGE, NodeType.IMAGE_EDITOR, NodeType.MOODBOARD, NodeType.AD_STORYBOARD].includes(type)) return 'image';
+  if ([NodeType.VIDEO, NodeType.AD_SHOT].includes(type)) return 'video';
   if ([NodeType.EDIT_PLAN, NodeType.DELIVERY].includes(type)) return 'rough-cut';
   return 'text';
 };

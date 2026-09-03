@@ -134,7 +134,7 @@ export const BottomToolbar: React.FC<BottomToolbarProps> = ({
             <button
                 onClick={handleSelectModeClick}
                 className={`w-9 h-9 rounded-lg flex items-center justify-center transition-colors ${isSelectMode
-                    ? 'bg-blue-600 text-white'
+                    ? 'bg-neutral-600 text-white'
                     : 'hover:bg-neutral-700 text-neutral-400'
                     }`}
                 title="Select"
@@ -149,7 +149,7 @@ export const BottomToolbar: React.FC<BottomToolbarProps> = ({
             <button
                 onClick={handleDrawingModeClick}
                 className={`w-9 h-9 rounded-lg flex items-center justify-center transition-colors ${isDrawingMode
-                    ? 'bg-blue-600 text-white'
+                    ? 'bg-neutral-600 text-white'
                     : 'hover:bg-neutral-700 text-neutral-400'
                     }`}
                 title="Drawing Mode"
@@ -163,7 +163,7 @@ export const BottomToolbar: React.FC<BottomToolbarProps> = ({
             <button
                 onClick={handleArrowModeClick}
                 className={`w-9 h-9 rounded-lg flex items-center justify-center transition-colors ${isArrowMode
-                    ? 'bg-blue-600 text-white'
+                    ? 'bg-neutral-600 text-white'
                     : 'hover:bg-neutral-700 text-neutral-400'
                     }`}
                 title="Arrow"
@@ -177,7 +177,7 @@ export const BottomToolbar: React.FC<BottomToolbarProps> = ({
             <button
                 onClick={handleTextModeClick}
                 className={`w-9 h-9 rounded-lg flex items-center justify-center transition-colors ${isTextMode
-                    ? 'bg-blue-600 text-white'
+                    ? 'bg-neutral-600 text-white'
                     : 'hover:bg-neutral-700 text-neutral-400'
                     }`}
                 title="Add Text"
@@ -193,7 +193,7 @@ export const BottomToolbar: React.FC<BottomToolbarProps> = ({
             <button
                 onClick={handleCropModeClick}
                 className={`w-9 h-9 rounded-lg flex items-center justify-center transition-colors ${isCropMode
-                    ? 'bg-blue-600 text-white'
+                    ? 'bg-neutral-600 text-white'
                     : 'hover:bg-neutral-700 text-neutral-400'
                     }`}
                 title="Crop"

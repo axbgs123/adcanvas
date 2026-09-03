@@ -61,9 +61,9 @@ export const StoryInput: React.FC<StoryInputProps> = ({
             const regex = new RegExp(`(${escExact}|${escNorm})(?=\\s|$|\\.|,|!|\\?)`, 'g');
 
             const chipHtml = `
-<span class="inline-flex items-center gap-1.5 align-middle bg-violet-500/10 border border-violet-500/30 rounded px-1.5 py-0.5 mx-0.5 select-none" contenteditable="false" data-mention="${exactMention}">
+<span class="inline-flex items-center gap-1.5 align-middle bg-neutral-500/10 border border-neutral-500/30 rounded px-1.5 py-0.5 mx-0.5 select-none" contenteditable="false" data-mention="${exactMention}">
 <img src="${asset.url}" class="w-4 h-4 rounded-sm object-cover" />
-<span class="text-violet-300 font-medium text-xs">${exactMention}</span>
+<span class="text-neutral-300 font-medium text-xs">${exactMention}</span>
 </span>`.trim().replace(/\n/g, '');
 
             html = html.replace(regex, chipHtml);
@@ -174,7 +174,7 @@ export const StoryInput: React.FC<StoryInputProps> = ({
                 onInput={!readOnly ? handleInput : undefined}
                 onBlur={onBlur}
                 onKeyDown={onKeyDown}
-                className={`w-full h-full ${readOnly ? 'cursor-default' : 'cursor-text focus:border-purple-500'} bg-neutral-900 border border-neutral-700 rounded-xl p-4 text-white text-sm focus:outline-none overflow-y-auto whitespace-pre-wrap ${className}`}
+                className={`w-full h-full ${readOnly ? 'cursor-default' : 'cursor-text focus:border-neutral-500'} bg-neutral-900 border border-neutral-700 rounded-xl p-4 text-white text-sm focus:outline-none overflow-y-auto whitespace-pre-wrap ${className}`}
                 style={{ minHeight: '12rem' }} // h-48 equivalent
             />
         </div>

@@ -41,3 +41,28 @@ test('applies provider media to its node, creates an AI version and stales desce
   assert.equal(applied[1].advertising.isStale, true);
   assert.strictEqual(applyCompletedGenerationTask(applied, task), applied);
 });
+
+test('writes structured quality audit scores back to the audit node', () => {
+  const auditNode = node('audit-1', 'AI Quality Audit');
+  const task = {
+    id: 'task-audit',
+    nodeId: 'audit-1',
+    status: 'succeeded',
+    output: {
+      audit: {
+        overallScore: 82,
+        verdict: '修改后复检',
+        brandScore: 90,
+        productScore: 80,
+        copyScore: 78,
+        platformScore: 79,
+        issues: ['落版信息不完整'],
+        recommendations: ['补充品牌落版']
+      }
+    }
+  };
+  const [applied] = applyCompletedGenerationTask([auditNode], task);
+  assert.equal(applied.advertising.fields.overallScore, '82');
+  assert.equal(applied.advertising.fields.issues, '落版信息不完整');
+  assert.equal(applied.advertising.versions.length, 2);
+});

@@ -52,6 +52,14 @@ const fieldLabels: Record<string, string> = {
   adoptedAssets: '采用素材',
   postNotes: '后期说明',
   missingItems: '缺失项',
+  overallScore: '综合评分',
+  verdict: '质检结论',
+  brandScore: '品牌一致性',
+  productScore: '产品一致性',
+  copyScore: '文案准确性',
+  platformScore: '平台适配',
+  issues: '发现问题',
+  recommendations: '修改建议',
   aiOutput: 'AI输出',
   generatedAsset: '生成素材'
 };
@@ -79,6 +87,15 @@ export const AdvertisingNodeContent: React.FC<AdvertisingNodeContentProps> = ({
   const advertising = data.advertising;
 
   if (!definition || !advertising) return null;
+
+  const auditMetrics = data.type === NodeType.QUALITY_AUDIT
+    ? [
+        ['品牌', advertising.fields.brandScore],
+        ['产品', advertising.fields.productScore],
+        ['文案', advertising.fields.copyScore],
+        ['平台', advertising.fields.platformScore]
+      ]
+    : [];
 
   const updateField = (key: string, value: string) => {
     onUpdate?.(data.id, {
@@ -152,6 +169,28 @@ export const AdvertisingNodeContent: React.FC<AdvertisingNodeContentProps> = ({
           ) : (
             <img src={data.resultUrl} alt="AI生成结果" className="aspect-video w-full rounded-xl object-cover" />
           )}
+        </div>
+      )}
+
+      {data.type === NodeType.QUALITY_AUDIT && (
+        <div className="border-b border-[#d9d9d9] bg-[#fafafa] p-4">
+          <div className="flex items-end justify-between border-b border-[#d9d9d9] pb-3">
+            <div>
+              <div className="studio-utility text-[9px] uppercase tracking-[0.16em] text-[#777777]">Quality score</div>
+              <div className="studio-display mt-1 text-4xl font-black text-[#111111]">{advertising.fields.overallScore || '—'}</div>
+            </div>
+            <span className="rounded-full border border-[#bdbdbd] bg-white px-3 py-1 text-xs font-semibold text-[#333333]">
+              {advertising.fields.verdict || '待质检'}
+            </span>
+          </div>
+          <div className="mt-3 grid grid-cols-4 gap-2">
+            {auditMetrics.map(([label, score]) => (
+              <div key={label} className="rounded-md border border-[#d9d9d9] bg-white px-2 py-2 text-center">
+                <div className="studio-utility text-[9px] text-[#777777]">{label}</div>
+                <div className="mt-1 text-sm font-bold text-[#222222]">{score || '—'}</div>
+              </div>
+            ))}
+          </div>
         </div>
       )}
 

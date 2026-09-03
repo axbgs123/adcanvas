@@ -14,10 +14,12 @@ AdCanvas is a PC web demo built for advertising creative teams. It brings the ad
 ## Current Demo
 
 - Advertising project workbench with local project persistence
-- Nine advertising business-node types with manual creation, editing, and connections
+- Ten advertising business-node types with manual creation, editing, and connections
 - Structured workflow drafts that generate three creative routes from a brief
 - Project-level brand rules, prohibited content, required elements, and local node overrides
 - Cost confirmation, budget reservation, idempotency, cancellation, and retry for generation tasks
+- One task-queue and result-writeback path shared by image, video, and text generation
+- An AI Quality Audit node that checks brand, product, copy, and platform fit against upstream canvas evidence, then returns traceable scores and recommendations
 - Node version saving, adoption, branching, and downstream stale-state propagation
 - Editable project-package import/export and production handoff manifests
 - Explainable canvas-action agent and a separate creative-chat agent
@@ -36,6 +38,7 @@ Advertising Brief
   → Storyboard
   → Shot Generation
   → Edit Plan
+  → AI Quality Audit
   → Delivery Package
 ```
 
@@ -91,7 +94,7 @@ npm run test:domain
 npm run build
 ```
 
-The current suite contains 39 automated tests covering provider selection, task state transitions, the API task pipeline, advertising generation skills, reference-asset forwarding, budget and cost confirmation, project packages, brand constraints, canvas-operation planning, node versions, and FFmpeg rough-cut rendering.
+The current suite contains 44 automated tests covering provider selection, task state transitions, the unified API task pipeline, AI quality auditing, advertising generation skills, reference-asset forwarding, budget and cost confirmation, project packages, brand constraints, canvas-operation planning, node versions, and FFmpeg rough-cut rendering.
 
 ## Documentation
 

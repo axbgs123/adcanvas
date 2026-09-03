@@ -640,14 +640,14 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
             )}
 
             {data.errorMessage && (
-                <div className="text-red-400 text-xs mb-2 p-1 bg-red-900/20 rounded border border-red-900/50">
+                <div className="text-neutral-400 text-xs mb-2 p-1 bg-neutral-900/20 rounded border border-neutral-900/50">
                     {data.errorMessage}
                 </div>
             )}
 
             {/* Motion Control Warning - when motion mode detected but no character image */}
             {isVideoNode && videoGenerationMode === 'motion-control' && imageInputCount === 0 && (
-                <div className="text-amber-400 text-xs mb-2 p-2 bg-amber-900/20 rounded border border-amber-700/50 flex items-start gap-2">
+                <div className="text-neutral-400 text-xs mb-2 p-2 bg-neutral-900/20 rounded border border-neutral-700/50 flex items-start gap-2">
                     <svg className="w-4 h-4 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                     </svg>
@@ -668,7 +668,7 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                                     onClick={() => setShowModelDropdown(!showModelDropdown)}
                                     className="flex items-center gap-1.5 text-xs font-medium bg-[#252525] hover:bg-[#333] border border-neutral-700 text-white px-2.5 py-1.5 rounded-lg transition-colors"
                                 >
-                                    <HardDrive size={12} className="text-purple-400" />
+                                    <HardDrive size={12} className="text-neutral-400" />
                                     <span className="font-medium">{selectedLocalModel?.name || 'Select Model'}</span>
                                     <ChevronDown size={12} className="ml-0.5 opacity-50" />
                                 </button>
@@ -694,14 +694,14 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                                                 <button
                                                     key={model.id}
                                                     onClick={() => handleLocalModelChange(model)}
-                                                    className={`w-full flex items-center justify-between px-3 py-2 text-xs text-left hover:bg-[#333] transition-colors ${data.localModelId === model.id ? 'text-purple-400' : 'text-neutral-300'}`}
+                                                    className={`w-full flex items-center justify-between px-3 py-2 text-xs text-left hover:bg-[#333] transition-colors ${data.localModelId === model.id ? 'text-neutral-400' : 'text-neutral-300'}`}
                                                 >
                                                     <span className="flex flex-col items-start gap-0.5">
                                                         <span className="flex items-center gap-2">
-                                                            <HardDrive size={12} className="text-purple-400" />
+                                                            <HardDrive size={12} className="text-neutral-400" />
                                                             {model.name}
                                                             {model.architecture && model.architecture !== 'unknown' && (
-                                                                <span className="text-[9px] px-1 py-0.5 bg-purple-600/30 text-purple-400 rounded">{model.architecture.toUpperCase()}</span>
+                                                                <span className="text-[9px] px-1 py-0.5 bg-neutral-600/30 text-neutral-400 rounded">{model.architecture.toUpperCase()}</span>
                                                             )}
                                                         </span>
                                                         <span className="text-[10px] text-neutral-500 ml-5">{model.sizeFormatted}</span>
@@ -724,7 +724,7 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                                     ) : currentVideoModel.provider === 'kling' ? (
                                         <KlingIcon size={14} />
                                     ) : (
-                                        <Film size={12} className="text-cyan-400" />
+                                        <Film size={12} className="text-neutral-400" />
                                     )}
                                     <span className="font-medium">{currentVideoModel.name}</span>
                                     <ChevronDown size={12} className="ml-0.5 opacity-50" />
@@ -735,9 +735,9 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                                     <div className="absolute top-full mt-1 left-0 w-52 bg-[#252525] border border-neutral-700 rounded-lg shadow-xl overflow-hidden z-50 animate-in fade-in zoom-in-95 duration-100">
                                         {/* Mode indicator */}
                                         <div className="px-3 py-1.5 text-[10px] font-bold text-neutral-400 uppercase tracking-wider bg-[#1a1a1a] border-b border-neutral-700 flex items-center gap-1.5">
-                                            <span className={`w-1.5 h-1.5 rounded-full ${videoGenerationMode === 'text-to-video' ? 'bg-blue-400' :
-                                                videoGenerationMode === 'image-to-video' ? 'bg-green-400' :
-                                                    videoGenerationMode === 'motion-control' ? 'bg-orange-400' : 'bg-purple-400'
+                                            <span className={`w-1.5 h-1.5 rounded-full ${videoGenerationMode === 'text-to-video' ? 'bg-neutral-400' :
+                                                videoGenerationMode === 'image-to-video' ? 'bg-neutral-400' :
+                                                    videoGenerationMode === 'motion-control' ? 'bg-neutral-400' : 'bg-neutral-400'
                                                 }`} />
                                             {videoGenerationMode === 'text-to-video' ? 'Text → Video' :
                                                 videoGenerationMode === 'image-to-video' ? 'Image → Video' :
@@ -754,14 +754,14 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                                                     <button
                                                         key={model.id}
                                                         onClick={() => handleVideoModelChange(model.id)}
-                                                        className={`w-full flex items-center justify-between px-3 py-2 text-xs text-left hover:bg-[#333] transition-colors ${currentVideoModel.id === model.id ? 'text-blue-400' : 'text-neutral-300'
+                                                        className={`w-full flex items-center justify-between px-3 py-2 text-xs text-left hover:bg-[#333] transition-colors ${currentVideoModel.id === model.id ? 'text-neutral-400' : 'text-neutral-300'
                                                             }`}
                                                     >
                                                         <span className="flex items-center gap-2">
                                                             {model.id === 'veo-3.1' ? (
                                                                 <GoogleIcon size={12} className="text-white" />
                                                             ) : (
-                                                                <Film size={12} className="text-cyan-400" />
+                                                                <Film size={12} className="text-neutral-400" />
                                                             )}
                                                             {model.name}
                                                         </span>
@@ -781,14 +781,14 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                                                     <button
                                                         key={model.id}
                                                         onClick={() => handleVideoModelChange(model.id)}
-                                                        className={`w-full flex items-center justify-between px-3 py-2 text-xs text-left hover:bg-[#333] transition-colors ${currentVideoModel.id === model.id ? 'text-blue-400' : 'text-neutral-300'
+                                                        className={`w-full flex items-center justify-between px-3 py-2 text-xs text-left hover:bg-[#333] transition-colors ${currentVideoModel.id === model.id ? 'text-neutral-400' : 'text-neutral-300'
                                                             }`}
                                                     >
                                                         <span className="flex items-center gap-2">
                                                             <KlingIcon size={14} />
                                                             {model.name}
                                                             {model.recommended && (
-                                                                <span className="text-[9px] px-1 py-0.5 bg-green-600/30 text-green-400 rounded">REC</span>
+                                                                <span className="text-[9px] px-1 py-0.5 bg-neutral-600/30 text-neutral-400 rounded">REC</span>
                                                             )}
                                                         </span>
                                                         {currentVideoModel.id === model.id && <Check size={12} />}
@@ -807,7 +807,7 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                                                     <button
                                                         key={model.id}
                                                         onClick={() => handleVideoModelChange(model.id)}
-                                                        className={`w-full flex items-center justify-between px-3 py-2 text-xs text-left hover:bg-[#333] transition-colors ${currentVideoModel.id === model.id ? 'text-blue-400' : 'text-neutral-300'
+                                                        className={`w-full flex items-center justify-between px-3 py-2 text-xs text-left hover:bg-[#333] transition-colors ${currentVideoModel.id === model.id ? 'text-neutral-400' : 'text-neutral-300'
                                                             }`}
                                                     >
                                                         <span className="flex items-center gap-2">
@@ -831,13 +831,13 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                                     {currentImageModel.id === 'google-veo' ? ( // Keeping consistency if there was one, but mainly checking provider
                                         <GoogleIcon size={12} className="text-white" />
                                     ) : currentImageModel.id === 'gemini-pro' ? (
-                                        <Banana size={12} className="text-yellow-400" />
+                                        <Banana size={12} className="text-neutral-400" />
                                     ) : currentImageModel.provider === 'openai' ? (
-                                        <OpenAIIcon size={12} className="text-green-400" />
+                                        <OpenAIIcon size={12} className="text-neutral-400" />
                                     ) : currentImageModel.provider === 'kling' ? (
                                         <KlingIcon size={14} />
                                     ) : (
-                                        <ImageIcon size={12} className="text-cyan-400" />
+                                        <ImageIcon size={12} className="text-neutral-400" />
                                     )}
                                     <span className="font-medium">{currentImageModel.name}</span>
                                     <ChevronDown size={12} className="ml-0.5 opacity-50" />
@@ -848,8 +848,8 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                                     <div className="absolute top-full mt-1 left-0 w-48 bg-[#252525] border border-neutral-700 rounded-lg shadow-xl overflow-hidden z-50 animate-in fade-in zoom-in-95 duration-100">
                                         {/* Mode indicator */}
                                         <div className="px-3 py-1.5 text-[10px] font-bold text-neutral-400 uppercase tracking-wider bg-[#1a1a1a] border-b border-neutral-700 flex items-center gap-1.5">
-                                            <span className={`w-1.5 h-1.5 rounded-full ${imageGenerationMode === 'text-to-image' ? 'bg-blue-400' :
-                                                imageGenerationMode === 'image-to-image' ? 'bg-green-400' : 'bg-purple-400'
+                                            <span className={`w-1.5 h-1.5 rounded-full ${imageGenerationMode === 'text-to-image' ? 'bg-neutral-400' :
+                                                imageGenerationMode === 'image-to-image' ? 'bg-neutral-400' : 'bg-neutral-400'
                                                 }`} />
                                             {imageGenerationMode === 'text-to-image' ? 'Text → Image' :
                                                 imageGenerationMode === 'image-to-image' ? `Image → Image` :
@@ -865,14 +865,14 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                                                     <button
                                                         key={model.id}
                                                         onClick={() => handleImageModelChange(model.id)}
-                                                        className={`w-full flex items-center justify-between px-3 py-2 text-xs text-left hover:bg-[#333] transition-colors ${currentImageModel.id === model.id ? 'text-blue-400' : 'text-neutral-300'
+                                                        className={`w-full flex items-center justify-between px-3 py-2 text-xs text-left hover:bg-[#333] transition-colors ${currentImageModel.id === model.id ? 'text-neutral-400' : 'text-neutral-300'
                                                             }`}
                                                     >
                                                         <span className="flex items-center gap-2">
-                                                            <OpenAIIcon size={12} className="text-green-400" />
+                                                            <OpenAIIcon size={12} className="text-neutral-400" />
                                                             {model.name}
                                                             {model.recommended && (
-                                                                <span className="text-[9px] px-1 py-0.5 bg-green-600/30 text-green-400 rounded">REC</span>
+                                                                <span className="text-[9px] px-1 py-0.5 bg-neutral-600/30 text-neutral-400 rounded">REC</span>
                                                             )}
                                                         </span>
                                                         {currentImageModel.id === model.id && <Check size={12} />}
@@ -890,12 +890,12 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                                                     <button
                                                         key={model.id}
                                                         onClick={() => handleImageModelChange(model.id)}
-                                                        className={`w-full flex items-center justify-between px-3 py-2 text-xs text-left hover:bg-[#333] transition-colors ${currentImageModel.id === model.id ? 'text-blue-400' : 'text-neutral-300'
+                                                        className={`w-full flex items-center justify-between px-3 py-2 text-xs text-left hover:bg-[#333] transition-colors ${currentImageModel.id === model.id ? 'text-neutral-400' : 'text-neutral-300'
                                                             }`}
                                                     >
                                                         <span className="flex items-center gap-2">
                                                             {model.id === 'gemini-pro' ? (
-                                                                <Banana size={12} className="text-yellow-400" />
+                                                                <Banana size={12} className="text-neutral-400" />
                                                             ) : (
                                                                 <GoogleIcon size={12} className="text-white" />
                                                             )}
@@ -917,14 +917,14 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                                                     <button
                                                         key={model.id}
                                                         onClick={() => handleImageModelChange(model.id)}
-                                                        className={`w-full flex items-center justify-between px-3 py-2 text-xs text-left hover:bg-[#333] transition-colors ${currentImageModel.id === model.id ? 'text-blue-400' : 'text-neutral-300'
+                                                        className={`w-full flex items-center justify-between px-3 py-2 text-xs text-left hover:bg-[#333] transition-colors ${currentImageModel.id === model.id ? 'text-neutral-400' : 'text-neutral-300'
                                                             }`}
                                                     >
                                                         <span className="flex items-center gap-2">
                                                             <KlingIcon size={14} />
                                                             {model.name}
                                                             {model.recommended && (
-                                                                <span className="text-[9px] px-1 py-0.5 bg-green-600/30 text-green-400 rounded">REC</span>
+                                                                <span className="text-[9px] px-1 py-0.5 bg-neutral-600/30 text-neutral-400 rounded">REC</span>
                                                             )}
                                                         </span>
                                                         {currentImageModel.id === model.id && <Check size={12} />}
@@ -946,8 +946,8 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                                     onClick={() => setShowSizeDropdown(!showSizeDropdown)}
                                     className="flex items-center gap-1.5 text-xs font-medium bg-[#252525] hover:bg-[#333] border border-neutral-700 text-white px-2.5 py-1.5 rounded-lg transition-colors"
                                 >
-                                    {isVideoNode && <Monitor size={12} className="text-green-400" />}
-                                    {!isVideoNode && <Crop size={12} className="text-blue-400" />}
+                                    {isVideoNode && <Monitor size={12} className="text-neutral-400" />}
+                                    {!isVideoNode && <Crop size={12} className="text-neutral-400" />}
                                     {isVideoNode && currentSizeLabel === 'Auto' ? 'Auto' : currentSizeLabel}
                                 </button>
 
@@ -964,7 +964,7 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                                             <button
                                                 key={option}
                                                 onClick={() => handleSizeSelect(option)}
-                                                className={`flex items-center justify-between px-3 py-2 text-xs text-left hover:bg-[#333] transition-colors ${currentSizeLabel === option ? 'text-blue-400' : 'text-neutral-300'
+                                                className={`flex items-center justify-between px-3 py-2 text-xs text-left hover:bg-[#333] transition-colors ${currentSizeLabel === option ? 'text-neutral-400' : 'text-neutral-300'
                                                     }`}
                                             >
                                                 <span>{option}</span>
@@ -983,7 +983,7 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                                     onClick={() => setShowResolutionDropdown(!showResolutionDropdown)}
                                     className="flex items-center gap-1.5 text-xs font-medium bg-[#252525] hover:bg-[#333] border border-neutral-700 text-white px-2.5 py-1.5 rounded-lg transition-colors"
                                 >
-                                    <Monitor size={12} className="text-green-400" />
+                                    <Monitor size={12} className="text-neutral-400" />
                                     {data.resolution || 'Auto'}
                                 </button>
 
@@ -1000,7 +1000,7 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                                             <button
                                                 key={res}
                                                 onClick={() => handleResolutionSelect(res)}
-                                                className={`flex items-center justify-between w-full px-3 py-2 text-xs text-left hover:bg-[#333] transition-colors ${(data.resolution || 'Auto') === res ? 'text-blue-400' : 'text-neutral-300'}`}
+                                                className={`flex items-center justify-between w-full px-3 py-2 text-xs text-left hover:bg-[#333] transition-colors ${(data.resolution || 'Auto') === res ? 'text-neutral-400' : 'text-neutral-300'}`}
                                             >
                                                 <span>{res}</span>
                                                 {(data.resolution || 'Auto') === res && <Check size={12} />}
@@ -1018,7 +1018,7 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                                     onClick={() => setShowAspectRatioDropdown(!showAspectRatioDropdown)}
                                     className="flex items-center gap-1.5 text-xs font-medium bg-[#252525] hover:bg-[#333] border border-neutral-700 text-white px-2.5 py-1.5 rounded-lg transition-colors"
                                 >
-                                    <Film size={12} className="text-purple-400" />
+                                    <Film size={12} className="text-neutral-400" />
                                     {data.aspectRatio || '16:9'}
                                 </button>
 
@@ -1032,7 +1032,7 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                                             <button
                                                 key={option}
                                                 onClick={() => handleAspectRatioSelect(option)}
-                                                className={`w-full flex items-center justify-between px-3 py-2 text-xs text-left hover:bg-[#333] transition-colors ${data.aspectRatio === option ? 'text-blue-400' : 'text-neutral-300'}`}
+                                                className={`w-full flex items-center justify-between px-3 py-2 text-xs text-left hover:bg-[#333] transition-colors ${data.aspectRatio === option ? 'text-neutral-400' : 'text-neutral-300'}`}
                                             >
                                                 <span>{option}</span>
                                                 {data.aspectRatio === option && <Check size={12} />}
@@ -1050,7 +1050,7 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                                     onClick={() => setShowDurationDropdown(!showDurationDropdown)}
                                     className="flex items-center gap-1.5 text-xs font-medium bg-[#252525] hover:bg-[#333] border border-neutral-700 text-white px-2.5 py-1.5 rounded-lg transition-colors"
                                 >
-                                    <Clock size={12} className="text-cyan-400" />
+                                    <Clock size={12} className="text-neutral-400" />
                                     {currentDuration}s
                                 </button>
 
@@ -1064,7 +1064,7 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                                             <button
                                                 key={dur}
                                                 onClick={() => handleDurationChange(dur)}
-                                                className={`w-full flex items-center justify-between px-3 py-2 text-xs text-left hover:bg-[#333] transition-colors ${currentDuration === dur ? 'text-blue-400' : 'text-neutral-300'}`}
+                                                className={`w-full flex items-center justify-between px-3 py-2 text-xs text-left hover:bg-[#333] transition-colors ${currentDuration === dur ? 'text-neutral-400' : 'text-neutral-300'}`}
                                             >
                                                 <span>{dur}s</span>
                                                 {currentDuration === dur && <Check size={12} />}
@@ -1172,10 +1172,10 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                                                     }}
                                                 >
                                                     {/* Corner brackets - larger with glow */}
-                                                    <div className="absolute -top-1 -left-1 w-8 h-8 border-t-4 border-l-4 border-green-400 rounded-tl-xl" style={{ filter: 'drop-shadow(0 0 4px rgba(17, 17, 17, 0.8))' }} />
-                                                    <div className="absolute -top-1 -right-1 w-8 h-8 border-t-4 border-r-4 border-green-400 rounded-tr-xl" style={{ filter: 'drop-shadow(0 0 4px rgba(17, 17, 17, 0.8))' }} />
-                                                    <div className="absolute -bottom-1 -left-1 w-8 h-8 border-b-4 border-l-4 border-green-400 rounded-bl-xl" style={{ filter: 'drop-shadow(0 0 4px rgba(17, 17, 17, 0.8))' }} />
-                                                    <div className="absolute -bottom-1 -right-1 w-8 h-8 border-b-4 border-r-4 border-green-400 rounded-br-xl" style={{ filter: 'drop-shadow(0 0 4px rgba(17, 17, 17, 0.8))' }} />
+                                                    <div className="absolute -top-1 -left-1 w-8 h-8 border-t-4 border-l-4 border-neutral-400 rounded-tl-xl" style={{ filter: 'drop-shadow(0 0 4px rgba(17, 17, 17, 0.8))' }} />
+                                                    <div className="absolute -top-1 -right-1 w-8 h-8 border-t-4 border-r-4 border-neutral-400 rounded-tr-xl" style={{ filter: 'drop-shadow(0 0 4px rgba(17, 17, 17, 0.8))' }} />
+                                                    <div className="absolute -bottom-1 -left-1 w-8 h-8 border-b-4 border-l-4 border-neutral-400 rounded-bl-xl" style={{ filter: 'drop-shadow(0 0 4px rgba(17, 17, 17, 0.8))' }} />
+                                                    <div className="absolute -bottom-1 -right-1 w-8 h-8 border-b-4 border-r-4 border-neutral-400 rounded-br-xl" style={{ filter: 'drop-shadow(0 0 4px rgba(17, 17, 17, 0.8))' }} />
                                                 </div>
                                             ))}
                                         </>
@@ -1192,7 +1192,7 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                             {/* Face thumbnail below - Kling style */}
                             {data.klingReferenceMode === 'face' && data.faceDetectionStatus === 'success' && data.detectedFaces && data.detectedFaces.length > 0 && (
                                 <div className="flex justify-center mt-3">
-                                    <div className="w-14 h-14 rounded-lg border-2 border-green-400 overflow-hidden bg-black">
+                                    <div className="w-14 h-14 rounded-lg border-2 border-neutral-400 overflow-hidden bg-black">
                                         <img
                                             src={connectedImageNodes[0].url}
                                             alt="Detected face"
@@ -1210,8 +1210,8 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
 
                     {/* No Face Detected Warning */}
                     {data.klingReferenceMode === 'face' && data.faceDetectionStatus === 'error' && (
-                        <div className="mb-3 p-2 bg-amber-900/20 border border-amber-700/50 rounded-lg">
-                            <div className="flex items-start gap-2 text-amber-400 text-xs">
+                        <div className="mb-3 p-2 bg-neutral-900/20 border border-neutral-700/50 rounded-lg">
+                            <div className="flex items-start gap-2 text-neutral-400 text-xs">
                                 <svg className="w-4 h-4 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                                 </svg>
@@ -1298,13 +1298,13 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                                 {/* Audio Toggle - Only for Kling 2.6 (Veo 3.1 SDK doesn't support generateAudio yet) */}
                                 {data.videoModel === 'kling-v2-6' && (
                                     <div className="inline-flex items-center gap-2 px-2.5 py-1.5 bg-neutral-800/50 rounded-lg w-fit">
-                                        <svg className="w-3.5 h-3.5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                        <svg className="w-3.5 h-3.5 text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
                                         </svg>
                                         <span className="text-[11px] text-neutral-300">Audio</span>
                                         <button
                                             onClick={() => onUpdate(data.id, { generateAudio: !(data.generateAudio !== false) })}
-                                            className={`relative w-8 h-4 rounded-full transition-colors ${data.generateAudio !== false ? 'bg-cyan-600' : 'bg-neutral-700'}`}
+                                            className={`relative w-8 h-4 rounded-full transition-colors ${data.generateAudio !== false ? 'bg-neutral-600' : 'bg-neutral-700'}`}
                                         >
                                             <span
                                                 className={`absolute top-0.5 w-3 h-3 bg-white rounded-full transition-transform shadow-md ${data.generateAudio !== false ? 'left-4' : 'left-0.5'}`}
@@ -1346,8 +1346,8 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                                                             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                                                             <div className="absolute bottom-1 left-1 right-1">
                                                                 <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded block text-center truncate ${input.type === NodeType.VIDEO
-                                                                    ? 'bg-purple-600/80 text-white'
-                                                                    : 'bg-blue-600/80 text-white'
+                                                                    ? 'bg-neutral-600/80 text-white'
+                                                                    : 'bg-neutral-600/80 text-white'
                                                                     }`}>
                                                                     {input.type === NodeType.VIDEO ? 'MOTION REF' : 'CHARACTER REF'}
                                                                 </span>
@@ -1383,8 +1383,8 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                                                         />
                                                         <div className="flex-1">
                                                             <span className={`text-xs font-medium px-2 py-0.5 rounded ${input.order === 'start'
-                                                                ? 'bg-green-600/30 text-green-400'
-                                                                : 'bg-orange-600/30 text-orange-400'
+                                                                ? 'bg-neutral-600/30 text-neutral-400'
+                                                                : 'bg-neutral-600/30 text-neutral-400'
                                                                 }`}>
                                                                 {input.order === 'start' ? 'START' : 'END'}
                                                             </span>

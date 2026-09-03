@@ -40,3 +40,17 @@ test('rejects an explicitly requested but unavailable model', () => {
         (error) => error.code === 'PROVIDER_NOT_CONFIGURED'
     );
 });
+
+test('resolves legacy canvas models through the unified provider registry', () => {
+    const registry = createProviderRegistry({
+        GEMINI_API_KEY: 'configured',
+        KLING_ACCESS_KEY: 'access',
+        KLING_SECRET_KEY: 'secret',
+        HAILUO_API_KEY: 'configured',
+        FAL_API_KEY: 'configured'
+    });
+    assert.equal(registry.resolve('image', 'balanced', 'google', 'gemini-pro').model, 'gemini-pro');
+    assert.equal(registry.resolve('video', 'balanced', 'kling', 'kling-v2-1').provider, 'kling');
+    assert.equal(registry.resolve('video', 'balanced', 'fal', 'kling-v2-6').provider, 'fal');
+    assert.equal(registry.resolve('video', 'balanced', 'hailuo', 'hailuo-2.3').provider, 'hailuo');
+});

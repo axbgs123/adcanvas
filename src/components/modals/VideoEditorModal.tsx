@@ -246,7 +246,7 @@ export const VideoEditorModal: React.FC<VideoEditorModalProps> = ({
                             </button>
                             <button
                                 onClick={togglePlayPause}
-                                className="p-3 rounded-full bg-blue-600 hover:bg-blue-500 text-white transition-colors"
+                                className="p-3 rounded-full bg-neutral-600 hover:bg-neutral-500 text-white transition-colors"
                             >
                                 {isPlaying ? <Pause size={24} /> : <Play size={24} className="ml-0.5" />}
                             </button>
@@ -269,7 +269,7 @@ export const VideoEditorModal: React.FC<VideoEditorModalProps> = ({
 
                             {/* Selected Range */}
                             <div
-                                className="absolute inset-y-0 bg-blue-600/30 border-y-2 border-blue-500"
+                                className="absolute inset-y-0 bg-neutral-600/30 border-y-2 border-neutral-500"
                                 style={{
                                     left: `${startPercent}%`,
                                     right: `${100 - endPercent}%`
@@ -278,20 +278,20 @@ export const VideoEditorModal: React.FC<VideoEditorModalProps> = ({
 
                             {/* Start Handle */}
                             <div
-                                className="absolute top-0 bottom-0 w-3 bg-green-500 cursor-ew-resize flex items-center justify-center rounded-l-lg hover:bg-green-400 transition-colors"
+                                className="absolute top-0 bottom-0 w-3 bg-neutral-500 cursor-ew-resize flex items-center justify-center rounded-l-lg hover:bg-neutral-400 transition-colors"
                                 style={{ left: `calc(${startPercent}% - 6px)` }}
                                 onMouseDown={(e) => { e.stopPropagation(); handleTimelineMouseDown(e, 'start'); }}
                             >
-                                <div className="w-0.5 h-8 bg-green-300 rounded" />
+                                <div className="w-0.5 h-8 bg-neutral-300 rounded" />
                             </div>
 
                             {/* End Handle */}
                             <div
-                                className="absolute top-0 bottom-0 w-3 bg-red-500 cursor-ew-resize flex items-center justify-center rounded-r-lg hover:bg-red-400 transition-colors"
+                                className="absolute top-0 bottom-0 w-3 bg-neutral-500 cursor-ew-resize flex items-center justify-center rounded-r-lg hover:bg-neutral-400 transition-colors"
                                 style={{ left: `calc(${endPercent}% - 6px)` }}
                                 onMouseDown={(e) => { e.stopPropagation(); handleTimelineMouseDown(e, 'end'); }}
                             >
-                                <div className="w-0.5 h-8 bg-red-300 rounded" />
+                                <div className="w-0.5 h-8 bg-neutral-300 rounded" />
                             </div>
 
                             {/* Playhead */}
@@ -305,14 +305,14 @@ export const VideoEditorModal: React.FC<VideoEditorModalProps> = ({
 
                         {/* Time Display */}
                         <div className="flex justify-between text-sm text-neutral-400">
-                            <span className="text-green-400">Start: {formatTime(trimStart)}</span>
+                            <span className="text-neutral-400">Start: {formatTime(trimStart)}</span>
                             <span className="text-white">Current: {formatTime(currentTime)}</span>
-                            <span className="text-red-400">End: {formatTime(trimEnd)}</span>
+                            <span className="text-neutral-400">End: {formatTime(trimEnd)}</span>
                         </div>
 
                         {/* Trim Duration */}
                         <div className="text-center text-neutral-500 text-sm">
-                            Selected duration: <span className="text-blue-400 font-medium">{formatTime(trimDuration)}</span>
+                            Selected duration: <span className="text-neutral-400 font-medium">{formatTime(trimDuration)}</span>
                         </div>
                     </div>
                 )}
@@ -329,7 +329,7 @@ export const VideoEditorModal: React.FC<VideoEditorModalProps> = ({
                 <button
                     onClick={handleExportClick}
                     disabled={!videoUrl}
-                    className="px-6 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-medium flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                    className="px-6 py-2 rounded-lg bg-neutral-600 hover:bg-neutral-500 text-white font-medium flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
                     <Download size={18} />
                     Export to Library

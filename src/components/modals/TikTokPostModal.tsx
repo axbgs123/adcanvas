@@ -292,7 +292,7 @@ export const TikTokPostModal: React.FC<TikTokPostModalProps> = ({
                                 Sign in with TikTok
                             </button>
                             {error && (
-                                <p className="text-sm text-red-400 mt-2">{error}</p>
+                                <p className="text-sm text-neutral-400 mt-2">{error}</p>
                             )}
                         </div>
                     )}
@@ -332,7 +332,7 @@ export const TikTokPostModal: React.FC<TikTokPostModalProps> = ({
                                     rows={3}
                                 />
                                 <div className="flex justify-end">
-                                    <span className={`text-sm ${isOverLimit ? 'text-red-400' : charsRemaining <= 100 ? 'text-yellow-400' : 'text-neutral-500'}`}>
+                                    <span className={`text-sm ${isOverLimit ? 'text-neutral-400' : charsRemaining <= 100 ? 'text-neutral-400' : 'text-neutral-500'}`}>
                                         {charsRemaining}
                                     </span>
                                 </div>
@@ -363,16 +363,16 @@ export const TikTokPostModal: React.FC<TikTokPostModalProps> = ({
 
                             {/* Error Message */}
                             {error && status === 'error' && (
-                                <div className="p-3 bg-red-500/10 border border-red-500/30 rounded-lg flex items-start gap-3">
-                                    <AlertCircle size={20} className="text-red-400 flex-shrink-0 mt-0.5" />
+                                <div className="p-3 bg-neutral-500/10 border border-neutral-500/30 rounded-lg flex items-start gap-3">
+                                    <AlertCircle size={20} className="text-neutral-400 flex-shrink-0 mt-0.5" />
                                     <div>
-                                        <p className="text-sm text-red-400">{error}</p>
+                                        <p className="text-sm text-neutral-400">{error}</p>
                                         <button
                                             onClick={() => {
                                                 setStatus('idle');
                                                 setError(null);
                                             }}
-                                            className="text-xs text-red-400/70 hover:text-red-400 mt-1 underline"
+                                            className="text-xs text-neutral-400/70 hover:text-neutral-400 mt-1 underline"
                                         >
                                             Try again
                                         </button>
@@ -381,8 +381,8 @@ export const TikTokPostModal: React.FC<TikTokPostModalProps> = ({
                             )}
 
                             {/* Sandbox Warning */}
-                            <div className="p-3 bg-yellow-500/10 border border-yellow-500/30 rounded-lg">
-                                <p className="text-xs text-yellow-400">
+                            <div className="p-3 bg-neutral-500/10 border border-neutral-500/30 rounded-lg">
+                                <p className="text-xs text-neutral-400">
                                     ⚠️ Videos posted from unaudited apps are private-only until TikTok approves your app.
                                 </p>
                             </div>
@@ -401,8 +401,8 @@ export const TikTokPostModal: React.FC<TikTokPostModalProps> = ({
                     {/* Success State */}
                     {status === 'success' && (
                         <div className="flex flex-col items-center gap-4 py-8">
-                            <div className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center">
-                                <CheckCircle size={40} className="text-green-400" />
+                            <div className="w-16 h-16 rounded-full bg-neutral-500/20 flex items-center justify-center">
+                                <CheckCircle size={40} className="text-neutral-400" />
                             </div>
                             <div className="text-center">
                                 <h3 className="text-lg font-semibold text-white">Posted to TikTok!</h3>

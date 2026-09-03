@@ -160,7 +160,7 @@ export const NodeContent: React.FC<NodeContentProps> = ({
                     {/* Regenerating Overlay - Shows when loading with existing content */}
                     {isLoading && (
                         <div className="absolute inset-0 bg-black/60 backdrop-blur-sm flex flex-col items-center justify-center z-20">
-                            <Loader2 size={40} className="animate-spin text-blue-400" />
+                            <Loader2 size={40} className="animate-spin text-neutral-400" />
                             <span className="mt-3 text-sm text-white font-medium">Regenerating...</span>
                         </div>
                     )}
@@ -252,7 +252,7 @@ export const NodeContent: React.FC<NodeContentProps> = ({
 
                     {isLoading ? (
                         <div className="relative z-10 flex flex-col items-center gap-2">
-                            <Loader2 size={32} className="animate-spin text-blue-400" />
+                            <Loader2 size={32} className="animate-spin text-neutral-400" />
                             <span className="text-xs font-medium text-[#666666]">Generating...</span>
                         </div>
                     ) : (
@@ -280,9 +280,9 @@ export const NodeContent: React.FC<NodeContentProps> = ({
 
                             <div className="text-[#999999]">
                                 {isVideoType ? (
-                                    isLocalModel ? <><Film size={40} /><HardDrive size={16} className="absolute -bottom-1 -right-1 text-purple-400" /></> : <Film size={40} />
+                                    isLocalModel ? <><Film size={40} /><HardDrive size={16} className="absolute -bottom-1 -right-1 text-neutral-400" /></> : <Film size={40} />
                                 ) : (
-                                    isLocalModel ? <><ImageIcon size={40} /><HardDrive size={16} className="absolute -bottom-1 -right-1 text-purple-400" /></> : <ImageIcon size={40} />
+                                    isLocalModel ? <><ImageIcon size={40} /><HardDrive size={16} className="absolute -bottom-1 -right-1 text-neutral-400" /></> : <ImageIcon size={40} />
                                 )}
                             </div>
                             {selected && (

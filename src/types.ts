@@ -22,6 +22,7 @@ export enum NodeType {
   AD_STORYBOARD = 'Advertising Storyboard',
   AD_SHOT = 'Advertising Shot',
   EDIT_PLAN = 'Edit Plan',
+  QUALITY_AUDIT = 'AI Quality Audit',
   DELIVERY = 'Production Delivery'
 }
 

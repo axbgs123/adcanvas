@@ -57,7 +57,7 @@ export const DrawingToolbar: React.FC<DrawingToolbarProps> = ({
                             }
                         }}
                         className={`w-10 h-10 rounded-lg flex items-center justify-center transition-colors ${drawingTool === 'brush'
-                            ? 'bg-blue-600 text-white'
+                            ? 'bg-neutral-600 text-white'
                             : 'hover:bg-neutral-700 text-neutral-400'
                             }`}
                         title="Brush"
@@ -82,7 +82,7 @@ export const DrawingToolbar: React.FC<DrawingToolbarProps> = ({
                                     max="20"
                                     value={brushWidth}
                                     onChange={(e) => setBrushWidth(parseInt(e.target.value))}
-                                    className="w-full h-2 bg-neutral-700 rounded-lg appearance-none cursor-pointer accent-blue-500"
+                                    className="w-full h-2 bg-neutral-700 rounded-lg appearance-none cursor-pointer accent-neutral-500"
                                 />
                             </div>
 
@@ -130,7 +130,7 @@ export const DrawingToolbar: React.FC<DrawingToolbarProps> = ({
                             }
                         }}
                         className={`w-10 h-10 rounded-lg flex items-center justify-center transition-colors ${drawingTool === 'eraser'
-                            ? 'bg-blue-600 text-white'
+                            ? 'bg-neutral-600 text-white'
                             : 'hover:bg-neutral-700 text-neutral-400'
                             }`}
                         title="Eraser"
@@ -157,7 +157,7 @@ export const DrawingToolbar: React.FC<DrawingToolbarProps> = ({
                                     max="50"
                                     value={eraserWidth}
                                     onChange={(e) => setEraserWidth(parseInt(e.target.value))}
-                                    className="w-full h-2 bg-neutral-700 rounded-lg appearance-none cursor-pointer accent-blue-500"
+                                    className="w-full h-2 bg-neutral-700 rounded-lg appearance-none cursor-pointer accent-neutral-500"
                                 />
                             </div>
                         </div>

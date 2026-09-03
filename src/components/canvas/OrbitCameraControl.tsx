@@ -706,11 +706,11 @@ export const OrbitCameraControl: React.FC<OrbitCameraControlProps> = ({
             {/* Legend */}
             <div className="flex items-center gap-4 text-xs">
                 <div className="flex items-center gap-1.5">
-                    <div className="w-2.5 h-2.5 rounded-full bg-green-400" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-neutral-400" />
                     <span className="text-neutral-400">Rotation (↔)</span>
                 </div>
                 <div className="flex items-center gap-1.5">
-                    <div className="w-2.5 h-2.5 rounded-full bg-pink-400" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-neutral-400" />
                     <span className="text-neutral-400">Vertical Tilt (↕)</span>
                 </div>
             </div>
@@ -739,7 +739,7 @@ export const OrbitCameraControl: React.FC<OrbitCameraControlProps> = ({
 
             {/* Status text */}
             <div className="flex justify-center">
-                <div className="px-4 py-1.5 rounded-lg bg-[#1a1a1a] border border-green-500/50 text-cyan-400 text-sm">
+                <div className="px-4 py-1.5 rounded-lg bg-[#1a1a1a] border border-neutral-500/50 text-neutral-400 text-sm">
                     {statusText}
                 </div>
             </div>

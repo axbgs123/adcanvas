@@ -223,7 +223,7 @@ export const SelectionBoundingBox: React.FC<SelectionBoundingBoxProps> = ({
             ].map(handle => (
                 <div
                     key={handle.pos}
-                    className="absolute w-2 h-2 bg-white border border-indigo-500 rounded-sm pointer-events-auto"
+                    className="absolute w-2 h-2 bg-white border border-neutral-500 rounded-sm pointer-events-auto"
                     style={{
                         top: handle.top,
                         left: handle.left,
@@ -259,7 +259,7 @@ export const SelectionBoundingBox: React.FC<SelectionBoundingBoxProps> = ({
                             }
                         }}
                         autoFocus
-                        className="absolute text-sm font-medium text-white bg-indigo-600 px-3 py-1 rounded pointer-events-auto outline-none whitespace-nowrap"
+                        className="absolute text-sm font-medium text-white bg-neutral-600 px-3 py-1 rounded pointer-events-auto outline-none whitespace-nowrap"
                         style={{
                             top: 8,
                             right: 'calc(100% + 8px)',
@@ -269,7 +269,7 @@ export const SelectionBoundingBox: React.FC<SelectionBoundingBoxProps> = ({
                     />
                 ) : (
                     <div
-                        className="absolute text-sm font-medium text-white bg-indigo-600 px-3 py-1 rounded pointer-events-auto cursor-text whitespace-nowrap"
+                        className="absolute text-sm font-medium text-white bg-neutral-600 px-3 py-1 rounded pointer-events-auto cursor-text whitespace-nowrap"
                         style={{
                             top: 8,
                             right: 'calc(100% + 8px)',
@@ -425,7 +425,7 @@ export const SelectionBoundingBox: React.FC<SelectionBoundingBoxProps> = ({
                             e.stopPropagation();
                             if (onCreateVideo) onCreateVideo();
                         }}
-                        className="bg-purple-600 hover:bg-purple-500 text-white text-sm px-4 py-2.5 rounded flex items-center gap-2 transition-colors shadow-lg shadow-purple-600/20"
+                        className="bg-neutral-600 hover:bg-neutral-500 text-white text-sm px-4 py-2.5 rounded flex items-center gap-2 transition-colors shadow-lg shadow-neutral-600/20"
                     >
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <path d="M15 10l5 5-5 5" />

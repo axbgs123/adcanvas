@@ -2,6 +2,7 @@ import type { NodeData } from '../../types.ts';
 import { applyBrandComplianceToNodes } from '../advertising/brandRules.ts';
 import { markAdvertisingDescendantsStale, saveAdvertisingNodeVersion } from '../advertising/versioning.ts';
 import type { GenerationTask } from './types.ts';
+import { parseQualityAuditResult } from '../advertising/qualityAudit.ts';
 
 export const applyCompletedGenerationTask = (nodes: NodeData[], task: GenerationTask): NodeData[] => {
   if (!task.nodeId || task.status !== 'succeeded') return nodes;
@@ -22,15 +23,26 @@ export const applyCompletedGenerationTask = (nodes: NodeData[], task: Generation
   };
 
   if (source.advertising) {
+    const audit = parseQualityAuditResult(task.output);
     updatedNode = {
       ...updatedNode,
       advertising: {
         ...source.advertising,
-        fields: {
-          ...source.advertising.fields,
-          ...(aiOutput ? { aiOutput } : {}),
-          ...(resultUrl ? { generatedAsset: resultUrl } : {})
-        },
+          fields: {
+            ...source.advertising.fields,
+            ...(aiOutput ? { aiOutput } : {}),
+            ...(resultUrl ? { generatedAsset: resultUrl } : {}),
+            ...(audit ? {
+              overallScore: String(audit.overallScore),
+              verdict: audit.verdict,
+              brandScore: String(audit.brandScore),
+              productScore: String(audit.productScore),
+              copyScore: String(audit.copyScore),
+              platformScore: String(audit.platformScore),
+              issues: audit.issues.join('\n'),
+              recommendations: audit.recommendations.join('\n')
+            } : {})
+          },
         lifecycle: 'needs-review'
       }
     };

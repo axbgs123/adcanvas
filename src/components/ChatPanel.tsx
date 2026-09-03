@@ -225,7 +225,7 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
 
     return (
         <div
-            className={`fixed top-0 right-0 w-[400px] h-full border-l flex flex-col z-40 shadow-2xl transition-all duration-300 ${showHighlight ? 'border-cyan-500 border-2' : isDark ? 'border-neutral-800' : 'border-neutral-200'} ${isDark ? 'bg-[#1a1a1a]' : 'bg-white'}`}
+            className={`fixed top-0 right-0 w-[400px] h-full border-l flex flex-col z-40 shadow-2xl transition-all duration-300 ${showHighlight ? 'border-neutral-500 border-2' : isDark ? 'border-neutral-800' : 'border-neutral-200'} ${isDark ? 'bg-[#1a1a1a]' : 'bg-white'}`}
             onDragEnter={handleDragEnter}
             onDragLeave={handleDragLeave}
             onDragOver={handleDragOver}
@@ -233,10 +233,10 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
         >
             {/* Drag Overlay */}
             {showHighlight && (
-                <div className="absolute inset-0 bg-cyan-500/10 pointer-events-none z-10 flex items-center justify-center">
-                    <div className="bg-cyan-500/20 border-2 border-dashed border-cyan-400 rounded-2xl px-8 py-6 text-center">
-                        <Sparkles className="w-10 h-10 mx-auto mb-2 text-cyan-400" />
-                        <p className="text-cyan-300 font-medium">Drop image/video here</p>
+                <div className="absolute inset-0 bg-neutral-500/10 pointer-events-none z-10 flex items-center justify-center">
+                    <div className="bg-neutral-500/20 border-2 border-dashed border-neutral-400 rounded-2xl px-8 py-6 text-center">
+                        <Sparkles className="w-10 h-10 mx-auto mb-2 text-neutral-400" />
+                        <p className="text-neutral-300 font-medium">Drop image/video here</p>
                     </div>
                 </div>
             )}
@@ -259,7 +259,7 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
                     <div className="flex-1 overflow-y-auto p-4">
                         {isLoadingSessions ? (
                             <div className="flex items-center justify-center py-8">
-                                <Loader2 className="w-6 h-6 text-cyan-400 animate-spin" />
+                                <Loader2 className="w-6 h-6 text-neutral-400 animate-spin" />
                             </div>
                         ) : sessions.length === 0 ? (
                             <div className="text-center py-8">
@@ -288,7 +288,7 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
                                             </div>
                                             <button
                                                 onClick={(e) => handleDeleteSession(e, session.id)}
-                                                className="p-1.5 opacity-0 group-hover:opacity-100 hover:bg-red-500/20 rounded-lg transition-all text-neutral-500 hover:text-red-400"
+                                                className="p-1.5 opacity-0 group-hover:opacity-100 hover:bg-neutral-500/20 rounded-lg transition-all text-neutral-500 hover:text-neutral-400"
                                                 title="Delete chat"
                                             >
                                                 <Trash2 size={14} />
@@ -304,7 +304,7 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
                     <div className={`p-4 border-t ${isDark ? 'border-neutral-800' : 'border-neutral-200'}`}>
                         <button
                             onClick={handleNewChat}
-                            className="w-full py-2.5 bg-cyan-500 hover:bg-cyan-400 rounded-xl text-white font-medium text-sm transition-colors flex items-center justify-center gap-2"
+                            className="w-full py-2.5 bg-neutral-500 hover:bg-neutral-400 rounded-xl text-white font-medium text-sm transition-colors flex items-center justify-center gap-2"
                         >
                             <Plus size={16} />
                             New Chat
@@ -358,7 +358,7 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
                         <h1 className={`text-2xl font-bold mb-1 ${isDark ? 'text-white' : 'text-neutral-900'}`}>
                             Hi, {userName}
                         </h1>
-                        <p className="text-cyan-400 text-lg mb-6">
+                        <p className="text-neutral-400 text-lg mb-6">
                             Looking for inspiration?
                         </p>
 
@@ -405,7 +405,7 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
                         {isLoading && (
                             <div className="flex justify-start mb-4">
                                 <div className={`rounded-2xl rounded-bl-md px-4 py-3 ${isDark ? 'bg-neutral-800' : 'bg-neutral-100'}`}>
-                                    <Loader2 className="w-5 h-5 text-cyan-400 animate-spin" />
+                                    <Loader2 className="w-5 h-5 text-neutral-400 animate-spin" />
                                 </div>
                             </div>
                         )}
@@ -413,7 +413,7 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
                         {/* Error message */}
                         {error && (
                             <div className="flex justify-center mb-4">
-                                <div className="bg-red-500/20 border border-red-500/50 rounded-lg px-4 py-2 text-red-400 text-sm">
+                                <div className="bg-neutral-500/20 border border-neutral-500/50 rounded-lg px-4 py-2 text-neutral-400 text-sm">
                                     {error}
                                 </div>
                             </div>
@@ -446,7 +446,7 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
                                     )}
                                     <button
                                         onClick={() => removeAttachment(media.nodeId)}
-                                        className="absolute -top-1.5 -right-1.5 w-4 h-4 bg-red-500 hover:bg-red-400 rounded-full flex items-center justify-center text-white text-[10px]"
+                                        className="absolute -top-1.5 -right-1.5 w-4 h-4 bg-neutral-500 hover:bg-neutral-400 rounded-full flex items-center justify-center text-white text-[10px]"
                                     >
                                         ×
                                     </button>
@@ -496,7 +496,7 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
                                 disabled={isLoading || (!message.trim() && !attachedMedia)}
                                 className={`p-2 rounded-full transition-colors text-white ${isLoading || (!message.trim() && !attachedMedia)
                                     ? 'bg-neutral-600 cursor-not-allowed'
-                                    : 'bg-cyan-500 hover:bg-cyan-400'
+                                    : 'bg-neutral-500 hover:bg-neutral-400'
                                     }`}
                             >
                                 {isLoading ? (

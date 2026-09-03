@@ -246,7 +246,7 @@ export const WorkflowPanel: React.FC<WorkflowPanelProps> = ({
                                         key={workflow.id}
                                         onClick={() => onLoadWorkflow(workflow.id)}
                                         className={`rounded-xl overflow-hidden cursor-pointer transition-all group ${workflow.id === currentWorkflowId
-                                            ? 'ring-2 ring-blue-500'
+                                            ? 'ring-2 ring-neutral-500'
                                             : ''
                                             }`}
                                     >
@@ -260,7 +260,7 @@ export const WorkflowPanel: React.FC<WorkflowPanelProps> = ({
                                                     loading="lazy"
                                                 />
                                             ) : (
-                                                <div className="w-16 h-16 rounded-lg bg-gradient-to-br from-blue-500/20 to-purple-600/20 flex items-center justify-center">
+                                                <div className="w-16 h-16 rounded-lg bg-gradient-to-br from-neutral-500/20 to-neutral-600/20 flex items-center justify-center">
                                                     <FileText size={28} className="text-neutral-500" />
                                                 </div>
                                             )}
@@ -270,7 +270,7 @@ export const WorkflowPanel: React.FC<WorkflowPanelProps> = ({
                                                 {/* Edit cover button */}
                                                 <button
                                                     onClick={(e) => openCoverEditor(workflow.id, e)}
-                                                    className="p-1.5 bg-black/50 hover:bg-blue-500 rounded-lg transition-all"
+                                                    className="p-1.5 bg-black/50 hover:bg-neutral-500 rounded-lg transition-all"
                                                     title="Edit cover"
                                                 >
                                                     <Pencil size={14} className="text-white" />
@@ -281,7 +281,7 @@ export const WorkflowPanel: React.FC<WorkflowPanelProps> = ({
                                                         e.stopPropagation();
                                                         setDeleteConfirm(workflow.id);
                                                     }}
-                                                    className="p-1.5 bg-black/50 hover:bg-red-500 rounded-lg transition-all"
+                                                    className="p-1.5 bg-black/50 hover:bg-neutral-500 rounded-lg transition-all"
                                                     title="Delete workflow"
                                                 >
                                                     <Trash2 size={14} className="text-white" />
@@ -316,7 +316,7 @@ export const WorkflowPanel: React.FC<WorkflowPanelProps> = ({
                                         className="rounded-xl overflow-hidden cursor-pointer transition-all group"
                                     >
                                         {/* Thumbnail */}
-                                        <div className="aspect-[4/3] bg-gradient-to-br from-green-800/30 to-emerald-900/30 flex items-center justify-center relative overflow-hidden">
+                                        <div className="aspect-[4/3] bg-gradient-to-br from-neutral-800/30 to-neutral-900/30 flex items-center justify-center relative overflow-hidden">
                                             {workflow.coverUrl ? (
                                                 <img
                                                     src={workflow.coverUrl}
@@ -325,12 +325,12 @@ export const WorkflowPanel: React.FC<WorkflowPanelProps> = ({
                                                     loading="lazy"
                                                 />
                                             ) : (
-                                                <div className="w-16 h-16 rounded-lg bg-gradient-to-br from-green-500/20 to-emerald-600/20 flex items-center justify-center">
+                                                <div className="w-16 h-16 rounded-lg bg-gradient-to-br from-neutral-500/20 to-neutral-600/20 flex items-center justify-center">
                                                     <FileText size={28} className="text-neutral-500" />
                                                 </div>
                                             )}
                                             {/* Public badge */}
-                                            <div className="absolute top-2 left-2 px-2 py-0.5 bg-green-600/80 rounded text-[10px] font-medium text-white">
+                                            <div className="absolute top-2 left-2 px-2 py-0.5 bg-neutral-600/80 rounded text-[10px] font-medium text-white">
                                                 PUBLIC
                                             </div>
                                         </div>
@@ -366,7 +366,7 @@ export const WorkflowPanel: React.FC<WorkflowPanelProps> = ({
                             </button>
                             <button
                                 onClick={() => handleDelete(deleteConfirm)}
-                                className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-500 text-white text-sm transition-colors"
+                                className="px-4 py-2 rounded-lg bg-neutral-600 hover:bg-neutral-500 text-white text-sm transition-colors"
                             >
                                 Delete
                             </button>
@@ -403,7 +403,7 @@ export const WorkflowPanel: React.FC<WorkflowPanelProps> = ({
                                     <button
                                         key={asset.id}
                                         onClick={() => selectCover(asset.url)}
-                                        className="h-32 w-full rounded-lg overflow-hidden hover:ring-2 hover:ring-blue-500 transition-all relative group bg-neutral-900"
+                                        className="h-32 w-full rounded-lg overflow-hidden hover:ring-2 hover:ring-neutral-500 transition-all relative group bg-neutral-900"
                                     >
                                         <LazyImage
                                             src={`${asset.url}`}

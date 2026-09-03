@@ -71,7 +71,7 @@ export const CreateAssetModal: React.FC<CreateAssetModalProps> = ({
                 <div className="p-6 flex gap-6">
                     {/* Left: Cover Image */}
                     <div className="w-1/2 flex flex-col gap-2">
-                        <label className="text-sm font-medium text-neutral-200">Cover <span className="text-red-400">*</span></label>
+                        <label className="text-sm font-medium text-neutral-200">Cover <span className="text-neutral-400">*</span></label>
                         <div className="aspect-[3/4] rounded-lg overflow-hidden border border-neutral-800 bg-neutral-900 relative group">
                             <img
                                 src={nodeToSnapshot.resultUrl || ''}
@@ -89,19 +89,19 @@ export const CreateAssetModal: React.FC<CreateAssetModalProps> = ({
 
                         {/* Name Input */}
                         <div className="flex flex-col gap-2">
-                            <label className="text-sm font-medium text-neutral-200">Name <span className="text-red-400">*</span></label>
+                            <label className="text-sm font-medium text-neutral-200">Name <span className="text-neutral-400">*</span></label>
                             <input
                                 type="text"
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
-                                className="w-full bg-[#1a1a1a] border border-neutral-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-blue-500 transition-colors"
+                                className="w-full bg-[#1a1a1a] border border-neutral-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-neutral-500 transition-colors"
                                 placeholder="Asset Name"
                             />
                         </div>
 
                         {/* Category Dropdown */}
                         <div className="flex flex-col gap-2 relative">
-                            <label className="text-sm font-medium text-neutral-200">Category <span className="text-red-400">*</span></label>
+                            <label className="text-sm font-medium text-neutral-200">Category <span className="text-neutral-400">*</span></label>
                             <button
                                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                                 className="w-full bg-[#1a1a1a] border border-neutral-700 rounded-lg px-3 py-2 text-white focus:outline-none flex items-center justify-between hover:bg-[#252525] transition-colors"
@@ -143,8 +143,8 @@ export const CreateAssetModal: React.FC<CreateAssetModalProps> = ({
                     <button
                         onClick={handleSubmit}
                         disabled={status === 'saving' || status === 'success'}
-                        className={`flex items-center gap-2 px-6 py-2 rounded-lg font-medium transition-all duration-200 ${status === 'success' ? 'bg-green-600 text-white' :
-                                status === 'error' ? 'bg-red-600 text-white' :
+                        className={`flex items-center gap-2 px-6 py-2 rounded-lg font-medium transition-all duration-200 ${status === 'success' ? 'bg-neutral-600 text-white' :
+                                status === 'error' ? 'bg-neutral-600 text-white' :
                                     status === 'saving' ? 'bg-neutral-700 text-neutral-300' :
                                         'bg-[#777777] hover:bg-[#666666] text-white'
                             }`}

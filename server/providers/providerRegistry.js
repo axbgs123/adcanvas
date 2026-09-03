@@ -5,7 +5,7 @@ const providerDefinitions = [
         model: 'gemini-3.5-flash',
         kind: 'text',
         presets: ['quick', 'balanced', 'high'],
-        requiredCredential: 'GEMINI_API_KEY'
+        requiredCredentials: ['GEMINI_API_KEY']
     },
     {
         id: 'openai-image',
@@ -13,7 +13,7 @@ const providerDefinitions = [
         model: 'gpt-image-1.5',
         kind: 'image',
         presets: ['balanced', 'high'],
-        requiredCredential: 'OPENAI_API_KEY'
+        requiredCredentials: ['OPENAI_API_KEY']
     },
     {
         id: 'gemini-image',
@@ -21,7 +21,15 @@ const providerDefinitions = [
         model: 'gemini-3.1-flash-image',
         kind: 'image',
         presets: ['quick', 'balanced', 'high'],
-        requiredCredential: 'GEMINI_API_KEY'
+        requiredCredentials: ['GEMINI_API_KEY']
+    },
+    {
+        id: 'gemini-image-legacy-alias',
+        provider: 'google',
+        model: 'gemini-pro',
+        kind: 'image',
+        presets: ['quick', 'balanced', 'high'],
+        requiredCredentials: ['GEMINI_API_KEY']
     },
     {
         id: 'gemini-video',
@@ -29,8 +37,48 @@ const providerDefinitions = [
         model: 'veo-3.1-fast-generate-preview',
         kind: 'video',
         presets: ['quick', 'balanced', 'high'],
-        requiredCredential: 'GEMINI_API_KEY'
-    }
+        requiredCredentials: ['GEMINI_API_KEY']
+    },
+    {
+        id: 'gemini-video-legacy-alias',
+        provider: 'google',
+        model: 'veo-3.1',
+        kind: 'video',
+        presets: ['quick', 'balanced', 'high'],
+        requiredCredentials: ['GEMINI_API_KEY']
+    },
+    ...['kling-v1-5', 'kling-v2', 'kling-v2-1', 'kling-v2-new'].map((model) => ({
+        id: `kling-image-${model}`,
+        provider: 'kling',
+        model,
+        kind: 'image',
+        presets: ['quick', 'balanced', 'high'],
+        requiredCredentials: ['KLING_ACCESS_KEY', 'KLING_SECRET_KEY']
+    })),
+    ...['kling-v2-1', 'kling-v2-1-master', 'kling-v2-5-turbo'].map((model) => ({
+        id: `kling-video-${model}`,
+        provider: 'kling',
+        model,
+        kind: 'video',
+        presets: ['quick', 'balanced', 'high'],
+        requiredCredentials: ['KLING_ACCESS_KEY', 'KLING_SECRET_KEY']
+    })),
+    {
+        id: 'fal-video-kling-v2-6',
+        provider: 'fal',
+        model: 'kling-v2-6',
+        kind: 'video',
+        presets: ['quick', 'balanced', 'high'],
+        requiredCredentials: ['FAL_API_KEY']
+    },
+    ...['hailuo-2.3', 'hailuo-2.3-fast', 'hailuo-02'].map((model) => ({
+        id: `hailuo-video-${model}`,
+        provider: 'hailuo',
+        model,
+        kind: 'video',
+        presets: ['quick', 'balanced', 'high'],
+        requiredCredentials: ['HAILUO_API_KEY']
+    }))
 ];
 
 const preferenceByKindAndPreset = {
@@ -54,16 +102,16 @@ const preferenceByKindAndPreset = {
 export const createProviderRegistry = (credentials = {}) => {
     const definitions = providerDefinitions.map((definition) => ({
         ...definition,
-        available: Boolean(credentials[definition.requiredCredential])
+        available: definition.requiredCredentials.every((name) => Boolean(credentials[name]))
     }));
 
-    const getDefinition = (provider, model) => definitions.find(
-        (definition) => definition.provider === provider && definition.model === model
+    const getDefinition = (kind, provider, model) => definitions.find(
+        (definition) => definition.kind === kind && definition.provider === provider && definition.model === model
     );
 
     return {
         list() {
-            return definitions.map(({ requiredCredential, ...definition }) => definition);
+            return definitions.map(({ requiredCredentials, ...definition }) => definition);
         },
 
         recommend(kind, preset = 'balanced') {
@@ -107,7 +155,7 @@ export const createProviderRegistry = (credentials = {}) => {
         resolve(kind, preset, requestedProvider = 'auto', requestedModel = 'auto') {
             if (kind === 'rough-cut') return this.recommend(kind, preset);
             if (requestedProvider !== 'auto' && requestedModel !== 'auto') {
-                const requested = getDefinition(requestedProvider, requestedModel);
+                const requested = getDefinition(kind, requestedProvider, requestedModel);
                 if (!requested || requested.kind !== kind || !requested.available) {
                     const error = new Error('Requested provider or model is not configured');
                     error.statusCode = 503;

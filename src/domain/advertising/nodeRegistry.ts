@@ -128,6 +128,24 @@ export const advertisingNodeDefinitions: AdvertisingNodeDefinition[] = [
     }
   },
   {
+    type: NodeType.QUALITY_AUDIT,
+    label: 'AI 质检',
+    shortLabel: 'Quality',
+    description: '检查品牌、产品、文案和平台适配，给出可执行修改建议',
+    purpose: '交付闸门',
+    accent: '#222222',
+    defaultFields: {
+      overallScore: '—',
+      verdict: '待质检',
+      brandScore: '—',
+      productScore: '—',
+      copyScore: '—',
+      platformScore: '—',
+      issues: '',
+      recommendations: ''
+    }
+  },
+  {
     type: NodeType.DELIVERY,
     label: '制作交付',
     shortLabel: 'Delivery',

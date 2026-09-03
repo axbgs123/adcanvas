@@ -625,7 +625,7 @@ export const ImageEditorModal: React.FC<ImageEditorModalProps> = ({
                                             }
                                         }}
                                         autoFocus
-                                        className="absolute bg-transparent border-2 border-blue-500 outline-none text-white"
+                                        className="absolute bg-transparent border-2 border-neutral-500 outline-none text-white"
                                         style={{
                                             left: el.x,
                                             top: el.y,
@@ -800,7 +800,7 @@ export const ImageEditorModal: React.FC<ImageEditorModalProps> = ({
                                         </button>
                                         <button
                                             onClick={(e) => { e.stopPropagation(); crop.applyCrop(); }}
-                                            className="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-sm font-medium transition-colors"
+                                            className="px-3 py-1.5 bg-neutral-600 hover:bg-neutral-500 text-white rounded-lg text-sm font-medium transition-colors"
                                         >
                                             Apply
                                         </button>

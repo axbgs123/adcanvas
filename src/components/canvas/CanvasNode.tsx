@@ -221,7 +221,7 @@ export const CanvasNode: React.FC<CanvasNodeProps> = ({
 
         {/* Image Editor Node Card */}
         <div
-          className={`relative rounded-2xl transition-all duration-200 flex flex-col ${inputUrl ? '' : isDark ? 'bg-[#0f0f0f] border border-neutral-700 shadow-2xl' : 'bg-white border border-neutral-200 shadow-lg'} ${selected ? 'ring-1 ring-blue-500/30' : ''}`}
+          className={`relative rounded-2xl transition-all duration-200 flex flex-col ${inputUrl ? '' : isDark ? 'bg-[#0f0f0f] border border-neutral-700 shadow-2xl' : 'bg-white border border-neutral-200 shadow-lg'} ${selected ? 'ring-1 ring-neutral-500/30' : ''}`}
           style={{
             width: inputUrl ? 'auto' : '340px',
             maxWidth: inputUrl ? '500px' : 'none'
@@ -247,7 +247,7 @@ export const CanvasNode: React.FC<CanvasNodeProps> = ({
               <img
                 src={data.resultUrl || inputUrl}
                 alt="Content"
-                className={`rounded-xl w-full h-full object-cover ${selected ? 'ring-2 ring-blue-500 shadow-2xl' : ''}`}
+                className={`rounded-xl w-full h-full object-cover ${selected ? 'ring-2 ring-neutral-500 shadow-2xl' : ''}`}
                 style={{ maxHeight: '500px' }}
                 draggable={false}
               />
@@ -299,7 +299,7 @@ export const CanvasNode: React.FC<CanvasNodeProps> = ({
                   })}
                   onPointerDown={(e) => e.stopPropagation()}
                   className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-full transition-colors ${data.angleMode
-                    ? 'bg-blue-500 text-white'
+                    ? 'bg-neutral-500 text-white'
                     : 'text-neutral-300 hover:bg-neutral-700 hover:text-white'
                     }`}
                 >
@@ -401,7 +401,7 @@ export const CanvasNode: React.FC<CanvasNodeProps> = ({
                     onDragStart?.(data.id, true);
                   }}
                   onDragEnd={() => onDragEnd?.()}
-                  className="p-1.5 bg-cyan-500/80 hover:bg-cyan-400 rounded-full text-white cursor-grab active:cursor-grabbing"
+                  className="p-1.5 bg-neutral-500/80 hover:bg-neutral-400 rounded-full text-white cursor-grab active:cursor-grabbing"
                   title="Drag to chat"
                 >
                   <svg viewBox="0 0 24 24" className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2">
@@ -419,13 +419,13 @@ export const CanvasNode: React.FC<CanvasNodeProps> = ({
 
           {/* Node Card */}
           <div
-            className={`relative rounded-2xl transition-all duration-200 flex flex-col ${isDark ? 'bg-[#0f0f0f] border border-neutral-700 shadow-2xl' : 'bg-white border border-neutral-200 shadow-lg'} ${selected ? 'ring-1 ring-blue-500/30' : ''}`}
+            className={`relative rounded-2xl transition-all duration-200 flex flex-col ${isDark ? 'bg-[#0f0f0f] border border-neutral-700 shadow-2xl' : 'bg-white border border-neutral-200 shadow-lg'} ${selected ? 'ring-1 ring-neutral-500/30' : ''}`}
             style={{
               width: '340px',
             }}
           >
             {/* Header */}
-            <div className="absolute -top-8 left-0 text-sm px-2 py-0.5 rounded font-medium text-blue-400">
+            <div className="absolute -top-8 left-0 text-sm px-2 py-0.5 rounded font-medium text-neutral-400">
               Camera Angle
             </div>
 
@@ -438,12 +438,12 @@ export const CanvasNode: React.FC<CanvasNodeProps> = ({
                 <img
                   src={data.resultUrl}
                   alt="Content"
-                  className={`rounded-xl w-full h-auto object-cover ${selected ? 'ring-2 ring-blue-500 shadow-2xl' : ''}`}
+                  className={`rounded-xl w-full h-auto object-cover ${selected ? 'ring-2 ring-neutral-500 shadow-2xl' : ''}`}
                   draggable={false}
                 />
               ) : (
                 <div className="flex flex-col items-center gap-3 text-neutral-500">
-                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-neutral-500"></div>
                   <span className="text-sm">Generating new angle...</span>
                 </div>
               )}
@@ -498,7 +498,7 @@ export const CanvasNode: React.FC<CanvasNodeProps> = ({
 
         {/* Video Editor Node Card */}
         <div
-          className={`relative rounded-2xl transition-all duration-200 flex flex-col ${videoUrl ? '' : isDark ? 'bg-[#0f0f0f] border border-neutral-700 shadow-2xl' : 'bg-white border border-neutral-200 shadow-lg'} ${selected ? 'ring-1 ring-purple-500/30' : ''}`}
+          className={`relative rounded-2xl transition-all duration-200 flex flex-col ${videoUrl ? '' : isDark ? 'bg-[#0f0f0f] border border-neutral-700 shadow-2xl' : 'bg-white border border-neutral-200 shadow-lg'} ${selected ? 'ring-1 ring-neutral-500/30' : ''}`}
           style={{
             width: videoUrl ? 'auto' : '340px',
             maxWidth: videoUrl ? '500px' : 'none'
@@ -511,7 +511,7 @@ export const CanvasNode: React.FC<CanvasNodeProps> = ({
           }}
         >
           {/* Header */}
-          <div className="absolute -top-8 left-0 text-sm px-2 py-0.5 rounded font-medium text-purple-400">
+          <div className="absolute -top-8 left-0 text-sm px-2 py-0.5 rounded font-medium text-neutral-400">
             Video Editor
           </div>
 
@@ -523,7 +523,7 @@ export const CanvasNode: React.FC<CanvasNodeProps> = ({
             {videoUrl ? (
               <video
                 src={videoUrl}
-                className={`rounded-xl w-full h-auto object-cover ${selected ? 'ring-2 ring-purple-500 shadow-2xl' : ''}`}
+                className={`rounded-xl w-full h-auto object-cover ${selected ? 'ring-2 ring-neutral-500 shadow-2xl' : ''}`}
                 style={{ maxHeight: '500px', aspectRatio: '16/9' }}
                 muted
                 playsInline
@@ -544,7 +544,7 @@ export const CanvasNode: React.FC<CanvasNodeProps> = ({
 
           {/* Trim indicator (if trimmed) */}
           {data.trimStart !== undefined && data.trimEnd !== undefined && (
-            <div className="absolute bottom-2 left-2 right-2 bg-black/70 rounded-lg px-2 py-1 text-xs text-purple-300 flex justify-between">
+            <div className="absolute bottom-2 left-2 right-2 bg-black/70 rounded-lg px-2 py-1 text-xs text-neutral-300 flex justify-between">
               <span>Trimmed: {data.trimStart.toFixed(1)}s - {data.trimEnd.toFixed(1)}s</span>
             </div>
           )}
@@ -592,7 +592,7 @@ export const CanvasNode: React.FC<CanvasNodeProps> = ({
                     })}
                     onPointerDown={(e) => e.stopPropagation()}
                     className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-full transition-colors ${data.angleMode
-                      ? 'bg-blue-500 text-white'
+                      ? 'bg-neutral-500 text-white'
                       : 'text-neutral-300 hover:bg-neutral-700 hover:text-white'
                       }`}
                   >
@@ -728,7 +728,7 @@ export const CanvasNode: React.FC<CanvasNodeProps> = ({
                   onDragStart?.(data.id, true);
                 }}
                 onDragEnd={() => onDragEnd?.()}
-                className="p-1.5 bg-cyan-500/80 hover:bg-cyan-400 rounded-full text-white cursor-grab active:cursor-grabbing"
+                className="p-1.5 bg-neutral-500/80 hover:bg-neutral-400 rounded-full text-white cursor-grab active:cursor-grabbing"
                 title="Drag to chat"
               >
                 <svg viewBox="0 0 24 24" className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2">
@@ -844,7 +844,7 @@ export const CanvasNode: React.FC<CanvasNodeProps> = ({
                   onDragStart?.(data.id, true);
                 }}
                 onDragEnd={() => onDragEnd?.()}
-                className="p-1.5 bg-cyan-500/80 hover:bg-cyan-400 rounded-full text-white cursor-grab active:cursor-grabbing"
+                className="p-1.5 bg-neutral-500/80 hover:bg-neutral-400 rounded-full text-white cursor-grab active:cursor-grabbing"
                 title="Drag to chat"
               >
                 <svg viewBox="0 0 24 24" className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2">
@@ -882,12 +882,12 @@ export const CanvasNode: React.FC<CanvasNodeProps> = ({
               }}
               onClick={(e) => e.stopPropagation()}
               onPointerDown={(e) => e.stopPropagation()}
-              className={`absolute top-2 whitespace-nowrap rounded-md border px-2 py-0.5 text-sm font-medium outline-none ${isDark ? 'border-blue-400 bg-blue-500/20 text-blue-200' : 'border-[#c7c7c7] bg-[#f1f1f1] text-[#111111]'}`}
+              className={`absolute top-2 whitespace-nowrap rounded-md border px-2 py-0.5 text-sm font-medium outline-none ${isDark ? 'border-neutral-400 bg-neutral-500/20 text-neutral-200' : 'border-[#c7c7c7] bg-[#f1f1f1] text-[#111111]'}`}
               style={{ right: 'calc(100% + 8px)', minWidth: '60px' }}
             />
           ) : (
             <div
-              className={`absolute top-2 whitespace-nowrap rounded-md px-2 py-0.5 text-sm font-medium transition-colors cursor-text ${selected ? (isDark ? 'bg-blue-500/20 text-blue-200' : 'bg-[#f1f1f1] text-[#111111]') : (isDark ? 'text-neutral-600' : 'text-[#666666]')}`}
+              className={`absolute top-2 whitespace-nowrap rounded-md px-2 py-0.5 text-sm font-medium transition-colors cursor-text ${selected ? (isDark ? 'bg-neutral-500/20 text-neutral-200' : 'bg-[#f1f1f1] text-[#111111]') : (isDark ? 'text-neutral-600' : 'text-[#666666]')}`}
               style={{ right: 'calc(100% + 8px)' }}
               onDoubleClick={(e) => {
                 e.stopPropagation();

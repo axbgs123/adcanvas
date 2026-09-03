@@ -184,16 +184,16 @@ export const TikTokImportModal: React.FC<TikTokImportModalProps> = ({
 
                     {/* Error Message */}
                     {error && status === 'error' && (
-                        <div className="mt-4 p-3 bg-red-500/10 border border-red-500/30 rounded-lg flex items-start gap-3">
-                            <AlertCircle size={20} className="text-red-400 flex-shrink-0 mt-0.5" />
+                        <div className="mt-4 p-3 bg-neutral-500/10 border border-neutral-500/30 rounded-lg flex items-start gap-3">
+                            <AlertCircle size={20} className="text-neutral-400 flex-shrink-0 mt-0.5" />
                             <div>
-                                <p className="text-sm text-red-400">{error}</p>
+                                <p className="text-sm text-neutral-400">{error}</p>
                                 <button
                                     onClick={() => {
                                         setStatus('idle');
                                         setError(null);
                                     }}
-                                    className="text-xs text-red-400/70 hover:text-red-400 mt-1 underline"
+                                    className="text-xs text-neutral-400/70 hover:text-neutral-400 mt-1 underline"
                                 >
                                     Try again
                                 </button>
@@ -213,10 +213,10 @@ export const TikTokImportModal: React.FC<TikTokImportModalProps> = ({
                     {/* Success State */}
                     {status === 'success' && videoInfo && importedVideoUrl && (
                         <div className="mt-6 space-y-4">
-                            <div className="flex items-start gap-3 p-3 bg-green-500/10 border border-green-500/30 rounded-lg">
-                                <CheckCircle size={20} className="text-green-400 flex-shrink-0 mt-0.5" />
+                            <div className="flex items-start gap-3 p-3 bg-neutral-500/10 border border-neutral-500/30 rounded-lg">
+                                <CheckCircle size={20} className="text-neutral-400 flex-shrink-0 mt-0.5" />
                                 <div className="flex-1 min-w-0">
-                                    <p className="text-sm text-green-400 font-medium">Video downloaded successfully!</p>
+                                    <p className="text-sm text-neutral-400 font-medium">Video downloaded successfully!</p>
                                     <p className="text-xs text-neutral-400 mt-1 truncate" title={videoInfo.title}>
                                         {videoInfo.title}
                                     </p>
