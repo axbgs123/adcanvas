@@ -141,7 +141,7 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({
         <div className="p-1.5 flex flex-col gap-0.5">
           <MenuItem
             icon={<ImageIcon size={16} />}
-            label="Create Asset"
+            label="保存为素材"
             onClick={() => {
               if (onCreateAsset) {
                 onCreateAsset();
@@ -155,7 +155,7 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({
 
           <MenuItem
             icon={<Copy size={16} />}
-            label="Copy"
+            label="复制"
             shortcut="CtrlC"
             onClick={() => {
               if (onCopy) {
@@ -167,7 +167,7 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({
           />
           <MenuItem
             icon={<Clipboard size={16} />}
-            label="Paste"
+            label="粘贴"
             shortcut="CtrlV"
             onClick={handlePaste}
             disabled={true} // Disabled in screenshot
@@ -175,7 +175,7 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({
           />
           <MenuItem
             icon={<Files size={16} />}
-            label="Duplicate"
+            label="创建副本"
             onClick={() => {
               if (onDuplicate) {
                 onDuplicate();
@@ -188,7 +188,7 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({
 
           <MenuItem
             icon={<Trash2 size={16} />} // Screenshot has text "Delete", icon might be different
-            label="Delete"
+            label="删除"
             shortcut="⌫,del"
             onClick={() => onSelectType('DELETE')}
             canvasTheme={canvasTheme}
@@ -220,13 +220,13 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({
         <div className="p-1.5 flex flex-col gap-0.5">
           <MenuItem
             icon={<Upload size={16} />}
-            label="Upload"
+            label="上传文件"
             onClick={handleUploadClick}
             canvasTheme={canvasTheme}
           />
           <MenuItem
             icon={<Layers size={16} />}
-            label="Add Assets"
+            label="添加素材"
             onClick={() => {
               if (onAddAssets) {
                 onAddAssets();
@@ -239,7 +239,7 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({
 
           <MenuItem
             icon={<Plus size={16} />}
-            label="Add Nodes"
+            label="添加节点"
             rightSlot={<ChevronRight size={14} className={canvasTheme === 'dark' ? 'text-neutral-500' : 'text-neutral-400'} />}
             onClick={() => setView('add-nodes')}
             active={false}
@@ -250,7 +250,7 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({
 
           <MenuItem
             icon={<Undo2 size={16} />}
-            label="Undo"
+            label="撤销"
             shortcut="CtrlZ"
             onClick={handleUndo}
             disabled={!canUndo}
@@ -258,7 +258,7 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({
           />
           <MenuItem
             icon={<Redo2 size={16} />}
-            label="Redo"
+            label="重做"
             shortcut="ShiftCtrlZ"
             onClick={handleRedo}
             disabled={!canRedo}
@@ -268,7 +268,7 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({
 
           <MenuItem
             icon={<Clipboard size={16} />}
-            label="Paste"
+            label="粘贴"
             shortcut="CtrlV"
             onClick={handlePaste}
             canvasTheme={canvasTheme}
@@ -279,7 +279,7 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({
   }
 
   // 3. Add Nodes Menu (Global Submenu OR Connector Default)
-  const title = isConnector ? "Generate from this node" : "Add Nodes";
+  const title = isConnector ? '从此节点继续生成' : '添加节点';
 
   return (
     <div
@@ -300,96 +300,96 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({
 
       <div className="p-2 flex flex-col gap-1 max-h-[400px] overflow-y-auto">
         <div className={`px-2 py-1 text-xs font-medium ${canvasTheme === 'dark' ? 'text-neutral-500' : 'text-neutral-400'}`}>
-          Advertising workflow
+          广告制作流程
         </div>
         <MenuItem
           icon={<BriefcaseBusiness size={18} />}
-          label="Advertising Brief"
-          desc="Goals, audience, message, deliverables"
+          label="广告需求"
+          desc="目标、受众、核心信息与交付要求"
           onClick={() => onSelectType(NodeType.AD_BRIEF)}
           canvasTheme={canvasTheme}
         />
         <MenuItem
           icon={<ShieldCheck size={18} />}
-          label="Brand Profile"
-          desc="Global assets and hard constraints"
+          label="品牌资产"
+          desc="品牌素材、视觉规范与硬性限制"
           onClick={() => onSelectType(NodeType.BRAND_PROFILE)}
           canvasTheme={canvasTheme}
         />
         <MenuItem
           icon={<Lightbulb size={18} />}
-          label="Creative Route"
-          desc="Concept, insight, and visual metaphor"
+          label="创意路线"
+          desc="创意概念、受众洞察与视觉隐喻"
           onClick={() => onSelectType(NodeType.CREATIVE_ROUTE)}
           canvasTheme={canvasTheme}
         />
         <MenuItem
           icon={<Palette size={18} />}
-          label="Moodboard"
-          desc="Palette, materials, light, composition"
+          label="情绪板"
+          desc="色彩、材质、灯光与构图方向"
           onClick={() => onSelectType(NodeType.MOODBOARD)}
           canvasTheme={canvasTheme}
         />
         <MenuItem
           icon={<FileText size={18} />}
-          label="Advertising Script"
+          label="广告脚本"
           onClick={() => onSelectType(NodeType.AD_SCRIPT)}
           canvasTheme={canvasTheme}
         />
         <MenuItem
           icon={<PanelsTopLeft size={18} />}
-          label="Advertising Storyboard"
+          label="广告分镜"
           onClick={() => onSelectType(NodeType.AD_STORYBOARD)}
           canvasTheme={canvasTheme}
         />
         <MenuItem
           icon={<Camera size={18} />}
-          label="Shot"
+          label="镜头"
           onClick={() => onSelectType(NodeType.AD_SHOT)}
           canvasTheme={canvasTheme}
         />
         <MenuItem
           icon={<Scissors size={18} />}
-          label="Edit Plan"
+          label="剪辑计划"
           onClick={() => onSelectType(NodeType.EDIT_PLAN)}
           canvasTheme={canvasTheme}
         />
         <MenuItem
           icon={<ClipboardCheck size={18} />}
-          label="AI Quality Audit"
-          desc="Brand, product, copy, and platform checks"
+          label="AI 质检"
+          desc="检查品牌、产品、文案与平台适配"
           onClick={() => onSelectType(NodeType.QUALITY_AUDIT)}
           canvasTheme={canvasTheme}
         />
         <MenuItem
           icon={<PackageCheck size={18} />}
-          label="Production Delivery"
+          label="制作交付"
           onClick={() => onSelectType(NodeType.DELIVERY)}
           canvasTheme={canvasTheme}
         />
 
         <div className={`my-2 border-t mx-2 ${canvasTheme === 'dark' ? 'border-neutral-800' : 'border-neutral-100'}`} />
         <div className={`px-2 py-1 text-xs font-medium ${canvasTheme === 'dark' ? 'text-neutral-500' : 'text-neutral-400'}`}>
-          Generation tools
+          生成工具
         </div>
         <MenuItem
           icon={<Type size={18} />}
-          label={isConnector ? "Text Generation" : "Text"}
-          desc={isConnector ? "Script, Ad copy, Brand text" : undefined}
+          label={isConnector ? '生成文本' : '文本'}
+          desc={isConnector ? '脚本、广告文案与品牌文字' : undefined}
           onClick={() => onSelectType(NodeType.TEXT)}
           canvasTheme={canvasTheme}
         />
         <MenuItem
           icon={<ImageIcon size={18} />}
-          label={isConnector ? "Image Generation" : "Image"}
-          desc={isConnector ? undefined : "Promotional image, poster, cover"}
+          label={isConnector ? '生成图片' : '图片生成'}
+          desc={isConnector ? undefined : '广告图、海报与封面'}
           active={false}
           onClick={() => onSelectType(NodeType.IMAGE)}
           canvasTheme={canvasTheme}
         />
         <MenuItem
           icon={<Video size={18} />}
-          label={isConnector ? "Video Generation" : "Video"}
+          label={isConnector ? '生成视频' : '视频生成'}
           onClick={() => onSelectType(NodeType.VIDEO)}
           canvasTheme={canvasTheme}
         />
@@ -397,7 +397,7 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({
         {!isConnector && (
           <MenuItem
             icon={<PenTool size={18} />}
-            label="Image Editor"
+            label="图片编辑"
             onClick={() => onSelectType(NodeType.IMAGE_EDITOR)}
             canvasTheme={canvasTheme}
           />
@@ -406,7 +406,7 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({
         {!isConnector && (
           <MenuItem
             icon={<Film size={18} />}
-            label="Video Editor"
+            label="视频编辑"
             onClick={() => onSelectType(NodeType.VIDEO_EDITOR)}
             canvasTheme={canvasTheme}
           />
@@ -415,22 +415,22 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({
         {/* --- Local Model Section --- */}
         <div className={`my-2 border-t mx-2 ${canvasTheme === 'dark' ? 'border-neutral-800' : 'border-neutral-100'}`} />
         <div className={`px-2 py-1 text-xs font-medium ${canvasTheme === 'dark' ? 'text-neutral-500' : 'text-neutral-400'}`}>
-          Local Models (Open Source)
+          本地开源模型
         </div>
 
         <MenuItem
           icon={<HardDrive size={18} />}
-          label="Local Image Model"
-          desc="Use downloaded open-source models"
-          badge="NEW"
+          label="本地图片模型"
+          desc="使用已下载的开源模型"
+          badge="新"
           onClick={() => onSelectType(NodeType.LOCAL_IMAGE_MODEL)}
           canvasTheme={canvasTheme}
         />
         <MenuItem
           icon={<HardDrive size={18} />}
-          label="Local Video Model"
-          desc="AnimateDiff, SVD, and more"
-          badge="NEW"
+          label="本地视频模型"
+          desc="支持 AnimateDiff、SVD 等模型"
+          badge="新"
           onClick={() => onSelectType(NodeType.LOCAL_VIDEO_MODEL)}
           canvasTheme={canvasTheme}
         />

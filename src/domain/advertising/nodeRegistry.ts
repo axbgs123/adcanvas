@@ -14,8 +14,8 @@ export interface AdvertisingNodeDefinition {
 export const advertisingNodeDefinitions: AdvertisingNodeDefinition[] = [
   {
     type: NodeType.AD_BRIEF,
-    label: '广告 Brief',
-    shortLabel: 'Brief',
+    label: '广告需求',
+    shortLabel: '需求',
     description: '统一广告目标、受众、核心信息和交付约束',
     purpose: '项目源头',
     accent: '#111111',
@@ -29,7 +29,7 @@ export const advertisingNodeDefinitions: AdvertisingNodeDefinition[] = [
   {
     type: NodeType.BRAND_PROFILE,
     label: '品牌资产',
-    shortLabel: 'Brand',
+    shortLabel: '品牌',
     description: '集中管理品牌语调、视觉规范和硬性限制',
     purpose: '全局约束',
     accent: '#555555',
@@ -46,7 +46,7 @@ export const advertisingNodeDefinitions: AdvertisingNodeDefinition[] = [
   {
     type: NodeType.CREATIVE_ROUTE,
     label: '创意路线',
-    shortLabel: 'Concept',
+    shortLabel: '创意',
     description: '表达一条独立的广告概念和视觉隐喻',
     purpose: '方案发散',
     accent: '#777777',
@@ -60,7 +60,7 @@ export const advertisingNodeDefinitions: AdvertisingNodeDefinition[] = [
   {
     type: NodeType.MOODBOARD,
     label: '情绪板',
-    shortLabel: 'Moodboard',
+    shortLabel: '情绪板',
     description: '定义色彩、材质、灯光、构图和参考方向',
     purpose: '视觉语言',
     accent: '#999999',
@@ -74,7 +74,7 @@ export const advertisingNodeDefinitions: AdvertisingNodeDefinition[] = [
   {
     type: NodeType.AD_SCRIPT,
     label: '广告脚本',
-    shortLabel: 'Script',
+    shortLabel: '脚本',
     description: '组织时间、画面、旁白、声音和品牌落点',
     purpose: '叙事结构',
     accent: '#333333',
@@ -88,7 +88,7 @@ export const advertisingNodeDefinitions: AdvertisingNodeDefinition[] = [
   {
     type: NodeType.AD_STORYBOARD,
     label: '广告分镜',
-    shortLabel: 'Storyboard',
+    shortLabel: '分镜',
     description: '把脚本拆成可执行的镜头序列',
     purpose: '制作规划',
     accent: '#666666',
@@ -102,7 +102,7 @@ export const advertisingNodeDefinitions: AdvertisingNodeDefinition[] = [
   {
     type: NodeType.AD_SHOT,
     label: '镜头',
-    shortLabel: 'Shot',
+    shortLabel: '镜头',
     description: '管理单个镜头目标、构图、动作和采用素材',
     purpose: '素材生产',
     accent: '#888888',
@@ -116,7 +116,7 @@ export const advertisingNodeDefinitions: AdvertisingNodeDefinition[] = [
   {
     type: NodeType.EDIT_PLAN,
     label: '剪辑计划',
-    shortLabel: 'Edit',
+    shortLabel: '剪辑',
     description: '先确认镜头顺序、节奏、声音和品牌落版',
     purpose: '草片计划',
     accent: '#444444',
@@ -130,7 +130,7 @@ export const advertisingNodeDefinitions: AdvertisingNodeDefinition[] = [
   {
     type: NodeType.QUALITY_AUDIT,
     label: 'AI 质检',
-    shortLabel: 'Quality',
+    shortLabel: '质检',
     description: '检查品牌、产品、文案和平台适配，给出可执行修改建议',
     purpose: '交付闸门',
     accent: '#222222',
@@ -148,7 +148,7 @@ export const advertisingNodeDefinitions: AdvertisingNodeDefinition[] = [
   {
     type: NodeType.DELIVERY,
     label: '制作交付',
-    shortLabel: 'Delivery',
+    shortLabel: '交付',
     description: '汇总采用素材、规格和后期说明',
     purpose: '项目交接',
     accent: '#aaaaaa',

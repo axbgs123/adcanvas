@@ -630,10 +630,10 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                         <button
                             onClick={() => onUpdate(data.id, { isPromptExpanded: !data.isPromptExpanded })}
                             className={`flex items-center gap-1 px-1.5 py-0.5 text-[10px] rounded transition-colors ${isDark ? 'text-neutral-500 hover:text-white hover:bg-neutral-700' : 'text-neutral-500 hover:text-neutral-900 hover:bg-neutral-200'}`}
-                            title={data.isPromptExpanded ? 'Shrink prompt' : 'Expand prompt'}
+                            title={data.isPromptExpanded ? '收起提示词' : '展开提示词'}
                         >
                             {data.isPromptExpanded ? <Shrink size={12} /> : <Expand size={12} />}
-                            <span>{data.isPromptExpanded ? 'Shrink' : 'Expand'}</span>
+                            <span>{data.isPromptExpanded ? '收起' : '展开'}</span>
                         </button>
                     </div>
                 </div>
@@ -652,7 +652,7 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                     </svg>
                     <span>
-                        <strong>Motion Control</strong> requires a character image. Please connect an Image node to define the character appearance.
+                        <strong>动作控制</strong>需要人物参考图，请连接一个图片节点来定义人物外观。
                     </span>
                 </div>
             )}
@@ -669,7 +669,7 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                                     className="flex items-center gap-1.5 text-xs font-medium bg-[#252525] hover:bg-[#333] border border-neutral-700 text-white px-2.5 py-1.5 rounded-lg transition-colors"
                                 >
                                     <HardDrive size={12} className="text-neutral-400" />
-                                    <span className="font-medium">{selectedLocalModel?.name || 'Select Model'}</span>
+                                    <span className="font-medium">{selectedLocalModel?.name || '选择模型'}</span>
                                     <ChevronDown size={12} className="ml-0.5 opacity-50" />
                                 </button>
 
@@ -679,15 +679,15 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                                         {/* Header */}
                                         <div className="px-3 py-1.5 text-[10px] font-bold text-neutral-400 uppercase tracking-wider bg-[#1a1a1a] border-b border-neutral-700 flex items-center gap-1.5">
                                             <HardDrive size={10} />
-                                            Local Models
+                                            本地模型
                                         </div>
 
                                         {isLoadingLocalModels ? (
-                                            <div className="px-3 py-4 text-xs text-neutral-500 text-center">Loading models...</div>
+                                            <div className="px-3 py-4 text-xs text-neutral-500 text-center">正在加载模型…</div>
                                         ) : localModels.length === 0 ? (
                                             <div className="px-3 py-4 text-xs text-neutral-500 text-center">
-                                                <p>No models found</p>
-                                                <p className="text-[10px] mt-1">Add .safetensors files to models/</p>
+                                                <p>未找到模型</p>
+                                                <p className="text-[10px] mt-1">请将 .safetensors 文件放入 models/ 目录</p>
                                             </div>
                                         ) : (
                                             localModels.map(model => (
@@ -739,10 +739,10 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                                                 videoGenerationMode === 'image-to-video' ? 'bg-neutral-400' :
                                                     videoGenerationMode === 'motion-control' ? 'bg-neutral-400' : 'bg-neutral-400'
                                                 }`} />
-                                            {videoGenerationMode === 'text-to-video' ? 'Text → Video' :
-                                                videoGenerationMode === 'image-to-video' ? 'Image → Video' :
-                                                    videoGenerationMode === 'motion-control' ? 'Motion Control' :
-                                                        'Frame-to-Frame'}
+                                            {videoGenerationMode === 'text-to-video' ? '文字 → 视频' :
+                                                videoGenerationMode === 'image-to-video' ? '图片 → 视频' :
+                                                    videoGenerationMode === 'motion-control' ? '动作控制' :
+                                                        '首尾帧生成'}
                                         </div>
                                         {/* Google Models */}
                                         {availableVideoModels.filter(m => m.provider === 'google').length > 0 && (
@@ -788,7 +788,7 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                                                             <KlingIcon size={14} />
                                                             {model.name}
                                                             {model.recommended && (
-                                                                <span className="text-[9px] px-1 py-0.5 bg-neutral-600/30 text-neutral-400 rounded">REC</span>
+                                                                <span className="text-[9px] px-1 py-0.5 bg-neutral-600/30 text-neutral-400 rounded">推荐</span>
                                                             )}
                                                         </span>
                                                         {currentVideoModel.id === model.id && <Check size={12} />}
@@ -851,9 +851,9 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                                             <span className={`w-1.5 h-1.5 rounded-full ${imageGenerationMode === 'text-to-image' ? 'bg-neutral-400' :
                                                 imageGenerationMode === 'image-to-image' ? 'bg-neutral-400' : 'bg-neutral-400'
                                                 }`} />
-                                            {imageGenerationMode === 'text-to-image' ? 'Text → Image' :
-                                                imageGenerationMode === 'image-to-image' ? `Image → Image` :
-                                                    `${inputCount} Images → Image`}
+                                            {imageGenerationMode === 'text-to-image' ? '文字 → 图片' :
+                                                imageGenerationMode === 'image-to-image' ? '图片 → 图片' :
+                                                    `${inputCount} 张图片 → 图片`}
                                         </div>
                                         {/* OpenAI Models */}
                                         {availableImageModels.filter(m => m.provider === 'openai').length > 0 && (
@@ -872,7 +872,7 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                                                             <OpenAIIcon size={12} className="text-neutral-400" />
                                                             {model.name}
                                                             {model.recommended && (
-                                                                <span className="text-[9px] px-1 py-0.5 bg-neutral-600/30 text-neutral-400 rounded">REC</span>
+                                                                <span className="text-[9px] px-1 py-0.5 bg-neutral-600/30 text-neutral-400 rounded">推荐</span>
                                                             )}
                                                         </span>
                                                         {currentImageModel.id === model.id && <Check size={12} />}
@@ -924,7 +924,7 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                                                             <KlingIcon size={14} />
                                                             {model.name}
                                                             {model.recommended && (
-                                                                <span className="text-[9px] px-1 py-0.5 bg-neutral-600/30 text-neutral-400 rounded">REC</span>
+                                                                <span className="text-[9px] px-1 py-0.5 bg-neutral-600/30 text-neutral-400 rounded">推荐</span>
                                                             )}
                                                         </span>
                                                         {currentImageModel.id === model.id && <Check size={12} />}
@@ -1026,7 +1026,7 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                                 {showAspectRatioDropdown && (
                                     <div className="absolute bottom-full mb-2 right-0 w-28 bg-[#252525] border border-neutral-700 rounded-lg shadow-xl overflow-hidden z-50 animate-in fade-in zoom-in-95 duration-100">
                                         <div className="px-3 py-2 text-[10px] font-bold text-neutral-500 uppercase tracking-wider bg-[#1f1f1f]">
-                                            Size
+                                            画幅
                                         </div>
                                         {(currentVideoModel?.aspectRatios || VIDEO_ASPECT_RATIOS).map((option: string) => (
                                             <button
@@ -1051,14 +1051,14 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                                     className="flex items-center gap-1.5 text-xs font-medium bg-[#252525] hover:bg-[#333] border border-neutral-700 text-white px-2.5 py-1.5 rounded-lg transition-colors"
                                 >
                                     <Clock size={12} className="text-neutral-400" />
-                                    {currentDuration}s
+                                    {currentDuration} 秒
                                 </button>
 
                                 {/* Duration Dropdown Menu */}
                                 {showDurationDropdown && (
                                     <div className="absolute bottom-full mb-2 right-0 w-24 bg-[#252525] border border-neutral-700 rounded-lg shadow-xl overflow-hidden z-50 animate-in fade-in zoom-in-95 duration-100">
                                         <div className="px-3 py-2 text-[10px] font-bold text-neutral-500 uppercase tracking-wider bg-[#1f1f1f]">
-                                            Duration
+                                            时长
                                         </div>
                                         {availableDurations.map((dur: number) => (
                                             <button
@@ -1066,7 +1066,7 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                                                 onClick={() => handleDurationChange(dur)}
                                                 className={`w-full flex items-center justify-between px-3 py-2 text-xs text-left hover:bg-[#333] transition-colors ${currentDuration === dur ? 'text-neutral-400' : 'text-neutral-300'}`}
                                             >
-                                                <span>{dur}s</span>
+                                                <span>{dur} 秒</span>
                                                 {currentDuration === dur && <Check size={12} />}
                                             </button>
                                         ))}
@@ -1100,7 +1100,7 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                                             ? 'bg-white text-neutral-900 hover:bg-neutral-100 active:scale-95'
                                             : 'bg-neutral-900 text-white hover:bg-neutral-800 active:scale-95'
                                         }`}
-                                    title={isFaceModeBlocked ? 'Cannot generate: No face detected in reference image' : 'Generate'}
+                                    title={isFaceModeBlocked ? '无法生成：参考图中未检测到人脸' : '开始生成'}
                                 >
                                     <svg
                                         viewBox="0 0 24 24"
@@ -1119,7 +1119,7 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
             {/* Kling V1.5 Reference Settings - For Image nodes with connected input */}
             {!isVideoNode && data.imageModel === 'kling-v1-5' && connectedImageNodes.length > 0 && (
                 <div className="mt-3 pt-3 border-t border-neutral-800">
-                    <div className="text-[10px] text-neutral-500 uppercase tracking-wider mb-2">Reference Settings</div>
+                    <div className="text-[10px] text-neutral-500 uppercase tracking-wider mb-2">参考图设置</div>
 
                     {/* Mode Tabs */}
                     <div className="flex gap-1 mb-3 p-1 bg-neutral-800/50 rounded-lg">
@@ -1130,7 +1130,7 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                                 : 'text-neutral-400 hover:text-white hover:bg-neutral-700/50'
                                 }`}
                         >
-                            Subject
+                            主体
                         </button>
                         <button
                             onClick={() => {
@@ -1142,7 +1142,7 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                                 : 'text-neutral-400 hover:text-white hover:bg-neutral-700/50'
                                 }`}
                         >
-                            Face
+                            人脸
                         </button>
                     </div>
 
@@ -1183,7 +1183,7 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                                     {/* Loading indicator */}
                                     {data.klingReferenceMode === 'face' && data.faceDetectionStatus === 'loading' && (
                                         <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-                                            <div className="text-xs text-white">Detecting faces...</div>
+                                            <div className="text-xs text-white">正在检测人脸…</div>
                                         </div>
                                     )}
                                 </div>
@@ -1215,7 +1215,7 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                                 <svg className="w-4 h-4 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                                 </svg>
-                                <span>No face detected. Please use a reference image with a clearer face.</span>
+                                <span>未检测到人脸，请使用人脸更清晰的参考图。</span>
                             </div>
                         </div>
                     )}
@@ -1225,7 +1225,7 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                         <>
                             <div className="space-y-1 mb-3">
                                 <div className="flex justify-between text-[10px]">
-                                    <span className="text-neutral-400">Face Reference</span>
+                                    <span className="text-neutral-400">人脸参考强度</span>
                                     <span className="text-white font-medium">{data.klingFaceIntensity ?? 65}</span>
                                 </div>
                                 <input
@@ -1239,7 +1239,7 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                             </div>
                             <div className="space-y-1">
                                 <div className="flex justify-between text-[10px]">
-                                    <span className="text-neutral-400">Subject Reference</span>
+                                    <span className="text-neutral-400">主体参考强度</span>
                                     <span className="text-white font-medium">{data.klingSubjectIntensity ?? 50}</span>
                                 </div>
                                 <input
@@ -1258,7 +1258,7 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                     {data.klingReferenceMode === 'face' && data.faceDetectionStatus === 'success' && (
                         <div className="space-y-1">
                             <div className="flex justify-between text-[10px]">
-                                <span className="text-neutral-400">Reference Strength</span>
+                                <span className="text-neutral-400">参考强度</span>
                                 <span className="text-white font-medium">{data.klingFaceIntensity ?? 42}</span>
                             </div>
                             <input
@@ -1283,7 +1283,7 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                             className="w-full flex items-center justify-center gap-1 cursor-pointer"
                         >
                             <span className="text-[10px] text-neutral-600 uppercase tracking-widest hover:text-neutral-400">
-                                Advanced Settings
+                                高级设置
                             </span>
                             {showAdvanced ? (
                                 <ChevronUp size={12} className="text-neutral-600" />
@@ -1301,7 +1301,7 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                                         <svg className="w-3.5 h-3.5 text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
                                         </svg>
-                                        <span className="text-[11px] text-neutral-300">Audio</span>
+                                        <span className="text-[11px] text-neutral-300">生成音频</span>
                                         <button
                                             onClick={() => onUpdate(data.id, { generateAudio: !(data.generateAudio !== false) })}
                                             className={`relative w-8 h-4 rounded-full transition-colors ${data.generateAudio !== false ? 'bg-neutral-600' : 'bg-neutral-700'}`}
@@ -1317,13 +1317,13 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                                 {connectedImageNodes.length >= 2 && (
                                     <div className="space-y-2">
                                         <label className="text-[10px] text-neutral-500 uppercase tracking-wider">
-                                            {videoGenerationMode === 'motion-control' ? 'Input References' : 'Connected Frames'}
-                                            {videoGenerationMode !== 'motion-control' && <span className="text-neutral-600"> (drag to reorder)</span>}
+                                            {videoGenerationMode === 'motion-control' ? '输入参考素材' : '已连接画面'}
+                                            {videoGenerationMode !== 'motion-control' && <span className="text-neutral-600">（拖动可排序）</span>}
                                         </label>
 
                                         {frameInputsWithUrls.length === 0 ? (
                                             <div className="text-xs text-neutral-600 italic py-2">
-                                                {videoGenerationMode === 'motion-control' ? 'Connect video and image nodes as references' : 'Connect image nodes to use as start/end frames'}
+                                                {videoGenerationMode === 'motion-control' ? '请连接视频和图片节点作为参考' : '请连接图片节点作为首帧和尾帧'}
                                             </div>
                                         ) : videoGenerationMode === 'motion-control' ? (
                                             /* Horizontal layout for Motion Control */
@@ -1337,11 +1337,11 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                                                             {input.url ? (
                                                                 <img
                                                                     src={input.url}
-                                                                    alt={input.type === NodeType.VIDEO ? 'Motion Ref' : 'Character Ref'}
+                                                                    alt={input.type === NodeType.VIDEO ? '动作参考' : '人物参考'}
                                                                     className="w-full h-full object-contain"
                                                                 />
                                                             ) : (
-                                                                <div className="text-[10px] text-neutral-600">No Preview</div>
+                                                                <div className="text-[10px] text-neutral-600">暂无预览</div>
                                                             )}
                                                             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                                                             <div className="absolute bottom-1 left-1 right-1">
@@ -1349,7 +1349,7 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                                                                     ? 'bg-neutral-600/80 text-white'
                                                                     : 'bg-neutral-600/80 text-white'
                                                                     }`}>
-                                                                    {input.type === NodeType.VIDEO ? 'MOTION REF' : 'CHARACTER REF'}
+                                                                    {input.type === NodeType.VIDEO ? '动作参考' : '人物参考'}
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -1378,7 +1378,7 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                                                         <GripVertical size={14} className="text-neutral-600" />
                                                         <img
                                                             src={input.url}
-                                                            alt={`Frame ${index + 1}`}
+                                                            alt={`画面 ${index + 1}`}
                                                             className="w-12 h-12 object-cover rounded"
                                                         />
                                                         <div className="flex-1">
@@ -1386,7 +1386,7 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                                                                 ? 'bg-neutral-600/30 text-neutral-400'
                                                                 : 'bg-neutral-600/30 text-neutral-400'
                                                                 }`}>
-                                                                {input.order === 'start' ? 'START' : 'END'}
+                                                                {input.order === 'start' ? '首帧' : '尾帧'}
                                                             </span>
                                                         </div>
                                                     </div>
@@ -1396,7 +1396,7 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
 
                                         {connectedImageNodes.length > frameInputsWithUrls.length && (
                                             <div className="text-xs text-neutral-500 mt-1">
-                                                {connectedImageNodes.length - frameInputsWithUrls.length} more input(s) available
+                                                还有 {connectedImageNodes.length - frameInputsWithUrls.length} 个输入素材可用
                                             </div>
                                         )}
                                     </div>

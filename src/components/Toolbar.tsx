@@ -99,14 +99,14 @@ export const Toolbar: React.FC<ToolbarProps> = ({
           className={`hover:scale-125 transition-all duration-200 ${isDark ? 'text-neutral-400 hover:text-white' : 'text-neutral-500 hover:text-neutral-900'
             }`}
           onClick={onWorkflowsClick}
-          title="My Workflows"
+          title="我的工作流"
         >
           <LayoutGrid size={20} />
         </button>
         <button
           className={`hover:scale-125 transition-all duration-200 ${isDark ? 'text-neutral-400 hover:text-white' : 'text-neutral-500 hover:text-neutral-900'
             }`}
-          title="Assets"
+          title="素材库"
           onClick={onAssetsClick}
         >
           <ImageIcon size={20} />
@@ -115,7 +115,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
           className={`hover:scale-125 transition-all duration-200 ${isDark ? 'text-neutral-400 hover:text-white' : 'text-neutral-500 hover:text-neutral-900'
             }`}
           onClick={onHistoryClick}
-          title="History"
+          title="生成历史"
         >
           <History size={20} />
         </button>
@@ -133,7 +133,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
               }
               setIsToolsOpen(!isToolsOpen);
             }}
-            title="Tools"
+            title="工具"
           >
             <Wrench size={20} />
           </button>

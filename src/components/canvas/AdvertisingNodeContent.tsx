@@ -176,7 +176,7 @@ export const AdvertisingNodeContent: React.FC<AdvertisingNodeContentProps> = ({
         <div className="border-b border-[#d9d9d9] bg-[#fafafa] p-4">
           <div className="flex items-end justify-between border-b border-[#d9d9d9] pb-3">
             <div>
-              <div className="studio-utility text-[9px] uppercase tracking-[0.16em] text-[#777777]">Quality score</div>
+              <div className="studio-utility text-[9px] tracking-[0.16em] text-[#777777]">质检总分</div>
               <div className="studio-display mt-1 text-4xl font-black text-[#111111]">{advertising.fields.overallScore || '—'}</div>
             </div>
             <span className="rounded-full border border-[#bdbdbd] bg-white px-3 py-1 text-xs font-semibold text-[#333333]">

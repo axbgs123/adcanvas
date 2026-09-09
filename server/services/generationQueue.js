@@ -11,7 +11,7 @@ const defaultSimulationExecutor = async (task) => {
             completedForNodeId: task.nodeId
         } : {
             mode: 'simulation',
-            message: `${task.kind} task completed in Demo simulation mode`,
+            message: `${task.kind === 'image' ? '图片' : task.kind === 'video' ? '视频' : task.kind === 'text' ? '文本' : '生成'}任务已在 Demo 模拟模式下完成`,
             completedForNodeId: task.nodeId
         }
     };

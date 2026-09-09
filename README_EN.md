@@ -94,7 +94,7 @@ npm run test:domain
 npm run build
 ```
 
-The current suite contains 44 automated tests covering provider selection, task state transitions, the unified API task pipeline, AI quality auditing, advertising generation skills, reference-asset forwarding, budget and cost confirmation, project packages, brand constraints, canvas-operation planning, node versions, and FFmpeg rough-cut rendering.
+The current suite contains 46 automated tests covering provider selection, task state transitions, the unified API task pipeline, AI quality auditing, Chinese node presentation, advertising generation skills, reference-asset forwarding, budget and cost confirmation, project packages, brand constraints, canvas-operation planning, node versions, and FFmpeg rough-cut rendering.
 
 ## Documentation
 

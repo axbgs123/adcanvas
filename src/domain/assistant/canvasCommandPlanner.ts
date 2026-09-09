@@ -1,7 +1,7 @@
 import type { CanvasCommandContext, CanvasCommandPlan } from './types';
 
 const nodeKeywords: Array<{ keywords: string[]; nodeType: string; label: string }> = [
-  { keywords: ['brief', '需求', '简报'], nodeType: 'Advertising Brief', label: '广告 Brief' },
+  { keywords: ['brief', '需求', '简报'], nodeType: 'Advertising Brief', label: '广告需求' },
   { keywords: ['品牌资产', '品牌规范', 'brand'], nodeType: 'Brand Profile', label: '品牌资产' },
   { keywords: ['创意路线', '创意方向', 'concept'], nodeType: 'Creative Route', label: '创意路线' },
   { keywords: ['情绪板', 'moodboard'], nodeType: 'Moodboard', label: '情绪板' },

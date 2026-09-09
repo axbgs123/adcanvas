@@ -8,12 +8,13 @@
 import { useState } from 'react';
 import { NodeData, NodeType, NodeStatus, Viewport } from '../types';
 import { createAdvertisingNodeData, getAdvertisingNodeDefinition } from '../domain/advertising/nodeRegistry';
+import { getNodeTypeLabel } from '../domain/nodePresentation';
 
 const createNodeDefaults = (type: NodeType): Pick<NodeData, 'title' | 'prompt' | 'status' | 'model' | 'aspectRatio' | 'resolution' | 'advertising'> => {
     const definition = getAdvertisingNodeDefinition(type);
 
     return {
-        title: definition?.label,
+        title: definition?.label || getNodeTypeLabel(type),
         prompt: '',
         status: NodeStatus.IDLE,
         model: definition ? 'auto' : 'Banana Pro',

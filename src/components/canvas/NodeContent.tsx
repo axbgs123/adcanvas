@@ -161,7 +161,7 @@ export const NodeContent: React.FC<NodeContentProps> = ({
                     {isLoading && (
                         <div className="absolute inset-0 bg-black/60 backdrop-blur-sm flex flex-col items-center justify-center z-20">
                             <Loader2 size={40} className="animate-spin text-neutral-400" />
-                            <span className="mt-3 text-sm text-white font-medium">Regenerating...</span>
+                            <span className="mt-3 text-sm text-white font-medium">正在重新生成…</span>
                         </div>
                     )}
                 </div>
@@ -185,7 +185,7 @@ export const NodeContent: React.FC<NodeContentProps> = ({
                                         onUpdate?.(data.id, { prompt: localPrompt });
                                     }
                                 }}
-                                placeholder="Write your text content here..."
+                                placeholder="在这里输入文本内容…"
                                 className="w-full resize-none bg-transparent text-sm text-[#444444] outline-none placeholder:text-[#999999]"
                                 style={{ minHeight: data.isPromptExpanded ? '300px' : '150px' }}
                                 autoFocus
@@ -196,10 +196,10 @@ export const NodeContent: React.FC<NodeContentProps> = ({
                                     onClick={() => onUpdate?.(data.id, { isPromptExpanded: !data.isPromptExpanded })}
                                     onPointerDown={(e) => e.stopPropagation()}
                                     className="flex items-center gap-1 rounded px-1.5 py-0.5 text-[10px] text-[#666666] transition-colors hover:bg-[#f1f1f1] hover:text-[#111111]"
-                                    title={data.isPromptExpanded ? 'Shrink text area' : 'Expand text area'}
+                                    title={data.isPromptExpanded ? '收起文本区域' : '展开文本区域'}
                                 >
                                     {data.isPromptExpanded ? <Shrink size={12} /> : <Expand size={12} />}
-                                    <span>{data.isPromptExpanded ? 'Shrink' : 'Expand'}</span>
+                                    <span>{data.isPromptExpanded ? '收起' : '展开'}</span>
                                 </button>
                             </div>
                         </div>
@@ -208,24 +208,24 @@ export const NodeContent: React.FC<NodeContentProps> = ({
                         <div className="p-5 flex flex-col gap-4">
                             {/* Header */}
                             <div className="text-sm font-medium text-[#666666]">
-                                Try to:
+                                你可以：
                             </div>
 
                             {/* Menu Options */}
                             <div className="flex flex-col gap-1">
                                 <TextNodeMenuItem
                                     icon={<Pencil size={16} />}
-                                    label="Write your own content"
+                                    label="自己编写内容"
                                     onClick={() => onWriteContent?.(data.id)}
                                 />
                                 <TextNodeMenuItem
                                     icon={<Video size={16} />}
-                                    label="Text to Video"
+                                    label="文字生成视频"
                                     onClick={() => onTextToVideo?.(data.id)}
                                 />
                                 <TextNodeMenuItem
                                     icon={<ImageIcon size={16} />}
-                                    label="Text to Image"
+                                    label="文字生成图片"
                                     onClick={() => onTextToImage?.(data.id)}
                                 />
                             </div>
@@ -245,7 +245,7 @@ export const NodeContent: React.FC<NodeContentProps> = ({
                             <div className="absolute inset-0 bg-black/40" />
                             <div className="absolute top-2 left-2 px-2 py-1 bg-black/60 rounded text-[10px] text-white font-medium flex items-center gap-1">
                                 <ImageIcon size={10} />
-                                Input Frame
+                                输入画面
                             </div>
                         </div>
                     )}
@@ -253,7 +253,7 @@ export const NodeContent: React.FC<NodeContentProps> = ({
                     {isLoading ? (
                         <div className="relative z-10 flex flex-col items-center gap-2">
                             <Loader2 size={32} className="animate-spin text-neutral-400" />
-                            <span className="text-xs font-medium text-[#666666]">Generating...</span>
+                            <span className="text-xs font-medium text-[#666666]">正在生成…</span>
                         </div>
                     ) : (
                         <div className="relative z-10 flex flex-col items-center gap-3">
@@ -273,7 +273,7 @@ export const NodeContent: React.FC<NodeContentProps> = ({
                                         className="flex items-center gap-2 rounded-md border border-[#d9d9d9] bg-white px-4 py-2 text-sm font-medium text-[#444444] transition-colors hover:border-[#111111] hover:text-[#111111]"
                                     >
                                         <Upload size={16} />
-                                        Upload
+                                        上传图片
                                     </button>
                                 </>
                             )}
@@ -289,24 +289,24 @@ export const NodeContent: React.FC<NodeContentProps> = ({
                                 <>
                                     <div className="text-sm font-medium text-[#666666]">
                                         {isVideoType && inputUrl
-                                            ? "Ready to animate"
+                                            ? '可以开始生成动画'
                                             : isVideoType
-                                                ? "Waiting for input..."
+                                                ? '等待输入素材…'
                                                 : isLocalModel
-                                                    ? "Select a model and enter prompt"
-                                                    : "Try to:"
+                                                    ? '选择模型并输入提示词'
+                                                    : '你可以：'
                                         }
                                     </div>
                                     {!isVideoType && !isLocalModel && (
                                         <div className="flex flex-col gap-1 w-full px-2">
                                             <TextNodeMenuItem
                                                 icon={<ImageIcon size={16} />}
-                                                label="Image to Image"
+                                                label="参考图片生成"
                                                 onClick={() => onImageToImage?.(data.id)}
                                             />
                                             <TextNodeMenuItem
                                                 icon={<Film size={16} />}
-                                                label="Image to Video"
+                                                label="图片生成视频"
                                                 onClick={() => onImageToVideo?.(data.id)}
                                             />
                                         </div>

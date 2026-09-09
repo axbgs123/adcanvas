@@ -125,7 +125,7 @@ export const CanvasAssistantPanel: React.FC<CanvasAssistantPanelProps> = ({
       <header className="flex items-start justify-between border-b border-[#d9d9d9] p-5">
         <div>
           <div className="studio-utility flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#111111]">
-            <Sparkles size={15} /> Canvas assistant
+            <Sparkles size={15} /> 画布智能助手
           </div>
           <h2 className="studio-display mt-2 text-xl font-semibold">AI画布助手</h2>
           <p className="mt-1 text-xs leading-5 text-[#666666]">先生成结构化操作计划，再按风险等级执行。</p>

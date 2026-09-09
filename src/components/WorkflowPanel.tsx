@@ -204,13 +204,13 @@ export const WorkflowPanel: React.FC<WorkflowPanelProps> = ({
                             onClick={() => setActiveTab('my')}
                             className={`font-medium pb-1 transition-colors ${activeTab === 'my' ? isDark ? 'text-white border-b-2 border-white' : 'text-neutral-900 border-b-2 border-neutral-900' : isDark ? 'text-neutral-500 hover:text-neutral-300' : 'text-neutral-400 hover:text-neutral-600'}`}
                         >
-                            My Workflows
+                            我的工作流
                         </button>
                         <button
                             onClick={() => setActiveTab('public')}
                             className={`font-medium pb-1 transition-colors ${activeTab === 'public' ? isDark ? 'text-white border-b-2 border-white' : 'text-neutral-900 border-b-2 border-neutral-900' : isDark ? 'text-neutral-500 hover:text-neutral-300' : 'text-neutral-400 hover:text-neutral-600'}`}
                         >
-                            Public Workflows
+                            公共工作流
                         </button>
                     </div>
                     <button
