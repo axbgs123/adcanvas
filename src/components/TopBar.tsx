@@ -139,7 +139,7 @@ export const TopBar: React.FC<TopBarProps> = ({
                         <span
                             className="studio-display cursor-pointer font-semibold text-[#111111] transition-colors hover:text-[#111111]"
                             onDoubleClick={handleTitleDoubleClick}
-                            title="Double-click to rename"
+                            title="双击重命名"
                         >
                             {canvasTitle}
                         </span>
@@ -179,7 +179,7 @@ export const TopBar: React.FC<TopBarProps> = ({
                             ? 'text-neutral-500 border-neutral-800'
                             : 'text-neutral-400 border-neutral-100'
                             }`}>
-                            Auto-saved {new Date(lastAutoSaveTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                            已自动保存 {new Date(lastAutoSaveTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                         </div>
                     )}
                     <button

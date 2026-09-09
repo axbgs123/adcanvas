@@ -60,7 +60,7 @@ export const DrawingToolbar: React.FC<DrawingToolbarProps> = ({
                             ? 'bg-neutral-600 text-white'
                             : 'hover:bg-neutral-700 text-neutral-400'
                             }`}
-                        title="Brush"
+                        title="画笔"
                     >
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                             <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
@@ -73,7 +73,7 @@ export const DrawingToolbar: React.FC<DrawingToolbarProps> = ({
                             {/* Brush Width */}
                             <div className="mb-4">
                                 <div className="flex items-center justify-between text-sm text-neutral-300 mb-2">
-                                    <span>Brush Width</span>
+                                    <span>画笔粗细</span>
                                     <span>{brushWidth}</span>
                                 </div>
                                 <input
@@ -88,7 +88,7 @@ export const DrawingToolbar: React.FC<DrawingToolbarProps> = ({
 
                             {/* Preset Colors */}
                             <div className="mb-3">
-                                <div className="text-sm text-neutral-300 mb-2">Preset Colors</div>
+                                <div className="text-sm text-neutral-300 mb-2">预设颜色</div>
                                 <div className="flex gap-2">
                                     {presetColors.map((color) => (
                                         <button
@@ -106,7 +106,7 @@ export const DrawingToolbar: React.FC<DrawingToolbarProps> = ({
 
                             {/* Custom Color */}
                             <div>
-                                <div className="text-sm text-neutral-300 mb-2">Custom Color</div>
+                                <div className="text-sm text-neutral-300 mb-2">自定义颜色</div>
                                 <input
                                     type="color"
                                     value={brushColor}
@@ -133,7 +133,7 @@ export const DrawingToolbar: React.FC<DrawingToolbarProps> = ({
                             ? 'bg-neutral-600 text-white'
                             : 'hover:bg-neutral-700 text-neutral-400'
                             }`}
-                        title="Eraser"
+                        title="橡皮擦"
                     >
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                             <path d="m7 21-4.3-4.3c-1-1-1-2.5 0-3.4l9.6-9.6c1-1 2.5-1 3.4 0l5.6 5.6c1 1 1 2.5 0 3.4L13 21" />
@@ -148,7 +148,7 @@ export const DrawingToolbar: React.FC<DrawingToolbarProps> = ({
                             {/* Eraser Width */}
                             <div>
                                 <div className="flex items-center justify-between text-sm text-neutral-300 mb-2">
-                                    <span>Eraser Width</span>
+                                    <span>橡皮擦粗细</span>
                                     <span>{eraserWidth}</span>
                                 </div>
                                 <input

@@ -137,7 +137,7 @@ export const BottomToolbar: React.FC<BottomToolbarProps> = ({
                     ? 'bg-neutral-600 text-white'
                     : 'hover:bg-neutral-700 text-neutral-400'
                     }`}
-                title="Select"
+                title="选择"
             >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z" />
@@ -152,7 +152,7 @@ export const BottomToolbar: React.FC<BottomToolbarProps> = ({
                     ? 'bg-neutral-600 text-white'
                     : 'hover:bg-neutral-700 text-neutral-400'
                     }`}
-                title="Drawing Mode"
+                title="绘制"
             >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
@@ -166,7 +166,7 @@ export const BottomToolbar: React.FC<BottomToolbarProps> = ({
                     ? 'bg-neutral-600 text-white'
                     : 'hover:bg-neutral-700 text-neutral-400'
                     }`}
-                title="Arrow"
+                title="箭头"
             >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M5 12h14M12 5l7 7-7 7" />
@@ -180,7 +180,7 @@ export const BottomToolbar: React.FC<BottomToolbarProps> = ({
                     ? 'bg-neutral-600 text-white'
                     : 'hover:bg-neutral-700 text-neutral-400'
                     }`}
-                title="Add Text"
+                title="添加文字"
             >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M4 7V4h16v3" />
@@ -196,7 +196,7 @@ export const BottomToolbar: React.FC<BottomToolbarProps> = ({
                     ? 'bg-neutral-600 text-white'
                     : 'hover:bg-neutral-700 text-neutral-400'
                     }`}
-                title="Crop"
+                title="裁剪"
             >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M6 2v4" />
@@ -217,7 +217,7 @@ export const BottomToolbar: React.FC<BottomToolbarProps> = ({
                     ? 'text-neutral-600 cursor-not-allowed'
                     : 'hover:bg-neutral-700 text-neutral-400'
                     }`}
-                title="Undo (Ctrl+Z)"
+                title="撤销（Ctrl+Z）"
             >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M3 7v6h6" />
@@ -233,7 +233,7 @@ export const BottomToolbar: React.FC<BottomToolbarProps> = ({
                     ? 'text-neutral-600 cursor-not-allowed'
                     : 'hover:bg-neutral-700 text-neutral-400'
                     }`}
-                title="Redo (Ctrl+Shift+Z)"
+                title="重做（Ctrl+Shift+Z）"
             >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M21 7v6h-6" />

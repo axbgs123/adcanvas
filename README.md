@@ -94,10 +94,11 @@ npm run test:domain
 npm run build
 ```
 
-当前自动化测试共 46 项，覆盖 Provider 选择、任务状态机、统一 API 任务链路、AI 质检、中文节点展示、广告生成 Skill、参考素材传递、预算与费用确认、项目包、品牌约束、画布操作规划、节点版本和 FFmpeg 粗剪。
+当前自动化测试共 48 项，覆盖 Provider 选择、任务状态机、统一 API 任务链路、AI 质检、中文节点与历史内容展示、广告生成 Skill、参考素材传递、预算与费用确认、项目包、品牌约束、画布操作规划、节点版本和 FFmpeg 粗剪。
 
 ## 文档
 
+- [作品集项目介绍与可折叠 PRD](docs/AdCanvas作品集项目介绍.md)
 - [产品与开发计划](docs/plans/2026-08-25-ai-ad-platform-implementation-plan.md)
 - [前端视觉方向](docs/design/2026-08-26-light-ui-direction.md)
 - [视频剪辑节点](docs/video-editor-node.md)

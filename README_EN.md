@@ -94,10 +94,11 @@ npm run test:domain
 npm run build
 ```
 
-The current suite contains 46 automated tests covering provider selection, task state transitions, the unified API task pipeline, AI quality auditing, Chinese node presentation, advertising generation skills, reference-asset forwarding, budget and cost confirmation, project packages, brand constraints, canvas-operation planning, node versions, and FFmpeg rough-cut rendering.
+The current suite contains 48 automated tests covering provider selection, task state transitions, the unified API task pipeline, AI quality auditing, Chinese node and legacy-content presentation, advertising generation skills, reference-asset forwarding, budget and cost confirmation, project packages, brand constraints, canvas-operation planning, node versions, and FFmpeg rough-cut rendering.
 
 ## Documentation
 
+- [Portfolio project introduction and collapsible PRD](docs/AdCanvas作品集项目介绍.md)
 - [Product and implementation plan](docs/plans/2026-08-25-ai-ad-platform-implementation-plan.md)
 - [Frontend visual direction](docs/design/2026-08-26-light-ui-direction.md)
 - [Video editor node](docs/video-editor-node.md)

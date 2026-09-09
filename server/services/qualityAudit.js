@@ -27,7 +27,7 @@ export const evaluateQualityAudit = (snapshot = {}) => {
     let copyScore = 30;
     if (brief && hasAny(brief, ['objective', 'audience', 'coreMessage'])) copyScore += 30;
     if (script && hasAny(script, ['opening', 'development', 'endFrame'])) copyScore += 35;
-    if (!brief || !hasAny(brief, ['coreMessage'])) issues.push('广告 Brief 缺少明确的核心信息。');
+    if (!brief || !hasAny(brief, ['coreMessage'])) issues.push('广告需求缺少明确的核心信息。');
     if (!script) issues.push('缺少广告脚本，无法验证文案和品牌落版。');
 
     const editPlan = byType('Edit Plan')[0];

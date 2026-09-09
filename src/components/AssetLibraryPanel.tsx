@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { X, Search, Filter, Trash2 } from 'lucide-react';
+import { getAssetCategoryLabel } from '../i18n/zhCN';
 
 interface LibraryAsset {
     id: string;
@@ -91,7 +92,7 @@ export const AssetLibraryPanel: React.FC<AssetLibraryPanelProps> = ({
                     onClick={(e) => e.stopPropagation()}
                 >
                     <div className={`flex items-center justify-between p-4 border-b ${isDark ? 'border-neutral-800' : 'border-neutral-200'}`}>
-                        <h2 className={`text-lg font-medium pl-2 ${isDark ? 'text-white' : 'text-neutral-900'}`}>Asset Library</h2>
+                        <h2 className={`text-lg font-medium pl-2 ${isDark ? 'text-white' : 'text-neutral-900'}`}>素材库</h2>
                         <button onClick={onClose} className={`p-2 rounded-lg transition-colors ${isDark ? 'hover:bg-neutral-800 text-neutral-400 hover:text-white' : 'hover:bg-neutral-100 text-neutral-500 hover:text-neutral-900'}`}>
                             <X size={20} />
                         </button>
@@ -175,7 +176,7 @@ const AssetLibraryContent = ({
                                 : isDark ? 'bg-neutral-900 text-neutral-400 border-neutral-800 hover:border-neutral-600' : 'bg-white text-neutral-600 border-neutral-200 hover:border-neutral-300'
                                 }`}
                         >
-                            {cat}
+                            {getAssetCategoryLabel(cat)}
                         </button>
                     ))}
                 </div>
@@ -189,10 +190,10 @@ const AssetLibraryContent = ({
                     }}
                 >
                     {loading ? (
-                        <div className="col-span-full text-center py-10 text-neutral-500">Loading...</div>
+                        <div className="col-span-full text-center py-10 text-neutral-500">正在加载…</div>
                     ) : filteredAssets.length === 0 ? (
                         <div className="col-span-full text-center py-10 text-neutral-500 text-sm">
-                            No assets found in this category.
+                            此分类暂无素材
                         </div>
                     ) : (
                         filteredAssets.map((asset: any) => (
@@ -219,19 +220,19 @@ const AssetLibraryContent = ({
                                 {/* Delete Button or Confirmation */}
                                 {deleteConfirmId === asset.id ? (
                                     <div className="absolute inset-0 bg-black/80 flex flex-col items-center justify-center gap-2 z-20 animate-in fade-in duration-200" onClick={(e) => e.stopPropagation()}>
-                                        <span className="text-white text-xs font-medium">Delete?</span>
+                                        <span className="text-white text-xs font-medium">确认删除？</span>
                                         <div className="flex gap-2">
                                             <button
                                                 className="px-2 py-1 bg-neutral-500 hover:bg-neutral-600 text-white text-xs rounded transition-colors"
                                                 onClick={(e) => handleConfirmDelete(e, asset.id)}
                                             >
-                                                Yes
+                                                删除
                                             </button>
                                             <button
                                                 className="px-2 py-1 bg-neutral-700 hover:bg-neutral-600 text-white text-xs rounded transition-colors"
                                                 onClick={handleCancelDelete}
                                             >
-                                                No
+                                                取消
                                             </button>
                                         </div>
                                     </div>
@@ -239,7 +240,7 @@ const AssetLibraryContent = ({
                                     <button
                                         className="absolute top-1 right-1 p-1.5 bg-black/60 text-white rounded-md opacity-0 group-hover:opacity-100 transition-opacity hover:bg-neutral-500/80 z-10"
                                         onClick={(e) => handleDeleteClick(e, asset.id)}
-                                        title="Delete Asset"
+                                        title="删除素材"
                                     >
                                         <Trash2 size={14} />
                                     </button>

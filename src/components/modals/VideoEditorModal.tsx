@@ -194,7 +194,7 @@ export const VideoEditorModal: React.FC<VideoEditorModalProps> = ({
         >
             {/* Header */}
             <div className="flex items-center justify-between px-6 py-4 border-b border-neutral-800">
-                <h2 className="text-lg font-semibold text-white">Video Editor</h2>
+                <h2 className="text-lg font-semibold text-white">视频编辑器</h2>
                 <button
                     onClick={onClose}
                     className="p-2 rounded-lg hover:bg-neutral-800 text-neutral-400 hover:text-white transition-colors"
@@ -228,8 +228,8 @@ export const VideoEditorModal: React.FC<VideoEditorModalProps> = ({
                     </div>
                 ) : (
                     <div className="text-neutral-500 text-center">
-                        <p>No video connected</p>
-                        <p className="text-sm mt-2">Connect a Video node to edit</p>
+                        <p>尚未连接视频</p>
+                        <p className="text-sm mt-2">连接一个视频节点后即可编辑</p>
                     </div>
                 )}
 
@@ -305,14 +305,14 @@ export const VideoEditorModal: React.FC<VideoEditorModalProps> = ({
 
                         {/* Time Display */}
                         <div className="flex justify-between text-sm text-neutral-400">
-                            <span className="text-neutral-400">Start: {formatTime(trimStart)}</span>
-                            <span className="text-white">Current: {formatTime(currentTime)}</span>
-                            <span className="text-neutral-400">End: {formatTime(trimEnd)}</span>
+                            <span className="text-neutral-400">开始：{formatTime(trimStart)}</span>
+                            <span className="text-white">当前：{formatTime(currentTime)}</span>
+                            <span className="text-neutral-400">结束：{formatTime(trimEnd)}</span>
                         </div>
 
                         {/* Trim Duration */}
                         <div className="text-center text-neutral-500 text-sm">
-                            Selected duration: <span className="text-neutral-400 font-medium">{formatTime(trimDuration)}</span>
+                            已选时长：<span className="text-neutral-400 font-medium">{formatTime(trimDuration)}</span>
                         </div>
                     </div>
                 )}
@@ -324,7 +324,7 @@ export const VideoEditorModal: React.FC<VideoEditorModalProps> = ({
                     onClick={onClose}
                     className="px-4 py-2 rounded-lg text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors"
                 >
-                    Cancel
+                    取消
                 </button>
                 <button
                     onClick={handleExportClick}
@@ -332,7 +332,7 @@ export const VideoEditorModal: React.FC<VideoEditorModalProps> = ({
                     className="px-6 py-2 rounded-lg bg-neutral-600 hover:bg-neutral-500 text-white font-medium flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
                     <Download size={18} />
-                    Export to Library
+                    导出到素材库
                 </button>
             </div>
         </div>

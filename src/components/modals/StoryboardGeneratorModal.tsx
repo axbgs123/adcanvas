@@ -9,6 +9,7 @@ import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react'
 import { X, ChevronRight, ChevronLeft, Loader2, Film, Users, PenTool, Sparkles, Check, Edit3, Wand2, Eye, ChevronDown } from 'lucide-react';
 import { CharacterAsset, SceneScript, StoryboardState } from '../../hooks/useStoryboardGenerator';
 import { StoryInput } from '../StoryInput';
+import { getAssetCategoryLabel } from '../../i18n/zhCN';
 
 // ============================================================================
 // IMAGE MODELS (Copied from NodeControls.tsx for model selection)
@@ -78,11 +79,11 @@ export const StoryboardGeneratorModal: React.FC<StoryboardGeneratorModalProps> =
 
     // Step definitions for progress bar
     const stepDefinitions = [
-        { id: 'characters', label: 'Characters', icon: Users },
-        { id: 'story', label: 'Story', icon: PenTool },
-        { id: 'scripts', label: 'Scripts', icon: Film },
-        { id: 'preview', label: 'Preview', icon: Eye },
-        { id: 'generate', label: 'Generate', icon: Sparkles }
+        { id: 'characters', label: '参考素材', icon: Users },
+        { id: 'story', label: '故事', icon: PenTool },
+        { id: 'scripts', label: '脚本', icon: Film },
+        { id: 'preview', label: '预览', icon: Eye },
+        { id: 'generate', label: '生成', icon: Sparkles }
     ];
 
     const currentStepIndex = stepDefinitions.findIndex(s => s.id === state.step);
@@ -252,8 +253,8 @@ export const StoryboardGeneratorModal: React.FC<StoryboardGeneratorModalProps> =
                             <Film size={20} className="text-white" />
                         </div>
                         <div>
-                            <h2 className="text-lg font-semibold text-white">Storyboard Generator</h2>
-                            <p className="text-xs text-neutral-500">Create scenes with AI</p>
+                            <h2 className="text-lg font-semibold text-white">AI 分镜生成器</h2>
+                            <p className="text-xs text-neutral-500">使用 AI 创建镜头</p>
                         </div>
                     </div>
                     <button
@@ -327,9 +328,9 @@ export const StoryboardGeneratorModal: React.FC<StoryboardGeneratorModalProps> =
                 {/* Characters Step Header - Fixed outside scroll area */}
                 {state.step === 'characters' && (
                     <div className="px-6 pt-6 pb-4 border-b border-neutral-800/30">
-                        <h3 className="text-white font-medium mb-2">Select Reference Images</h3>
+                        <h3 className="text-white font-medium mb-2">选择参考图片</h3>
                         <p className="text-neutral-400 text-sm mb-4">
-                            Choose up to 3 reference images from your Asset Library to guide the AI.
+                            可从素材库选择最多 3 张参考图片，引导 AI 保持角色与风格一致。
                         </p>
 
                         {/* Category Dropdown */}
@@ -340,9 +341,9 @@ export const StoryboardGeneratorModal: React.FC<StoryboardGeneratorModalProps> =
                                     className="w-full flex items-center justify-between px-4 py-2.5 bg-neutral-900 border border-neutral-700 rounded-xl text-sm text-white hover:border-neutral-600 transition-colors"
                                 >
                                     <span className="flex items-center gap-2">
-                                        <span className="text-neutral-400">Category:</span>
-                                        <span className="font-medium">{selectedCategory}</span>
-                                        <span className="text-neutral-500 text-xs">({filteredAssets.length} items)</span>
+                                        <span className="text-neutral-400">分类：</span>
+                                        <span className="font-medium">{getAssetCategoryLabel(selectedCategory)}</span>
+                                        <span className="text-neutral-500 text-xs">（{filteredAssets.length} 项）</span>
                                     </span>
                                     <ChevronDown size={16} className={`text-neutral-400 transition-transform duration-200 ${isCategoryDropdownOpen ? 'rotate-180' : ''}`} />
                                 </button>
@@ -362,7 +363,7 @@ export const StoryboardGeneratorModal: React.FC<StoryboardGeneratorModalProps> =
                                                     }`}
                                             >
                                                 <span className="flex items-center justify-between">
-                                                    <span>{category}</span>
+                                                    <span>{getAssetCategoryLabel(category)}</span>
                                                     <span className="text-xs opacity-60">
                                                         {category === 'All'
                                                             ? characterAssets.length
@@ -398,14 +399,14 @@ export const StoryboardGeneratorModal: React.FC<StoryboardGeneratorModalProps> =
                             ) : characterAssets.length === 0 ? (
                                 <div className="text-center py-12 text-neutral-500">
                                     <Users size={48} className="mx-auto mb-3 opacity-50" />
-                                    <p>No images found in Asset Library</p>
-                                    <p className="text-xs mt-1">Add image assets to your library to use them as character references</p>
+                                    <p>素材库中暂无图片</p>
+                                    <p className="text-xs mt-1">请先向素材库添加图片，用作角色参考</p>
                                 </div>
                             ) : filteredAssets.length === 0 ? (
                                 <div className="text-center py-12 text-neutral-500">
                                     <Users size={48} className="mx-auto mb-3 opacity-50" />
-                                    <p>No images in "{selectedCategory}" category</p>
-                                    <p className="text-xs mt-1">Try selecting a different category</p>
+                                    <p>“{getAssetCategoryLabel(selectedCategory)}”分类中暂无图片</p>
+                                    <p className="text-xs mt-1">可尝试选择其他分类</p>
                                 </div>
                             ) : (
                                 <div className="grid grid-cols-3 gap-4">
@@ -459,7 +460,7 @@ export const StoryboardGeneratorModal: React.FC<StoryboardGeneratorModalProps> =
                     {/* Step 2: Story Input */}
                     {state.step === 'story' && (
                         <div>
-                            <h3 className="text-white font-medium mb-2">Write Your Story</h3>
+                            <h3 className="text-white font-medium mb-2">编写广告故事</h3>
                             <p className="text-neutral-400 text-sm mb-4">
                                 Describe the story you want to visualize. AI will break it into {state.sceneCount} scenes.
                             </p>
@@ -500,7 +501,7 @@ export const StoryboardGeneratorModal: React.FC<StoryboardGeneratorModalProps> =
                             {/* Scene Count Slider */}
                             <div className="mb-4">
                                 <label className="block text-sm text-neutral-300 mb-2">
-                                    Number of Scenes: <span className="text-neutral-400 font-medium">{state.sceneCount}</span>
+                                    镜头数量：<span className="text-neutral-400 font-medium">{state.sceneCount}</span>
                                 </label>
                                 <input
                                     type="range"
@@ -525,12 +526,12 @@ export const StoryboardGeneratorModal: React.FC<StoryboardGeneratorModalProps> =
                                 {state.isBrainstorming ? (
                                     <>
                                         <Loader2 size={14} className="animate-spin" />
-                                        <span>Brainstorming...</span>
+                                        <span>正在构思…</span>
                                     </>
                                 ) : (
                                     <>
                                         <Wand2 size={14} className="group-hover:rotate-12 transition-transform" />
-                                        <span className="underline decoration-dashed underline-offset-2">Brainstorm with AI</span>
+                                        <span className="underline decoration-dashed underline-offset-2">让 AI 帮我构思</span>
                                         <span className="text-neutral-500 text-xs">(let AI write a story for you)</span>
                                     </>
                                 )}
@@ -610,7 +611,7 @@ export const StoryboardGeneratorModal: React.FC<StoryboardGeneratorModalProps> =
                     {/* Step 3: Script Review */}
                     {state.step === 'scripts' && (
                         <div>
-                            <h3 className="text-white font-medium mb-2">Review & Edit Scripts</h3>
+                            <h3 className="text-white font-medium mb-2">检查并编辑分镜脚本</h3>
                             <p className="text-neutral-400 text-sm mb-4">
                                 AI generated {state.scripts.length} scene scripts. Click to edit.
                             </p>
@@ -697,23 +698,23 @@ export const StoryboardGeneratorModal: React.FC<StoryboardGeneratorModalProps> =
                     {/* STEP 4: PREVIEW COMPOSITE */}
                     {state.step === 'preview' && (
                         <div className="flex flex-col h-full">
-                            <h3 className="text-white font-medium mb-2">Preview Storyboard</h3>
+                            <h3 className="text-white font-medium mb-2">预览分镜</h3>
                             <p className="text-neutral-400 text-sm mb-4">
-                                Review the composite storyboard. This image will be used as a reference to generate individual scenes with consistent characters and environments.
+                                检查合成分镜图。系统会用它作为参考，生成角色与环境一致的独立镜头。
                             </p>
 
                             <div className="flex-1 bg-neutral-900 rounded-xl border border-neutral-700 overflow-hidden flex items-center justify-center p-4 relative group">
                                 {state.isGeneratingPreview ? (
                                     <div className="text-center">
                                         <Loader2 size={48} className="animate-spin text-neutral-500 mx-auto mb-4" />
-                                        <p className="text-white font-medium">Generating Preview...</p>
-                                        <p className="text-neutral-400 text-sm mt-2">Creating a cohesive storyboard with Nano Banana Pro</p>
+                                        <p className="text-white font-medium">正在生成预览…</p>
+                                        <p className="text-neutral-400 text-sm mt-2">正在使用 Nano Banana Pro 创建统一分镜</p>
                                     </div>
                                 ) : state.compositeImageUrl ? (
                                     <div className="relative w-full h-full flex items-center justify-center">
                                         <img
                                             src={state.compositeImageUrl}
-                                            alt="Storyboard Composite"
+                                            alt="分镜合成预览"
                                             className="max-h-full max-w-full object-contain rounded shadow-lg"
                                         />
                                         <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -728,12 +729,12 @@ export const StoryboardGeneratorModal: React.FC<StoryboardGeneratorModalProps> =
                                     </div>
                                 ) : (
                                     <div className="text-center text-neutral-500">
-                                        <p>No preview available</p>
+                                        <p>暂无预览</p>
                                         <button
                                             onClick={onGenerateComposite}
                                             className="mt-4 text-neutral-400 hover:text-neutral-300 text-sm underline"
                                         >
-                                            Generate Preview
+                                            生成预览
                                         </button>
                                     </div>
                                 )}
@@ -744,26 +745,26 @@ export const StoryboardGeneratorModal: React.FC<StoryboardGeneratorModalProps> =
                     {/* STEP 5: GENERATE (Summary now, since model selection is removed) */}
                     {state.step === 'generate' && (
                         <div>
-                            <h3 className="text-white font-medium mb-2">Ready to Generate</h3>
+                            <h3 className="text-white font-medium mb-2">可以开始生成</h3>
                             <p className="text-neutral-400 text-sm mb-4">
                                 Determine the final output. The individual scenes will be extracted from your preview image.
                             </p>
 
                             <div className="bg-neutral-900 border border-neutral-700 rounded-xl p-4">
-                                <h4 className="text-white text-sm font-medium mb-2">Summary</h4>
+                                <h4 className="text-white text-sm font-medium mb-2">生成摘要</h4>
                                 <div className="grid grid-cols-2 gap-2 text-sm">
-                                    <div className="text-neutral-400">Characters:</div>
+                                    <div className="text-neutral-400">参考素材：</div>
                                     <div className="text-white">
                                         {state.selectedCharacters.length > 0
                                             ? state.selectedCharacters.map(c => c.name).join(', ')
-                                            : 'None selected'}
+                                            : '未选择'}
                                     </div>
-                                    <div className="text-neutral-400">Scenes:</div>
+                                    <div className="text-neutral-400">镜头：</div>
                                     <div className="text-white">{state.scripts.length}</div>
-                                    <div className="text-neutral-400">Model:</div>
+                                    <div className="text-neutral-400">模型：</div>
                                     <div className="text-white">Nano Banana Pro</div>
-                                    <div className="text-neutral-400">Preview:</div>
-                                    <div className="text-white">{state.compositeImageUrl ? 'Generated' : 'Not available'}</div>
+                                    <div className="text-neutral-400">预览：</div>
+                                    <div className="text-white">{state.compositeImageUrl ? '已生成' : '暂无'}</div>
                                 </div>
                             </div>
                         </div>
@@ -787,13 +788,13 @@ export const StoryboardGeneratorModal: React.FC<StoryboardGeneratorModalProps> =
                             }`}
                     >
                         <ChevronLeft size={16} />
-                        Back
+                        上一步
                     </button>
 
                     {/* Selected Characters Count - shown in footer for characters step */}
                     {state.step === 'characters' && (
                         <p className="text-xs text-neutral-500">
-                            Selected: {state.selectedCharacters.length}/3 images (optional)
+                            已选：{state.selectedCharacters.length}/3 张图片（可选）
                         </p>
                     )}
 
@@ -803,7 +804,7 @@ export const StoryboardGeneratorModal: React.FC<StoryboardGeneratorModalProps> =
                             onClick={() => onSetStep('story')}
                             className="flex items-center gap-2 bg-neutral-600 hover:bg-neutral-500 text-white px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 shadow-lg shadow-neutral-600/25 hover:shadow-neutral-500/40"
                         >
-                            Next
+                            下一步
                             <ChevronRight size={16} />
                         </button>
                     )}
@@ -820,12 +821,12 @@ export const StoryboardGeneratorModal: React.FC<StoryboardGeneratorModalProps> =
                             {state.isGenerating ? (
                                 <>
                                     <Loader2 size={16} className="animate-spin" />
-                                    Generating Scripts...
+                                    正在生成脚本…
                                 </>
                             ) : (
                                 <>
                                     <Sparkles size={16} />
-                                    Generate Scripts
+                                    生成脚本
                                 </>
                             )}
                         </button>
@@ -854,11 +855,11 @@ export const StoryboardGeneratorModal: React.FC<StoryboardGeneratorModalProps> =
                             ) : state.compositeImageUrl ? (
                                 <>
                                     <Sparkles size={16} />
-                                    Regenerate Preview
+                                    重新生成预览
                                 </>
                             ) : (
                                 <>
-                                    Next <ChevronRight size={16} />
+                                    下一步 <ChevronRight size={16} />
                                 </>
                             )}
                         </button>
@@ -873,7 +874,7 @@ export const StoryboardGeneratorModal: React.FC<StoryboardGeneratorModalProps> =
                                 : 'bg-neutral-600 hover:bg-neutral-500 text-white shadow-lg shadow-neutral-600/25 hover:shadow-neutral-500/40'
                                 }`}
                         >
-                            Next <ChevronRight size={16} />
+                            下一步 <ChevronRight size={16} />
                         </button>
                     )}
 
@@ -883,7 +884,7 @@ export const StoryboardGeneratorModal: React.FC<StoryboardGeneratorModalProps> =
                             className="flex items-center gap-2 bg-neutral-600 hover:bg-neutral-500 text-white px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 shadow-lg shadow-neutral-600/25 hover:shadow-neutral-500/40"
                         >
                             <Film size={16} />
-                            Create Storyboard
+                            创建分镜
                         </button>
                     )}
                 </div>

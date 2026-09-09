@@ -689,16 +689,16 @@ export const OrbitCameraControl: React.FC<OrbitCameraControlProps> = ({
 
         if (rotation !== 0) {
             const dir = rotation > 0 ? 'right' : 'left';
-            parts.push(`Rotate ${Math.abs(rotation)}° ${dir}`);
+            parts.push(`向${dir === 'right' ? '右' : '左'}旋转 ${Math.abs(rotation)}°`);
         }
 
         if (tilt > 10) {
-            parts.push("Bird's-eye");
+            parts.push('俯视');
         } else if (tilt < -10) {
-            parts.push("Low angle");
+            parts.push('仰视');
         }
 
-        return parts.length > 0 ? parts.join(' + ') : 'No camera movement';
+        return parts.length > 0 ? parts.join(' + ') : '无相机运动';
     }, [rotation, tilt]);
 
     return (
@@ -707,11 +707,11 @@ export const OrbitCameraControl: React.FC<OrbitCameraControlProps> = ({
             <div className="flex items-center gap-4 text-xs">
                 <div className="flex items-center gap-1.5">
                     <div className="w-2.5 h-2.5 rounded-full bg-neutral-400" />
-                    <span className="text-neutral-400">Rotation (↔)</span>
+                    <span className="text-neutral-400">水平旋转（↔）</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                     <div className="w-2.5 h-2.5 rounded-full bg-neutral-400" />
-                    <span className="text-neutral-400">Vertical Tilt (↕)</span>
+                    <span className="text-neutral-400">垂直倾斜（↕）</span>
                 </div>
             </div>
 

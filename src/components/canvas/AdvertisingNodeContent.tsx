@@ -3,6 +3,7 @@ import { AlertTriangle, CheckCircle2, ChevronDown, ChevronUp, GitBranch, ShieldC
 import { NodeData, NodeType } from '../../types';
 import { getAdvertisingNodeDefinition } from '../../domain/advertising/nodeRegistry';
 import { VersionPanel } from '../../features/versions/VersionPanel';
+import { localizeLegacyContent } from '../../i18n/zhCN';
 
 interface AdvertisingNodeContentProps {
   data: NodeData;
@@ -212,22 +213,23 @@ export const AdvertisingNodeContent: React.FC<AdvertisingNodeContentProps> = ({
       )}
 
       <div className="space-y-3 p-4">
-        {(Object.entries(advertising.fields) as Array<[string, string]>).map(([key, value]) => (
-          <label key={key} className="block">
+        {(Object.entries(advertising.fields) as Array<[string, string]>).map(([key, value]) => {
+          const displayValue = localizeLegacyContent(value);
+          return <label key={key} className="block">
             <span className="mb-1 block text-[11px] font-medium text-[#666666]">
               {fieldLabels[key] || key}
             </span>
             <textarea
-              value={value}
-              rows={value.length > 70 ? 3 : 1}
+              value={displayValue}
+              rows={displayValue.length > 70 ? 3 : 1}
               placeholder="点击输入，或让 AI 协助补全"
               onChange={(event) => updateField(key, event.target.value)}
               onPointerDown={(event) => event.stopPropagation()}
               onWheel={(event) => event.stopPropagation()}
               className="w-full resize-none rounded-md border border-[#d9d9d9] bg-[#fafafa] px-3 py-2 text-xs leading-5 text-[#444444] outline-none transition focus:border-[#111111] focus:bg-white"
             />
-          </label>
-        ))}
+          </label>;
+        })}
       </div>
 
       <footer className="border-t border-[#d9d9d9] bg-[#fcfcfc] px-4 py-3">

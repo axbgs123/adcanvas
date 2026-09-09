@@ -64,7 +64,7 @@ export const ExportDialog: React.FC<ExportDialogProps> = ({ isOpen, projectId, o
         <div className="studio-proof-strip -mx-6 -mt-6 mb-6 h-1.5" />
         <div className="flex items-start justify-between">
           <div>
-            <div className="studio-utility text-[10px] font-semibold uppercase tracking-[0.18em] text-[#111111]">Project package</div>
+            <div className="studio-utility text-[10px] font-semibold uppercase tracking-[0.18em] text-[#111111]">项目包</div>
             <h2 className="studio-display mt-2 text-2xl font-semibold">导出广告项目</h2>
           </div>
           <button onClick={onClose} className="rounded-md p-2 text-[#666666] hover:bg-[#f4f4f4] hover:text-[#111111]"><X size={18} /></button>

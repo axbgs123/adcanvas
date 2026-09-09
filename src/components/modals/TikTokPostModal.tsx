@@ -44,10 +44,10 @@ const TIKTOK_SESSION_KEY = 'tiktok_session_id';
 
 // Privacy level options
 const PRIVACY_OPTIONS: { value: PrivacyLevel; label: string; description: string }[] = [
-    { value: 'PUBLIC_TO_EVERYONE', label: 'Public', description: 'Everyone can view' },
-    { value: 'MUTUAL_FOLLOW_FRIENDS', label: 'Friends', description: 'Mutual followers only' },
-    { value: 'FOLLOWER_OF_CREATOR', label: 'Followers', description: 'Your followers only' },
-    { value: 'SELF_ONLY', label: 'Only Me', description: 'Private (recommended for testing)' }
+    { value: 'PUBLIC_TO_EVERYONE', label: '公开', description: '所有人可见' },
+    { value: 'MUTUAL_FOLLOW_FRIENDS', label: '好友', description: '仅互相关注的人可见' },
+    { value: 'FOLLOWER_OF_CREATOR', label: '粉丝', description: '仅你的粉丝可见' },
+    { value: 'SELF_ONLY', label: '仅自己', description: '私密（测试时建议选择）' }
 ];
 
 // ============================================================================
@@ -112,7 +112,7 @@ export const TikTokPostModal: React.FC<TikTokPostModalProps> = ({
                 setStatus('idle');
                 setError(null);
             } else if (event.data.type === 'tiktok-auth-error') {
-                setError(event.data.error || 'Authentication failed');
+                setError(event.data.error || '授权失败');
                 setStatus('error');
             }
         };
@@ -152,7 +152,7 @@ export const TikTokPostModal: React.FC<TikTokPostModalProps> = ({
             const data = await response.json();
 
             if (!response.ok) {
-                throw new Error(data.error || 'Failed to start authentication');
+                throw new Error(data.error || '无法开始授权');
             }
 
             // Open OAuth popup
@@ -164,11 +164,11 @@ export const TikTokPostModal: React.FC<TikTokPostModalProps> = ({
 
             // Check if popup was blocked
             if (!popup) {
-                throw new Error('Popup blocked. Please allow popups for this site.');
+                throw new Error('登录窗口被拦截，请允许本站打开弹窗。');
             }
         } catch (err: any) {
             console.error('TikTok auth error:', err);
-            setError(err.message || 'Failed to start authentication');
+            setError(err.message || '无法开始授权');
             setStatus('error');
         }
     };
@@ -213,14 +213,14 @@ export const TikTokPostModal: React.FC<TikTokPostModalProps> = ({
             const data = await response.json();
 
             if (!response.ok) {
-                throw new Error(data.error || 'Failed to post to TikTok');
+                throw new Error(data.error || '发布到 TikTok 失败');
             }
 
-            setSuccessMessage(data.message || 'Video posted successfully!');
+            setSuccessMessage(data.message || '视频发布成功');
             setStatus('success');
         } catch (err: any) {
             console.error('Post error:', err);
-            setError(err.message || 'Failed to post to TikTok');
+            setError(err.message || '发布到 TikTok 失败');
             setStatus('error');
         }
     };
@@ -255,7 +255,7 @@ export const TikTokPostModal: React.FC<TikTokPostModalProps> = ({
                             <TikTokIcon />
                         </div>
                         <div>
-                            <h2 className="text-lg font-semibold text-white">Post to TikTok</h2>
+                            <h2 className="text-lg font-semibold text-white">发布到 TikTok</h2>
                             {user && (
                                 <p className="text-xs text-neutral-400">{user.displayName || user.username}</p>
                             )}
@@ -279,9 +279,9 @@ export const TikTokPostModal: React.FC<TikTokPostModalProps> = ({
                                 <TikTokIcon size={32} />
                             </div>
                             <div className="text-center">
-                                <h3 className="text-lg font-semibold text-white">Connect your TikTok account</h3>
+                                <h3 className="text-lg font-semibold text-white">连接你的 TikTok 账号</h3>
                                 <p className="text-sm text-neutral-400 mt-1">
-                                    Sign in to post videos directly from AdCanvas
+                                    登录后可直接从 AdCanvas 发布视频
                                 </p>
                             </div>
                             <button
@@ -289,7 +289,7 @@ export const TikTokPostModal: React.FC<TikTokPostModalProps> = ({
                                 className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#111111] to-[#777777] text-white font-semibold rounded-full hover:opacity-90 transition-opacity"
                             >
                                 <TikTokIcon />
-                                Sign in with TikTok
+                                使用 TikTok 登录
                             </button>
                             {error && (
                                 <p className="text-sm text-neutral-400 mt-2">{error}</p>
@@ -301,8 +301,8 @@ export const TikTokPostModal: React.FC<TikTokPostModalProps> = ({
                     {status === 'authenticating' && (
                         <div className="flex flex-col items-center gap-4 py-8">
                             <Loader2 size={40} className="text-[#777777] animate-spin" />
-                            <p className="text-neutral-400">Waiting for authorization...</p>
-                            <p className="text-xs text-neutral-500">Complete sign-in in the popup window</p>
+                            <p className="text-neutral-400">正在等待授权…</p>
+                            <p className="text-xs text-neutral-500">请在弹出窗口中完成登录</p>
                         </div>
                     )}
 
@@ -321,12 +321,12 @@ export const TikTokPostModal: React.FC<TikTokPostModalProps> = ({
 
                             {/* Caption Input */}
                             <div className="space-y-2">
-                                <label className="text-sm text-neutral-400">Caption</label>
+                                <label className="text-sm text-neutral-400">视频文案</label>
                                 <textarea
                                     ref={textareaRef}
                                     value={captionText}
                                     onChange={(e) => setCaptionText(e.target.value)}
-                                    placeholder="Add a caption with #hashtags and @mentions..."
+                                    placeholder="添加包含 #话题 和 @提及 的文案…"
                                     disabled={status === 'posting'}
                                     className="w-full bg-[#1a1a1a] border border-neutral-700 rounded-xl p-4 text-white placeholder-neutral-500 focus:outline-none focus:border-[#777777] transition-colors resize-none disabled:opacity-50"
                                     rows={3}
@@ -340,7 +340,7 @@ export const TikTokPostModal: React.FC<TikTokPostModalProps> = ({
 
                             {/* Privacy Level Select */}
                             <div className="space-y-2">
-                                <label className="text-sm text-neutral-400">Who can view this video</label>
+                                <label className="text-sm text-neutral-400">谁可以观看这个视频</label>
                                 <div className="grid grid-cols-2 gap-2">
                                     {PRIVACY_OPTIONS.map(option => (
                                         <button
@@ -374,7 +374,7 @@ export const TikTokPostModal: React.FC<TikTokPostModalProps> = ({
                                             }}
                                             className="text-xs text-neutral-400/70 hover:text-neutral-400 mt-1 underline"
                                         >
-                                            Try again
+                                            重试
                                         </button>
                                     </div>
                                 </div>
@@ -383,7 +383,7 @@ export const TikTokPostModal: React.FC<TikTokPostModalProps> = ({
                             {/* Sandbox Warning */}
                             <div className="p-3 bg-neutral-500/10 border border-neutral-500/30 rounded-lg">
                                 <p className="text-xs text-neutral-400">
-                                    ⚠️ Videos posted from unaudited apps are private-only until TikTok approves your app.
+                                    ⚠️ 应用通过 TikTok 审核前，由未审核应用发布的视频只能设为私密。
                                 </p>
                             </div>
 
@@ -393,7 +393,7 @@ export const TikTokPostModal: React.FC<TikTokPostModalProps> = ({
                                 className="flex items-center gap-1.5 text-xs text-neutral-500 hover:text-neutral-300 transition-colors"
                             >
                                 <LogOut size={12} />
-                                Sign out of {user.displayName || 'TikTok'}
+                                退出 {user.displayName || 'TikTok'}
                             </button>
                         </div>
                     )}
@@ -405,13 +405,13 @@ export const TikTokPostModal: React.FC<TikTokPostModalProps> = ({
                                 <CheckCircle size={40} className="text-neutral-400" />
                             </div>
                             <div className="text-center">
-                                <h3 className="text-lg font-semibold text-white">Posted to TikTok!</h3>
+                                <h3 className="text-lg font-semibold text-white">已发布到 TikTok</h3>
                                 <p className="text-sm text-neutral-400 mt-1">
-                                    {successMessage || 'Your video is being processed'}
+                                    {successMessage || '视频正在处理中'}
                                 </p>
                             </div>
                             <p className="text-xs text-neutral-500 text-center max-w-xs">
-                                It may take a few minutes for your video to appear on TikTok. Check your TikTok app to view it.
+                                视频可能需要几分钟才会出现在 TikTok，请在 TikTok 应用中查看。
                             </p>
                         </div>
                     )}
@@ -424,7 +424,7 @@ export const TikTokPostModal: React.FC<TikTokPostModalProps> = ({
                         disabled={status === 'posting'}
                         className="px-4 py-2 text-neutral-400 hover:text-white transition-colors disabled:opacity-50"
                     >
-                        {status === 'success' ? 'Close' : 'Cancel'}
+                        {status === 'success' ? '关闭' : '取消'}
                     </button>
 
                     {user && status !== 'success' && (
@@ -436,12 +436,12 @@ export const TikTokPostModal: React.FC<TikTokPostModalProps> = ({
                             {status === 'posting' ? (
                                 <>
                                     <Loader2 size={18} className="animate-spin" />
-                                    Posting...
+                                    正在发布…
                                 </>
                             ) : (
                                 <>
                                     <Send size={18} />
-                                    Post to TikTok
+                                    发布到 TikTok
                                 </>
                             )}
                         </button>

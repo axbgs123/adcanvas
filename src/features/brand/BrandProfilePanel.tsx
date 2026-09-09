@@ -46,7 +46,7 @@ export const BrandProfilePanel: React.FC<BrandProfilePanelProps> = ({
       <header className="flex items-start justify-between border-b border-[#d9d9d9] p-5">
         <div>
           <div className="studio-utility flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#777777]">
-            <ShieldCheck size={15} /> Brand context
+            <ShieldCheck size={15} /> 品牌信息
           </div>
           <h2 className="studio-display mt-2 text-xl font-semibold">项目品牌规范</h2>
           <p className="mt-1 text-xs leading-5 text-[#666666]">默认传递到创意、脚本、分镜和镜头节点。</p>

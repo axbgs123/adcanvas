@@ -120,7 +120,7 @@ export const PromptBar: React.FC<PromptBarProps> = ({
                 {showModelDropdown && (
                     <div className="absolute bottom-full mb-2 left-0 w-48 bg-[#252525] border border-neutral-700 rounded-lg shadow-xl overflow-hidden z-50">
                         <div className="px-3 py-1.5 text-[10px] font-bold text-neutral-400 uppercase tracking-wider bg-[#1a1a1a] border-b border-neutral-700">
-                            {hasInputImage ? 'Image → Image' : 'Text → Image'}
+                            {hasInputImage ? '图生图' : '文生图'}
                         </div>
                         {availableModels.filter(m => m.provider === 'openai').length > 0 && (
                             <>
@@ -135,7 +135,7 @@ export const PromptBar: React.FC<PromptBarProps> = ({
                                             <OpenAIIcon size={12} className="text-neutral-400" />
                                             {model.name}
                                             {model.recommended && (
-                                                <span className="text-[9px] px-1 py-0.5 bg-neutral-600/30 text-neutral-400 rounded">REC</span>
+                                                <span className="text-[9px] px-1 py-0.5 bg-neutral-600/30 text-neutral-400 rounded">推荐</span>
                                             )}
                                         </span>
                                         {currentModel.id === model.id && <Check size={12} />}
@@ -174,7 +174,7 @@ export const PromptBar: React.FC<PromptBarProps> = ({
                                             <KlingIcon size={14} />
                                             {model.name}
                                             {model.recommended && (
-                                                <span className="text-[9px] px-1 py-0.5 bg-neutral-600/30 text-neutral-400 rounded">REC</span>
+                                                <span className="text-[9px] px-1 py-0.5 bg-neutral-600/30 text-neutral-400 rounded">推荐</span>
                                             )}
                                         </span>
                                         {currentModel.id === model.id && <Check size={12} />}
@@ -191,7 +191,7 @@ export const PromptBar: React.FC<PromptBarProps> = ({
                 type="text"
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
-                placeholder="Describe the changes you want to make..."
+                placeholder="描述你想做的修改…"
                 className="flex-1 min-w-0 bg-transparent text-sm text-neutral-200 placeholder-neutral-500 outline-none"
             />
 
@@ -209,7 +209,7 @@ export const PromptBar: React.FC<PromptBarProps> = ({
 
                     {showAspectDropdown && (
                         <div className="absolute bottom-full mb-2 right-0 w-28 bg-[#252525] border border-neutral-700 rounded-lg shadow-xl overflow-hidden z-50 max-h-60 overflow-y-auto">
-                            <div className="px-3 py-2 text-[10px] font-bold text-neutral-500 uppercase tracking-wider bg-[#1f1f1f]">Size</div>
+                            <div className="px-3 py-2 text-[10px] font-bold text-neutral-500 uppercase tracking-wider bg-[#1f1f1f]">尺寸</div>
                             {(currentModel.aspectRatios || []).map(ratio => (
                                 <button
                                     key={ratio}
@@ -236,7 +236,7 @@ export const PromptBar: React.FC<PromptBarProps> = ({
 
                     {showResolutionDropdown && (
                         <div className="absolute bottom-full mb-2 right-0 w-24 bg-[#252525] border border-neutral-700 rounded-lg shadow-xl overflow-hidden z-50">
-                            <div className="px-3 py-2 text-[10px] font-bold text-neutral-500 uppercase tracking-wider bg-[#1f1f1f]">Quality</div>
+                            <div className="px-3 py-2 text-[10px] font-bold text-neutral-500 uppercase tracking-wider bg-[#1f1f1f]">质量</div>
                             {(currentModel.resolutions || ['1K']).map(res => (
                                 <button
                                     key={res}

@@ -91,7 +91,7 @@ export const ProjectWorkbench: React.FC<ProjectWorkbenchProps> = ({
           <div className="relative overflow-hidden bg-transparent p-8 py-12">
             <div className="absolute inset-y-0 left-0 w-1.5 bg-[#777777]" />
             <div className="studio-utility mb-4 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#111111]">
-              <Sparkles size={15} /> Creative production desk
+              <Sparkles size={15} /> 广告创意制作台
             </div>
             <h1 className="studio-display max-w-3xl text-5xl leading-[1.16] tracking-[-0.045em] text-[#111111]">
               从广告需求开始，在一张画布中发展创意、分镜与 AI 镜头素材。
@@ -188,7 +188,7 @@ export const ProjectWorkbench: React.FC<ProjectWorkbenchProps> = ({
         <div className="fixed inset-0 z-[200] flex items-center justify-center bg-[#111111]/25 p-5 backdrop-blur-sm">
           <div className="w-full max-w-md overflow-hidden rounded-2xl border border-[#d9d9d9] bg-white p-6 text-[#111111] shadow-[0_28px_80px_rgba(17,17,17,0.2)]">
             <div className="studio-proof-strip -mx-6 -mt-6 mb-6 h-1.5" />
-            <div className="studio-utility text-[11px] font-semibold uppercase tracking-[0.18em] text-[#111111]">New project</div>
+            <div className="studio-utility text-[11px] font-semibold uppercase tracking-[0.18em] text-[#111111]">新建项目</div>
             <h2 className="studio-display mt-2 text-2xl font-semibold">创建广告项目</h2>
             <p className="mt-2 text-sm leading-6 text-[#666666]">创建后进入自由画布，再由你选择是否生成工作流草案。</p>
             <label className="mt-6 block text-xs text-[#555555]">

@@ -161,7 +161,7 @@ export const GenerationConfirmationDialog: React.FC<GenerationConfirmationDialog
         <div className="studio-proof-strip -mx-6 -mt-6 mb-6 h-1.5" />
         <div className="flex items-start justify-between gap-4">
           <div>
-            <div className="studio-utility text-[10px] font-semibold uppercase tracking-[0.18em] text-[#111111]">Generation plan</div>
+            <div className="studio-utility text-[10px] font-semibold uppercase tracking-[0.18em] text-[#111111]">生成计划</div>
             <h2 className="studio-display mt-2 text-2xl font-semibold">确认AI任务</h2>
             <p className="mt-2 text-sm text-[#666666]">{node.title || node.type} · {kindLabels[kind]}</p>
           </div>

@@ -182,7 +182,7 @@ export const WorkflowPanel: React.FC<WorkflowPanelProps> = ({
 
     const formatDate = (dateStr: string) => {
         const date = new Date(dateStr);
-        return date.toLocaleDateString('en-US', {
+        return date.toLocaleDateString('zh-CN', {
             month: 'short',
             day: 'numeric'
         });
@@ -237,7 +237,7 @@ export const WorkflowPanel: React.FC<WorkflowPanelProps> = ({
                         /* My Workflows Tab */
                         workflows.length === 0 ? (
                             <div className="flex items-center justify-center h-40 text-neutral-500">
-                                No workflows found
+                                暂无工作流
                             </div>
                         ) : (
                             <div className="grid grid-cols-3 gap-4">
@@ -271,7 +271,7 @@ export const WorkflowPanel: React.FC<WorkflowPanelProps> = ({
                                                 <button
                                                     onClick={(e) => openCoverEditor(workflow.id, e)}
                                                     className="p-1.5 bg-black/50 hover:bg-neutral-500 rounded-lg transition-all"
-                                                    title="Edit cover"
+                                                    title="编辑封面"
                                                 >
                                                     <Pencil size={14} className="text-white" />
                                                 </button>
@@ -282,7 +282,7 @@ export const WorkflowPanel: React.FC<WorkflowPanelProps> = ({
                                                         setDeleteConfirm(workflow.id);
                                                     }}
                                                     className="p-1.5 bg-black/50 hover:bg-neutral-500 rounded-lg transition-all"
-                                                    title="Delete workflow"
+                                                    title="删除工作流"
                                                 >
                                                     <Trash2 size={14} className="text-white" />
                                                 </button>
@@ -290,9 +290,9 @@ export const WorkflowPanel: React.FC<WorkflowPanelProps> = ({
                                         </div>
                                         {/* Info */}
                                         <div className={`p-3 ${isDark ? 'bg-neutral-900/50' : 'bg-neutral-100/90'}`}>
-                                            <h3 className={`font-medium text-sm truncate ${isDark ? 'text-white' : 'text-neutral-900'}`}>{workflow.title || 'Untitled'}</h3>
+                                            <h3 className={`font-medium text-sm truncate ${isDark ? 'text-white' : 'text-neutral-900'}`}>{workflow.title || '未命名'}</h3>
                                             <p className={`text-xs mt-0.5 ${isDark ? 'text-neutral-500' : 'text-neutral-600'}`}>
-                                                {workflow.nodeCount} nodes
+                                                {workflow.nodeCount} 个节点
                                             </p>
                                         </div>
                                     </div>
@@ -304,8 +304,8 @@ export const WorkflowPanel: React.FC<WorkflowPanelProps> = ({
                         publicWorkflows.length === 0 ? (
                             <div className="flex flex-col items-center justify-center h-40 text-neutral-500 gap-2">
                                 <FileText size={32} className="opacity-50" />
-                                <p>No public workflows available</p>
-                                <p className="text-xs text-neutral-600">Add workflow JSONs to public/workflows/</p>
+                                <p>暂无公共工作流</p>
+                                <p className="text-xs text-neutral-600">可将工作流 JSON 文件添加到 public/workflows/</p>
                             </div>
                         ) : (
                             <div className="grid grid-cols-3 gap-4">
@@ -331,14 +331,14 @@ export const WorkflowPanel: React.FC<WorkflowPanelProps> = ({
                                             )}
                                             {/* Public badge */}
                                             <div className="absolute top-2 left-2 px-2 py-0.5 bg-neutral-600/80 rounded text-[10px] font-medium text-white">
-                                                PUBLIC
+                                                公共
                                             </div>
                                         </div>
                                         {/* Info */}
                                         <div className={`p-3 ${isDark ? 'bg-neutral-900/50' : 'bg-neutral-100/90'}`}>
-                                            <h3 className={`font-medium text-sm truncate ${isDark ? 'text-white' : 'text-neutral-900'}`}>{workflow.title || 'Untitled'}</h3>
+                                            <h3 className={`font-medium text-sm truncate ${isDark ? 'text-white' : 'text-neutral-900'}`}>{workflow.title || '未命名'}</h3>
                                             <p className={`text-xs mt-0.5 ${isDark ? 'text-neutral-500' : 'text-neutral-600'}`}>
-                                                {workflow.description || `${workflow.nodeCount} nodes`}
+                                                {workflow.description || `${workflow.nodeCount} 个节点`}
                                             </p>
                                         </div>
                                     </div>
@@ -353,22 +353,22 @@ export const WorkflowPanel: React.FC<WorkflowPanelProps> = ({
             {deleteConfirm && (
                 <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
                     <div className="bg-[#1a1a1a] border border-neutral-700 rounded-2xl p-6 w-[340px] shadow-2xl">
-                        <h3 className="text-lg font-semibold text-white mb-2">Delete Workflow</h3>
+                        <h3 className="text-lg font-semibold text-white mb-2">删除工作流</h3>
                         <p className="text-neutral-400 text-sm mb-6">
-                            Are you sure you want to delete this workflow? This action cannot be undone.
+                            确认删除这个工作流吗？此操作无法撤销。
                         </p>
                         <div className="flex gap-3 justify-end">
                             <button
                                 onClick={() => setDeleteConfirm(null)}
                                 className="px-4 py-2 rounded-lg bg-neutral-800 hover:bg-neutral-700 text-white text-sm transition-colors"
                             >
-                                Cancel
+                                取消
                             </button>
                             <button
                                 onClick={() => handleDelete(deleteConfirm)}
                                 className="px-4 py-2 rounded-lg bg-neutral-600 hover:bg-neutral-500 text-white text-sm transition-colors"
                             >
-                                Delete
+                                删除
                             </button>
                         </div>
                     </div>
@@ -380,7 +380,7 @@ export const WorkflowPanel: React.FC<WorkflowPanelProps> = ({
                 <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
                     <div className="bg-[#1a1a1a] border border-neutral-700 rounded-2xl p-6 w-[500px] max-h-[500px] shadow-2xl flex flex-col">
                         <div className="flex items-center justify-between mb-4">
-                            <h3 className="text-lg font-semibold text-white">Select Cover Image</h3>
+                            <h3 className="text-lg font-semibold text-white">选择封面图片</h3>
                             <button
                                 onClick={() => setEditingCoverFor(null)}
                                 className="p-1.5 hover:bg-neutral-800 rounded-lg text-neutral-400 hover:text-white transition-colors"
@@ -395,7 +395,7 @@ export const WorkflowPanel: React.FC<WorkflowPanelProps> = ({
                             </div>
                         ) : coverAssets.length === 0 ? (
                             <div className="flex items-center justify-center h-40 text-neutral-500">
-                                No images available. Generate some images first!
+                                暂无可用图片，请先生成图片。
                             </div>
                         ) : (
                             <div className="grid grid-cols-3 gap-3 overflow-y-auto flex-1">
@@ -407,7 +407,7 @@ export const WorkflowPanel: React.FC<WorkflowPanelProps> = ({
                                     >
                                         <LazyImage
                                             src={`${asset.url}`}
-                                            alt="Cover option"
+                                            alt="封面选项"
                                             className="w-full h-full"
                                             placeholderClassName="rounded-lg"
                                             rootMargin="100px"
@@ -425,7 +425,7 @@ export const WorkflowPanel: React.FC<WorkflowPanelProps> = ({
                                         className="col-span-3 flex items-center justify-center py-4"
                                     >
                                         <Loader2 className="animate-spin text-neutral-500" size={20} />
-                                        <span className="ml-2 text-neutral-500 text-sm">Loading more...</span>
+                                        <span className="ml-2 text-neutral-500 text-sm">正在加载更多…</span>
                                     </div>
                                 )}
                             </div>

@@ -55,7 +55,7 @@ const CodeBlock: React.FC<CodeBlockProps> = ({ code }) => {
             <button
                 onClick={handleCopy}
                 className="absolute top-2 right-2 p-1.5 bg-neutral-700 hover:bg-neutral-600 rounded-md transition-colors opacity-0 group-hover:opacity-100"
-                title={copied ? 'Copied!' : 'Copy to clipboard'}
+                title={copied ? '已复制' : '复制到剪贴板'}
             >
                 {copied ? (
                     <Check size={14} className="text-neutral-400" />
@@ -146,7 +146,7 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({
                                 {m.type === 'image' ? (
                                     <img
                                         src={m.url}
-                                        alt={`Attached ${index + 1}`}
+                                        alt={`附件 ${index + 1}`}
                                         className="w-full max-h-32 rounded-lg object-cover"
                                     />
                                 ) : (

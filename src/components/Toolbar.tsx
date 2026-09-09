@@ -151,8 +151,8 @@ export const Toolbar: React.FC<ToolbarProps> = ({
                   <TikTokIcon size={16} className={isDark ? 'text-white' : 'text-neutral-700'} />
                 </div>
                 <div className="text-left">
-                  <p className={`text-sm ${isDark ? 'text-neutral-200 group-hover:text-white' : 'text-neutral-700 group-hover:text-neutral-900'}`}>Import TikTok</p>
-                  <p className={`text-xs ${isDark ? 'text-neutral-500' : 'text-neutral-400'}`}>Download without watermark</p>
+                  <p className={`text-sm ${isDark ? 'text-neutral-200 group-hover:text-white' : 'text-neutral-700 group-hover:text-neutral-900'}`}>导入 TikTok 视频</p>
+                  <p className={`text-xs ${isDark ? 'text-neutral-500' : 'text-neutral-400'}`}>下载无水印视频</p>
                 </div>
               </button>
 
@@ -166,8 +166,8 @@ export const Toolbar: React.FC<ToolbarProps> = ({
                   <Film size={16} className={isDark ? 'text-white' : 'text-neutral-700'} />
                 </div>
                 <div className="text-left">
-                  <p className={`text-sm ${isDark ? 'text-neutral-200 group-hover:text-white' : 'text-neutral-700 group-hover:text-neutral-900'}`}>Storyboard Generator</p>
-                  <p className={`text-xs ${isDark ? 'text-neutral-500' : 'text-neutral-400'}`}>Create scenes with AI</p>
+                  <p className={`text-sm ${isDark ? 'text-neutral-200 group-hover:text-white' : 'text-neutral-700 group-hover:text-neutral-900'}`}>AI 分镜生成器</p>
+                  <p className={`text-xs ${isDark ? 'text-neutral-500' : 'text-neutral-400'}`}>使用 AI 创建镜头</p>
                 </div>
               </button>
             </div>

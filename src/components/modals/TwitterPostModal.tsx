@@ -101,7 +101,7 @@ export const TwitterPostModal: React.FC<TwitterPostModalProps> = ({
                 setStatus('idle');
                 setError(null);
             } else if (event.data.type === 'twitter-auth-error') {
-                setError(event.data.error || 'Authentication failed');
+                setError(event.data.error || '授权失败');
                 setStatus('error');
             }
         };
@@ -141,23 +141,23 @@ export const TwitterPostModal: React.FC<TwitterPostModalProps> = ({
             const data = await response.json();
 
             if (!response.ok) {
-                throw new Error(data.error || 'Failed to start authentication');
+                throw new Error(data.error || '无法开始授权');
             }
 
             // Open OAuth popup
             const popup = window.open(
                 data.authUrl,
-                'Twitter Login',
+                'X 平台登录',
                 'width=600,height=700,left=200,top=100'
             );
 
             // Check if popup was blocked
             if (!popup) {
-                throw new Error('Popup blocked. Please allow popups for this site.');
+                throw new Error('登录窗口被拦截，请允许本站打开弹窗。');
             }
         } catch (err: any) {
             console.error('Twitter auth error:', err);
-            setError(err.message || 'Failed to start authentication');
+            setError(err.message || '无法开始授权');
             setStatus('error');
         }
     };
@@ -183,7 +183,7 @@ export const TwitterPostModal: React.FC<TwitterPostModalProps> = ({
         if (!sessionId || isOverLimit) return;
         if (!skipMedia && !mediaUrl) return;
         if (!tweetText.trim()) {
-            setError('Please enter some text for your post');
+            setError('请输入发布文案');
             return;
         }
 
@@ -213,14 +213,14 @@ export const TwitterPostModal: React.FC<TwitterPostModalProps> = ({
             const data = await response.json();
 
             if (!response.ok) {
-                throw new Error(data.error || 'Failed to post tweet');
+                throw new Error(data.error || '发布失败');
             }
 
             setTweetUrl(data.tweetUrl);
             setStatus('success');
         } catch (err: any) {
             console.error('Post error:', err);
-            setError(err.message || 'Failed to post tweet');
+            setError(err.message || '发布失败');
             setStatus('error');
         }
     };
@@ -255,7 +255,7 @@ export const TwitterPostModal: React.FC<TwitterPostModalProps> = ({
                             <XIcon />
                         </div>
                         <div>
-                            <h2 className="text-lg font-semibold text-white">Post to X</h2>
+                            <h2 className="text-lg font-semibold text-white">发布到 X</h2>
                             {user && (
                                 <p className="text-xs text-neutral-400">@{user.username}</p>
                             )}
@@ -279,9 +279,9 @@ export const TwitterPostModal: React.FC<TwitterPostModalProps> = ({
                                 <XIcon />
                             </div>
                             <div className="text-center">
-                                <h3 className="text-lg font-semibold text-white">Connect your X account</h3>
+                                <h3 className="text-lg font-semibold text-white">连接你的 X 账号</h3>
                                 <p className="text-sm text-neutral-400 mt-1">
-                                    Sign in to post directly from AdCanvas
+                                    登录后可直接从 AdCanvas 发布内容
                                 </p>
                             </div>
                             <button
@@ -289,7 +289,7 @@ export const TwitterPostModal: React.FC<TwitterPostModalProps> = ({
                                 className="flex items-center gap-2 px-6 py-3 bg-white text-black font-semibold rounded-full hover:bg-neutral-200 transition-colors"
                             >
                                 <XIcon />
-                                Sign in with X
+                                使用 X 登录
                             </button>
                             {error && (
                                 <p className="text-sm text-neutral-400 mt-2">{error}</p>
@@ -301,8 +301,8 @@ export const TwitterPostModal: React.FC<TwitterPostModalProps> = ({
                     {status === 'authenticating' && (
                         <div className="flex flex-col items-center gap-4 py-8">
                             <Loader2 size={40} className="text-white animate-spin" />
-                            <p className="text-neutral-400">Waiting for authorization...</p>
-                            <p className="text-xs text-neutral-500">Complete sign-in in the popup window</p>
+                            <p className="text-neutral-400">正在等待授权…</p>
+                            <p className="text-xs text-neutral-500">请在弹出窗口中完成登录</p>
                         </div>
                     )}
 
@@ -321,7 +321,7 @@ export const TwitterPostModal: React.FC<TwitterPostModalProps> = ({
                                 ) : (
                                     <img
                                         src={fullMediaUrl}
-                                        alt="Media to post"
+                                        alt="待发布素材"
                                         className="w-full max-h-[250px] object-contain"
                                     />
                                 )}
@@ -333,14 +333,14 @@ export const TwitterPostModal: React.FC<TwitterPostModalProps> = ({
                                     ref={textareaRef}
                                     value={tweetText}
                                     onChange={(e) => setTweetText(e.target.value)}
-                                    placeholder="What's happening?"
+                                    placeholder="写下你想发布的内容…"
                                     disabled={status === 'posting'}
                                     className="w-full bg-[#1a1a1a] border border-neutral-700 rounded-xl p-4 text-white placeholder-neutral-500 focus:outline-none focus:border-neutral-500 transition-colors resize-none disabled:opacity-50"
                                     rows={3}
                                 />
                                 <div className="flex justify-between items-center text-sm">
                                     <span className="text-neutral-500">
-                                        Optional caption for your post
+                                        发布文案
                                     </span>
                                     <span className={`${isOverLimit ? 'text-neutral-400' : charsRemaining <= 20 ? 'text-neutral-400' : 'text-neutral-500'}`}>
                                         {charsRemaining}
@@ -361,7 +361,7 @@ export const TwitterPostModal: React.FC<TwitterPostModalProps> = ({
                                             }}
                                             className="text-xs text-neutral-400/70 hover:text-neutral-400 mt-1 underline"
                                         >
-                                            Try again
+                                            重试
                                         </button>
                                     </div>
                                 </div>
@@ -373,7 +373,7 @@ export const TwitterPostModal: React.FC<TwitterPostModalProps> = ({
                                 className="flex items-center gap-1.5 text-xs text-neutral-500 hover:text-neutral-300 transition-colors"
                             >
                                 <LogOut size={12} />
-                                Sign out of @{user.username}
+                                退出 @{user.username}
                             </button>
                         </div>
                     )}
@@ -385,9 +385,9 @@ export const TwitterPostModal: React.FC<TwitterPostModalProps> = ({
                                 <CheckCircle size={40} className="text-neutral-400" />
                             </div>
                             <div className="text-center">
-                                <h3 className="text-lg font-semibold text-white">Posted successfully!</h3>
+                                <h3 className="text-lg font-semibold text-white">发布成功</h3>
                                 <p className="text-sm text-neutral-400 mt-1">
-                                    Your post is now live on X
+                                    内容已发布到 X
                                 </p>
                             </div>
                             <a
@@ -397,7 +397,7 @@ export const TwitterPostModal: React.FC<TwitterPostModalProps> = ({
                                 className="flex items-center gap-2 px-6 py-3 bg-white text-black font-semibold rounded-full hover:bg-neutral-200 transition-colors"
                             >
                                 <ExternalLink size={18} />
-                                View on X
+                                在 X 中查看
                             </a>
                         </div>
                     )}
@@ -410,7 +410,7 @@ export const TwitterPostModal: React.FC<TwitterPostModalProps> = ({
                         disabled={status === 'posting'}
                         className="px-4 py-2 text-neutral-400 hover:text-white transition-colors disabled:opacity-50"
                     >
-                        {status === 'success' ? 'Close' : 'Cancel'}
+                        {status === 'success' ? '关闭' : '取消'}
                     </button>
 
                     {user && status !== 'success' && (
@@ -419,9 +419,9 @@ export const TwitterPostModal: React.FC<TwitterPostModalProps> = ({
                                 onClick={() => handlePost(true)}
                                 disabled={status === 'posting' || isOverLimit || !tweetText.trim()}
                                 className="flex items-center gap-2 px-4 py-2 bg-neutral-700 text-white font-medium rounded-full hover:bg-neutral-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm"
-                                title="Post text only without the image"
+                                title="仅发布文字，不附带图片"
                             >
-                                Text Only
+                                仅文字
                             </button>
                             <button
                                 onClick={() => handlePost(false)}
@@ -431,12 +431,12 @@ export const TwitterPostModal: React.FC<TwitterPostModalProps> = ({
                                 {status === 'posting' ? (
                                     <>
                                         <Loader2 size={18} className="animate-spin" />
-                                        Posting...
+                                        正在发布…
                                     </>
                                 ) : (
                                     <>
                                         <Send size={18} />
-                                        Post
+                                        发布
                                     </>
                                 )}
                             </button>

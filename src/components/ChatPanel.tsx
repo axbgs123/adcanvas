@@ -209,9 +209,9 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
         if (diffDays === 0) {
             return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         } else if (diffDays === 1) {
-            return 'Yesterday';
+            return '昨天';
         } else if (diffDays < 7) {
-            return `${diffDays} days ago`;
+            return `${diffDays} 天前`;
         } else {
             return date.toLocaleDateString();
         }
@@ -236,7 +236,7 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
                 <div className="absolute inset-0 bg-neutral-500/10 pointer-events-none z-10 flex items-center justify-center">
                     <div className="bg-neutral-500/20 border-2 border-dashed border-neutral-400 rounded-2xl px-8 py-6 text-center">
                         <Sparkles className="w-10 h-10 mx-auto mb-2 text-neutral-400" />
-                        <p className="text-neutral-300 font-medium">Drop image/video here</p>
+                        <p className="text-neutral-300 font-medium">将图片或视频拖到这里</p>
                     </div>
                 </div>
             )}
@@ -252,7 +252,7 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
                         >
                             <ChevronLeft size={18} />
                         </button>
-                        <span className={`font-medium text-sm ${isDark ? 'text-white' : 'text-neutral-900'}`}>Chat History</span>
+                        <span className={`font-medium text-sm ${isDark ? 'text-white' : 'text-neutral-900'}`}>对话记录</span>
                     </div>
 
                     {/* History List */}
@@ -264,8 +264,8 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
                         ) : sessions.length === 0 ? (
                             <div className="text-center py-8">
                                 <MessageSquare className="w-12 h-12 mx-auto mb-3 text-neutral-600" />
-                                <p className="text-neutral-500 text-sm">No chat history yet</p>
-                                <p className="text-neutral-600 text-xs mt-1">Start a conversation to see it here</p>
+                                <p className="text-neutral-500 text-sm">暂无对话记录</p>
+                                <p className="text-neutral-600 text-xs mt-1">开始对话后，记录会显示在这里</p>
                             </div>
                         ) : (
                             <div className="space-y-2">
@@ -283,13 +283,13 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
                                                     {session.topic}
                                                 </p>
                                                 <p className={`text-xs mt-1 ${isDark ? 'text-neutral-500' : 'text-neutral-400'}`}>
-                                                    {session.messageCount} messages · {formatDate(session.updatedAt || session.createdAt)}
+                                                    {session.messageCount} 条消息 · {formatDate(session.updatedAt || session.createdAt)}
                                                 </p>
                                             </div>
                                             <button
                                                 onClick={(e) => handleDeleteSession(e, session.id)}
                                                 className="p-1.5 opacity-0 group-hover:opacity-100 hover:bg-neutral-500/20 rounded-lg transition-all text-neutral-500 hover:text-neutral-400"
-                                                title="Delete chat"
+                                                title="删除对话"
                                             >
                                                 <Trash2 size={14} />
                                             </button>
@@ -307,7 +307,7 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
                             className="w-full py-2.5 bg-neutral-500 hover:bg-neutral-400 rounded-xl text-white font-medium text-sm transition-colors flex items-center justify-center gap-2"
                         >
                             <Plus size={16} />
-                            New Chat
+                            新建对话
                         </button>
                     </div>
                 </div>
@@ -319,7 +319,7 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
                 <div className="flex items-center gap-3">
                     {/* Topic or default title */}
                     <span className={`font-medium text-sm truncate max-w-[180px] ${isDark ? 'text-white' : 'text-neutral-900'}`}>
-                        {topic || (hasMessages ? 'New Chat' : 'ImageIdeas')}
+                        {topic || (hasMessages ? '新对话' : '创意助手')}
                     </span>
                 </div>
                 <div className="flex items-center gap-1">
@@ -328,7 +328,7 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
                         <button
                             onClick={handleNewChat}
                             className={`p-1.5 rounded-lg transition-colors ${isDark ? 'hover:bg-neutral-800 text-neutral-400 hover:text-white' : 'hover:bg-neutral-100 text-neutral-500 hover:text-neutral-900'}`}
-                            title="New Chat"
+                            title="新建对话"
                         >
                             <Plus size={18} />
                         </button>
@@ -336,7 +336,7 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
                     <button
                         onClick={() => setShowHistory(true)}
                         className={`p-1.5 rounded-lg transition-colors ${isDark ? 'hover:bg-neutral-800 text-neutral-400 hover:text-white' : 'hover:bg-neutral-100 text-neutral-500 hover:text-neutral-900'}`}
-                        title="Chat History"
+                        title="对话记录"
                     >
                         <History size={18} />
                     </button>
@@ -356,10 +356,10 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
                     <>
                         {/* Greeting */}
                         <h1 className={`text-2xl font-bold mb-1 ${isDark ? 'text-white' : 'text-neutral-900'}`}>
-                            Hi, {userName}
+                            你好，{userName}
                         </h1>
                         <p className="text-neutral-400 text-lg mb-6">
-                            Looking for inspiration?
+                            想找一些广告创意灵感吗？
                         </p>
 
                         {/* Tip Card */}
@@ -375,14 +375,14 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
                                     </div>
                                 </div>
                                 <p className={`text-sm leading-relaxed mb-3 ${isDark ? 'text-neutral-400' : 'text-neutral-600'}`}>
-                                    Drag image/video nodes into the chat dialog to unlock advanced features like prompt generation based on node content, providing more inspiration for your creativity~
+                                    将图片或视频节点拖入对话框，AI 就能基于节点内容生成提示词和创意建议。
                                 </p>
                                 <div className="flex justify-end">
                                     <button
                                         onClick={() => setShowTip(false)}
                                         className={`px-4 py-1.5 rounded-lg text-sm transition-colors ${isDark ? 'bg-neutral-700 hover:bg-neutral-600 text-white' : 'bg-neutral-200 hover:bg-neutral-300 text-neutral-900'}`}
                                     >
-                                        Got it
+                                        知道了
                                     </button>
                                 </div>
                             </div>
@@ -435,7 +435,7 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
                                     {media.type === 'image' ? (
                                         <img
                                             src={media.url}
-                                            alt="Attached"
+                                            alt="已添加的附件"
                                             className="w-14 h-14 object-cover rounded-lg"
                                         />
                                     ) : (
@@ -459,7 +459,7 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
                         ref={textareaRef}
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
-                        placeholder="Start your journey of inspiration"
+                        placeholder="描述你的广告创意，或让 AI 帮你修改画布"
                         className={`w-full bg-transparent text-sm outline-none mb-3 resize-none min-h-[24px] max-h-[120px] ${isDark ? 'text-white placeholder:text-neutral-500' : 'text-neutral-900 placeholder:text-neutral-400'}`}
                         rows={1}
                         style={{ scrollbarWidth: 'none' }}

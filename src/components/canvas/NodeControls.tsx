@@ -948,7 +948,7 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                                 >
                                     {isVideoNode && <Monitor size={12} className="text-neutral-400" />}
                                     {!isVideoNode && <Crop size={12} className="text-neutral-400" />}
-                                    {isVideoNode && currentSizeLabel === 'Auto' ? 'Auto' : currentSizeLabel}
+                                    {isVideoNode && currentSizeLabel === 'Auto' ? '自动' : currentSizeLabel}
                                 </button>
 
                                 {/* Dropdown Menu */}
@@ -958,7 +958,7 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                                         onWheel={(e) => e.stopPropagation()}
                                     >
                                         <div className="px-3 py-2 text-[10px] font-bold text-neutral-500 uppercase tracking-wider bg-[#1f1f1f]">
-                                            {isVideoNode ? 'Resolution' : 'Aspect Ratio'}
+                                            {isVideoNode ? '分辨率' : '宽高比'}
                                         </div>
                                         {sizeOptions.map(option => (
                                             <button
@@ -984,7 +984,7 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                                     className="flex items-center gap-1.5 text-xs font-medium bg-[#252525] hover:bg-[#333] border border-neutral-700 text-white px-2.5 py-1.5 rounded-lg transition-colors"
                                 >
                                     <Monitor size={12} className="text-neutral-400" />
-                                    {data.resolution || 'Auto'}
+                                    {(data.resolution || 'Auto') === 'Auto' ? '自动' : (data.resolution || 'Auto')}
                                 </button>
 
                                 {/* Dropdown Menu */}
@@ -1154,7 +1154,7 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                                 <div className="relative">
                                     <img
                                         src={connectedImageNodes[0].url}
-                                        alt="Reference"
+                                        alt="参考图片"
                                         className="max-h-[200px] w-auto h-auto block object-contain"
                                     />
                                     {/* Face detection corner brackets - Kling style */}
@@ -1195,7 +1195,7 @@ const NodeControlsComponent: React.FC<NodeControlsProps> = ({
                                     <div className="w-14 h-14 rounded-lg border-2 border-neutral-400 overflow-hidden bg-black">
                                         <img
                                             src={connectedImageNodes[0].url}
-                                            alt="Detected face"
+                                            alt="检测到的人脸"
                                             className="w-full h-full object-cover"
                                             style={{
                                                 objectPosition: `${data.detectedFaces[0].x + data.detectedFaces[0].width / 2}% ${data.detectedFaces[0].y + data.detectedFaces[0].height / 2}%`,

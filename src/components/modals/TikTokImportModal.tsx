@@ -70,7 +70,7 @@ export const TikTokImportModal: React.FC<TikTokImportModalProps> = ({
 
     const handleImport = async () => {
         if (!url.trim()) {
-            setError('Please enter a TikTok URL');
+            setError('请输入 TikTok 视频链接');
             return;
         }
 
@@ -87,13 +87,13 @@ export const TikTokImportModal: React.FC<TikTokImportModalProps> = ({
             const data = await response.json();
 
             if (!response.ok) {
-                throw new Error(data.error || 'Failed to import video');
+                throw new Error(data.error || '视频导入失败');
             }
 
             // Success!
             const info: TikTokVideoInfo = {
-                title: data.title || 'TikTok Video',
-                author: data.author || 'Unknown',
+                title: data.title || 'TikTok 视频',
+                author: data.author || '未知作者',
                 duration: data.duration || 0,
                 cover: data.cover || null,
                 trimmed: data.trimmed || false
@@ -105,7 +105,7 @@ export const TikTokImportModal: React.FC<TikTokImportModalProps> = ({
 
         } catch (err: any) {
             console.error('TikTok import error:', err);
-            setError(err.message || 'Failed to import video');
+            setError(err.message || '视频导入失败');
             setStatus('error');
         }
     };
@@ -145,8 +145,8 @@ export const TikTokImportModal: React.FC<TikTokImportModalProps> = ({
                             </svg>
                         </div>
                         <div>
-                            <h2 className="text-lg font-semibold text-white">Import TikTok Video</h2>
-                            <p className="text-xs text-neutral-400">Download without watermark</p>
+                            <h2 className="text-lg font-semibold text-white">导入 TikTok 视频</h2>
+                            <p className="text-xs text-neutral-400">下载无水印视频</p>
                         </div>
                     </div>
                     <button
@@ -162,7 +162,7 @@ export const TikTokImportModal: React.FC<TikTokImportModalProps> = ({
                     {/* URL Input */}
                     <div className="space-y-3">
                         <label className="text-sm font-medium text-neutral-300">
-                            TikTok Video URL
+                            TikTok 视频链接
                         </label>
                         <div className="relative">
                             <Link2 size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500" />
@@ -172,13 +172,13 @@ export const TikTokImportModal: React.FC<TikTokImportModalProps> = ({
                                 value={url}
                                 onChange={(e) => setUrl(e.target.value)}
                                 onKeyDown={handleKeyDown}
-                                placeholder="Paste TikTok video URL here (Ctrl+V)"
+                                placeholder="在这里粘贴 TikTok 视频链接（Ctrl+V）"
                                 disabled={status === 'loading' || status === 'success'}
                                 className="w-full bg-[#1a1a1a] border border-neutral-700 rounded-lg pl-10 pr-4 py-3 text-white placeholder-neutral-500 focus:outline-none focus:border-[#777777] transition-colors disabled:opacity-50"
                             />
                         </div>
                         <p className="text-xs text-neutral-500">
-                            Supports tiktok.com, vm.tiktok.com, and vt.tiktok.com links
+                            支持 tiktok.com、vm.tiktok.com 和 vt.tiktok.com 链接
                         </p>
                     </div>
 
@@ -195,7 +195,7 @@ export const TikTokImportModal: React.FC<TikTokImportModalProps> = ({
                                     }}
                                     className="text-xs text-neutral-400/70 hover:text-neutral-400 mt-1 underline"
                                 >
-                                    Try again
+                                    重试
                                 </button>
                             </div>
                         </div>
@@ -205,8 +205,8 @@ export const TikTokImportModal: React.FC<TikTokImportModalProps> = ({
                     {status === 'loading' && (
                         <div className="mt-6 flex flex-col items-center gap-3 py-4">
                             <Loader2 size={32} className="text-[#777777] animate-spin" />
-                            <p className="text-neutral-400 text-sm">Downloading video...</p>
-                            <p className="text-neutral-500 text-xs">This may take a moment</p>
+                            <p className="text-neutral-400 text-sm">正在下载视频…</p>
+                            <p className="text-neutral-500 text-xs">可能需要一点时间</p>
                         </div>
                     )}
 
@@ -216,13 +216,13 @@ export const TikTokImportModal: React.FC<TikTokImportModalProps> = ({
                             <div className="flex items-start gap-3 p-3 bg-neutral-500/10 border border-neutral-500/30 rounded-lg">
                                 <CheckCircle size={20} className="text-neutral-400 flex-shrink-0 mt-0.5" />
                                 <div className="flex-1 min-w-0">
-                                    <p className="text-sm text-neutral-400 font-medium">Video downloaded successfully!</p>
+                                    <p className="text-sm text-neutral-400 font-medium">视频下载成功</p>
                                     <p className="text-xs text-neutral-400 mt-1 truncate" title={videoInfo.title}>
                                         {videoInfo.title}
                                     </p>
                                     <p className="text-xs text-neutral-500">
-                                        By @{videoInfo.author} • {Math.round(videoInfo.duration)}s
-                                        {videoInfo.trimmed && ' • Trimmed'}
+                                        作者 @{videoInfo.author} • {Math.round(videoInfo.duration)} 秒
+                                        {videoInfo.trimmed && ' • 已裁剪'}
                                     </p>
                                 </div>
                             </div>
@@ -247,7 +247,7 @@ export const TikTokImportModal: React.FC<TikTokImportModalProps> = ({
                         onClick={onClose}
                         className="px-4 py-2 text-neutral-400 hover:text-white transition-colors"
                     >
-                        Cancel
+                        取消
                     </button>
 
                     {status === 'success' ? (
@@ -256,7 +256,7 @@ export const TikTokImportModal: React.FC<TikTokImportModalProps> = ({
                             className="flex items-center gap-2 px-6 py-2 bg-[#777777] hover:bg-[#777777] text-black font-medium rounded-lg transition-colors"
                         >
                             <CheckCircle size={18} />
-                            Add to Canvas
+                            添加到画布
                         </button>
                     ) : (
                         <button
@@ -267,12 +267,12 @@ export const TikTokImportModal: React.FC<TikTokImportModalProps> = ({
                             {status === 'loading' ? (
                                 <>
                                     <Loader2 size={18} className="animate-spin" />
-                                    Importing...
+                                    正在导入…
                                 </>
                             ) : (
                                 <>
                                     <Download size={18} />
-                                    Import Video
+                                    导入视频
                                 </>
                             )}
                         </button>
