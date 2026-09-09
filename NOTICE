@@ -13,3 +13,9 @@ You can notify the author by:
 - Starring the repository and mentioning your project in a discussion
 
 Thank you for supporting open-source development!
+
+AdCanvas derivative modifications (2026)
+Maintained by axbgs123. Based on SankaiAI/TwitCanva-Video-Workflow.
+Changes include advertising workflow nodes, brand constraints, task budgeting,
+version adoption, quality review, delivery packages and the Chinese workbench.
+The original copyright and Apache-2.0 license are retained.

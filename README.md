@@ -107,4 +107,8 @@ npm run build
 
 AdCanvas 基于 [SankaiAI/TwitCanva-Video-Workflow](https://github.com/SankaiAI/TwitCanva-Video-Workflow) 的 Apache-2.0 代码进行二次开发。项目保留原始 [`LICENSE`](LICENSE)、[`NOTICE`](NOTICE) 和版权声明。
 
+上游作者为 **SankaiAI**，原项目提供 AI 图像/视频画布与多模型生成基础。AdCanvas 并非从零原创的画布引擎；本派生版本的主要修改包括广告业务节点、Brief 到创意路线的规划、品牌约束、预算与任务确认、版本采用与下游过期传播、AI 质检和交付包。上述改动及中文工作台由本仓库维护，不代表上游作者背书。
+
+商业使用前请阅读原始 NOTICE 中的作者通知请求。公开此派生仓库不代表已向上游作者发送商业使用通知。
+
 README 中只展示 AdCanvas 自己的页面和功能，不使用上游项目的演示视频作为本项目成果。

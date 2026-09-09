@@ -107,4 +107,6 @@ The current suite contains 44 automated tests covering provider selection, task 
 
 AdCanvas is derived from the Apache-2.0-licensed [SankaiAI/TwitCanva-Video-Workflow](https://github.com/SankaiAI/TwitCanva-Video-Workflow). The original [`LICENSE`](LICENSE), [`NOTICE`](NOTICE), and copyright notices are retained.
 
+The upstream author is SankaiAI. AdCanvas is not an original, built-from-scratch canvas engine. This derivative adds advertising workflow nodes, brand constraints, task budgeting and confirmation, version adoption, quality review and delivery packages. These changes are maintained here and do not imply upstream endorsement. Please read the original NOTICE's commercial-use notification request; publishing this repository does not mean that such a notification has been sent.
+
 This README presents only AdCanvas pages and functionality. Upstream showcase videos are not presented as AdCanvas work.
